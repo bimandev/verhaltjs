@@ -1,9 +1,9 @@
 import VodDo from "./objects/vodDo";
 import VodIf from "./objects/vodIf";
 
-export type VodObject<TValue> = {
+export type VodObject<TValue, TContent extends VodObjectContent<TValue>> = {
     type : VodObjectType;
-    content : VodObjectContent<TValue>;
+    content : TContent;
 }
 
 export default VodObject;
