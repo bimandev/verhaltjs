@@ -1,6 +1,6 @@
 import VodIf from "./vodIf";
 
-export type VodElseIf<TValue> = VodIf<TValue>;
+export type VodElseIf = VodIf;
 
 export default VodElseIf;
 

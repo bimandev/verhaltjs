@@ -1,9 +1,11 @@
-import VodDo from "./objects/vodDo";
-import VodIf from "./objects/vodIf";
+import VodDo, { VodDoType } from "./objects/vodDo";
+import VodIf, { VodIfType } from "./objects/vodIf";
 import VodObject from "./vodObject";
 
-export type VodBody = VodObject<any, any, VodBodyContent>[];
+export type VodBody = VodObject<VodBodyObjectType, VodBodyObjectContent>[];
 
 export default VodBody;
 
-export type VodBodyContent = VodDo<any> | VodIf<any>
+export type VodBodyObjectType = VodDoType | VodIfType;
+
+export type VodBodyObjectContent = VodDo | VodIf

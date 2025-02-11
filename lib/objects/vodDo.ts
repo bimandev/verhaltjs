@@ -1,4 +1,6 @@
-export type VodDo<TValue> = [string, TValue, string?];
+import VodValue from "../vodValue";
+
+export type VodDo = [string, string, VodValue];
 
 export default VodDo;
 
