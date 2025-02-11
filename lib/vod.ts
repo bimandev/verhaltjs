@@ -5,6 +5,8 @@ import VodIf, { VodIfType,VodIfOther } from "./objects/vodIf";
 import VodElse, { VodElseType } from "./objects/vodElse";
 import VodElseIf, { VodElseIfType } from "./objects/vodElseIf";
 import VodCond from "./operands/vodCond";
+import VodArith, { VodArithAddSymbol, VodArithDivSymbol, VodArithModSymbol, VodArithMulSymbol, VodArithSubSymbol, VodArithSymbol } from "./operands/vodArith";
+import VodValue from "./vodValue";
 
 export class Vod {
     public static do<TValue>(path : string, value : TValue, modus? : string) : VodObject<TValue, VodDoType, VodDo<TValue>> {
@@ -37,6 +39,10 @@ export class Vod {
 
     //
 
+    public static arith(value1 : VodValue, symbol : VodArithSymbol, value2 : VodValue) : VodArith {
+        return [value1, symbol, value2] as VodArith;
+    }
+
     public static and = "&&";
 
     public static or = "||";
@@ -55,15 +61,15 @@ export class Vod {
 
     public static not = "!";
 
-    public static add = "+";
+    public static add : VodArithAddSymbol = "+";
 
-    public static sub = "-";
+    public static sub : VodArithSubSymbol = "-";
 
-    public static mul = "*";
+    public static mul : VodArithMulSymbol = "*";
 
-    public static div = "/";
+    public static div : VodArithDivSymbol = "/";
 
-    public static mod = "%";
+    public static mod : VodArithModSymbol = "%";
 }
 
 export default Vod;
