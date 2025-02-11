@@ -6,10 +6,10 @@ export class VerhaltModi<TValue> {
     constructor(value : TValue, external? : [string, VerhaltModus<TValue>][]) {
 
         if (typeof value === "number") {
-            this.#map.set("add", VerhaltModi.numberAdd as unknown as VerhaltModus<TValue>);
-            this.#map.set("sub", VerhaltModi.numberSub as unknown as VerhaltModus<TValue>);
-            this.#map.set("mul", VerhaltModi.numberMul as unknown as VerhaltModus<TValue>);
-            this.#map.set("div", VerhaltModi.numberDiv as unknown as VerhaltModus<TValue>);
+            this.#map.set("+", VerhaltModi.numberAdd as unknown as VerhaltModus<TValue>);
+            this.#map.set("-", VerhaltModi.numberSub as unknown as VerhaltModus<TValue>);
+            this.#map.set("*", VerhaltModi.numberMul as unknown as VerhaltModus<TValue>);
+            this.#map.set("/", VerhaltModi.numberDiv as unknown as VerhaltModus<TValue>);
         }
 
         console.log(value);
