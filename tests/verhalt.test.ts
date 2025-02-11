@@ -1,7 +1,5 @@
 import { Verhalt } from "../lib/verhalt";
-import { VerhaltEn } from "../lib/verhaltEn";
 
-// Örnek Model
 export type ExampleModel = {
     money: number;
     user: {
@@ -10,7 +8,6 @@ export type ExampleModel = {
     };
 };
 
-// Model
 const model: ExampleModel = {
     money: 100,
     user: {
@@ -19,15 +16,9 @@ const model: ExampleModel = {
     }
 };
 
-// Güncelleme
-const fieldToUpdate : VerhaltEn<string> = {
-    path: 'user.age',
-    value: "25",
-};
-
 test('Verhalt.update', () => {
-    Verhalt.en(model, fieldToUpdate);
-    Verhalt.en(model, { path: "money", value: 31 });
+    Verhalt.en(model, { path: "user.age", value: "25", modus: "add" });
+    Verhalt.en(model, { path: "money", value: 31, modus: "add" });
 
     console.log(model, typeof model.user.age);
 });
