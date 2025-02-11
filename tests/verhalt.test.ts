@@ -17,8 +17,11 @@ const model: ExampleModel = {
 };
 
 test('Verhalt.update', () => {
-    Verhalt.en(model, { path: "user.age", value: "25", modus: "add" });
+    Verhalt.en(model, { path: "user.age", value: { first: 25, last: 35 } });
     Verhalt.en(model, { path: "money", value: 31, modus: "add" });
+    Verhalt.en(model, { path: "user.age.first", value: 35, modus: "mul" });
+    Verhalt.en(model, { path: "user.age.first", value: 2, modus: "div" });
+    Verhalt.en(model, { path: "user.name", value: "Karamelto" });
 
-    console.log(model, typeof model.user.age);
+    console.log(JSON.stringify(model, null, 2), typeof model.user.age);
 });
