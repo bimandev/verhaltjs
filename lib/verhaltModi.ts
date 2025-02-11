@@ -3,7 +3,7 @@ import { VerhaltModus } from "./verhaltModus";
 export class VerhaltModi<TValue> {
     #map : Map<string, VerhaltModus<TValue>> = new Map();
 
-    constructor(modi? : [string, VerhaltModus<TValue>][]) {
+    constructor(external? : [string, VerhaltModus<TValue>][]) {
         if (typeof (undefined as any as TValue) === "number") {
             this.#map.set("add", VerhaltModi.numberAdd as unknown as VerhaltModus<TValue>);
             this.#map.set("sub", VerhaltModi.numberSub as unknown as VerhaltModus<TValue>);
@@ -11,12 +11,14 @@ export class VerhaltModi<TValue> {
             this.#map.set("div", VerhaltModi.numberDiv as unknown as VerhaltModus<TValue>);
         }
 
-        if(modi !== undefined) {
-            for (const [key, value] of modi) {
+        if(external !== undefined) {
+            for (const [key, value] of external) {
                 this.#map.set(key, value);
             }
         }
     }
+
+
     
     //
     
