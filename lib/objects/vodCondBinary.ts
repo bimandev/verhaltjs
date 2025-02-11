@@ -1,6 +1,6 @@
-import VodCond from "./vodCond";
+import VodCond, { VodCondObject } from "./vodCond";
 
-export type VodCondBinary<TValue> = [VodCond<TValue>, string, VodCond<TValue>];
+export type VodCondBinary<TValue> = [VodCondObject<TValue>, string, VodCondObject<TValue>];
 
 export default VodCondBinary;
 

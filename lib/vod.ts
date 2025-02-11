@@ -5,6 +5,8 @@ import VodIf, { VodIfType,VodIfOther } from "./objects/vodIf";
 import VodElse, { VodElseType } from "./objects/vodElse";
 import VodElseIf, { VodElseIfType } from "./objects/vodElseIf";
 import VodCondSingle, { VodCondSingleType } from "./objects/vodCondSingle";
+import VodCondBinary, { VodCondBinaryType } from "./objects/vodCondBinary";
+import { VodCondObject } from "./objects/vodCond";
 
 export class Vod {
 
@@ -12,6 +14,13 @@ export class Vod {
         return {
             type: "condSingle",
             content: [path, modus, value] as VodCondSingle<TValue>
+        }
+    }
+
+    public static cb<TValue>(c1 : VodCondObject<TValue>, modus : string, c2 : VodCondObject<TValue>) : VodObject<TValue, VodCondBinaryType, VodCondBinary<TValue>> {
+        return {
+            type: "condBinary",
+            content: [c1, modus, c2] as VodCondBinary<TValue>
         }
     }
 
