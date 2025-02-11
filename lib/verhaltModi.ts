@@ -18,7 +18,9 @@ export class VerhaltModi<TValue> {
         }
     }
 
-
+    public modus(key : string) : VerhaltModus<TValue> | undefined {
+        return this.#map.get(key);
+    }
     
     //
     
