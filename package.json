@@ -2,7 +2,7 @@
   "name": "verhaltjs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "directories": {
     "lib": "lib"
   },
@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type": "git",
+  "type": "git",
     "url": "git+https://github.com/schamrockt/verhaltjs.git"
   },
   "keywords": [],
