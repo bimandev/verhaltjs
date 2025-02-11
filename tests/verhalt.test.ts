@@ -23,12 +23,11 @@ const model: ExampleModel = {
 const fieldToUpdate : VerhaltEn<string> = {
     path: 'user.age',
     value: "25",
-    behaviour: "set"
 };
 
 test('Verhalt.update', () => {
     Verhalt.update(model, fieldToUpdate);
-    Verhalt.update(model, { path: "money", value: 31, behaviour: "set" });
+    Verhalt.update(model, { path: "money", value: 31 });
 
     console.log(model, typeof model.user.age);
 });
