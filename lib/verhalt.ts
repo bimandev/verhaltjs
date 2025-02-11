@@ -1,10 +1,22 @@
 import { VerhaltEn } from "./verhaltEn";
 import { VerhaltModi } from "./verhaltModi";
 
-export class Verhalt {
+export class Verhalt<TModel extends object> {
+    #model : TModel;
 
-    public static en<TModel extends object, TValue>(model : TModel, en : VerhaltEn<TValue>, modi? : VerhaltModi<TValue>) : void {
+    public constructor(model : TModel) {
+        this.#model = model;
+    }
+
+    public static en<TModel extends object>(model : TModel) : Verhalt<TModel> {
+        return new Verhalt(model); 
+    }
+
+
+    public do<TValue>(en : VerhaltEn<TValue>, modi? : VerhaltModi<TValue>) : void {
+        const model = this.#model;
         const [path, value, modus] = en;
+
         let keys = path.split('.');
         let keysCompleted : string[] = [];
 
