@@ -10,7 +10,7 @@
     "build": "rimraf dist && tsc"
   },
   "repository": {
-  "type": "git",
+    "type": "git",
     "url": "git+https://github.com/schamrockt/verhaltjs.git"
   },
   "keywords": [],
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/schamrockt/verhaltjs#readme",
   "devDependencies": {
+    "jest": "^29.7.0",
     "ts-node": "^10.9.2"
   }
 }
