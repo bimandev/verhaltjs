@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/schamrockt/verhaltjs/issues"
   },
-  "homepage": "https://github.com/schamrockt/verhaltjs#readme"
+  "homepage": "https://github.com/schamrockt/verhaltjs#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  }
 }
