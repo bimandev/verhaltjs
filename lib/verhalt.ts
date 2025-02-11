@@ -1,8 +1,9 @@
 import { VerhaltEn } from "./verhaltEn";
+import { VerhaltModi } from "./verhaltModi";
 
 export class Verhalt {
 
-    public static en<TModel extends object, TValue>(model : TModel, field : VerhaltEn<TValue>) : void {
+    public static en<TModel extends object, TValue>(model : TModel, field : VerhaltEn<TValue>, modi? : VerhaltModi<TValue>) : void {
         let keys = field.path.split('.');
         let keysCompleted : string[] = [];
 
@@ -40,6 +41,14 @@ export class Verhalt {
             throw new Error(`Cannot update field ${field.path} on model, because ${keysCompleted.join('.')} is not found.`);
         }
 
-        targetRecord[targetKey] = field.value;
+        modi ??= new VerhaltModi<TValue>();
+        const modus = field.modus ? modi.modus(field.modus) : undefined;
+
+        if(modus === undefined) {
+            targetRecord[targetKey] = field.value;
+        }
+        else {
+            modus.do(targetKey, targetRecord, field.value);
+        }
     }
 }
