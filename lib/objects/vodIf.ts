@@ -1,7 +1,7 @@
 import VodObject from "../vodObject";
 import VodBody from "../vodBody";
-import VodElse from "./vodElse";
-import VodElseIf from "./vodElseIf";
+import VodElseIf, { VodElseIfType } from "./vodElseIf";
+import VodElse, { VodElseType } from "./vodElse";
 
 export type VodIf<TValue> = [string, string, TValue, VodBody, VodIfOther<TValue>?];
 
@@ -9,4 +9,4 @@ export default VodIf;
 
 export type VodIfType = "if";
 
-export type VodIfOther<TValue> = VodObject<TValue, VodElseIf<TValue>> | VodObject<TValue, VodElse<TValue>>;
+export type VodIfOther<TValue> = VodObject<TValue, VodElseIfType, VodElseIf<TValue>> | VodObject<TValue, VodElseType, VodElse<TValue>>;
