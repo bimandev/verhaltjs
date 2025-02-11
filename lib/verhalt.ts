@@ -41,7 +41,7 @@ export class Verhalt {
             throw new Error(`Cannot update field ${field.path} on model, because ${keysCompleted.join('.')} is not found.`);
         }
 
-        modi ??= new VerhaltModi<TValue>();
+        modi ??= new VerhaltModi<TValue>(field.value);
         const modus = field.modus ? modi.modus(field.modus) : undefined;
 
         if(modus === undefined) {
