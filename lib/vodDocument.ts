@@ -1,9 +1,7 @@
-import { VodObject } from "./vodObject";
+import VodBody from "./vodBody";
 
 export type VodDocument = {
-    body : VodDocumentBody;
+    body : VodBody;
 }
 
 export default VodDocument;
-
-export type VodDocumentBody = VodObject[];
