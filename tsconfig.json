@@ -17,7 +17,7 @@
     },
     "include": [
       "lib/**/*"
-    ],
+, "tests/verhalt.test.ts"    ],
     "exclude": [
       "node_modules",
       "dist"
