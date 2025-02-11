@@ -1,16 +1,10 @@
 export class VerhaltModus<TValue> {
-    #name : string;
     #impl : VerhaltModusImpl<TValue>;
 
-    public constructor(name : string, impl : VerhaltModusImpl<TValue>) {
-        this.#name = name;
+    public constructor(impl : VerhaltModusImpl<TValue>) {
         this.#impl = impl;
     }
 
-
-    public get name() {
-        return this.#name;
-    }
 
     public do(key : string, record : Record<string, TValue>, value : TValue) : void {
         record[key] = this.#impl(record[key], value);
