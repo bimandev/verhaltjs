@@ -7,4 +7,6 @@ export type VodIf<TValue> = [string, string, TValue, VodBody, VodIfOther<TValue>
 
 export default VodIf;
 
+export type VodIfType = "if";
+
 export type VodIfOther<TValue> = VodObject<TValue, VodElseIf<TValue>> | VodObject<TValue, VodElse<TValue>>;
