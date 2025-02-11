@@ -1,5 +1,5 @@
 import { Verhalt } from "../lib/verhalt";
-import { VerhaltField } from "../lib/verhaltField";
+import { VerhaltEn } from "../lib/verhaltEn";
 
 // Örnek Model
 export type ExampleModel = {
@@ -20,7 +20,7 @@ const model: ExampleModel = {
 };
 
 // Güncelleme
-const fieldToUpdate : VerhaltField<string> = {
+const fieldToUpdate : VerhaltEn<string> = {
     path: 'user.age',
     value: "25",
     behaviour: "set"
@@ -28,7 +28,7 @@ const fieldToUpdate : VerhaltField<string> = {
 
 test('Verhalt.update', () => {
     Verhalt.update(model, fieldToUpdate);
-    Verhalt.update(model, { path: "money.set", value: 31, behaviour: "set" });
+    Verhalt.update(model, { path: "money", value: 31, behaviour: "set" });
 
     console.log(model, typeof model.user.age);
 });

@@ -1,8 +1,8 @@
-import { VerhaltField } from "./verhaltField";
+import { VerhaltEn } from "./verhaltEn";
 
 export class Verhalt {
 
-    public static update<TModel extends object, TValue>(model : TModel, field : VerhaltField<TValue>) : void {
+    public static update<TModel extends object, TValue>(model : TModel, field : VerhaltEn<TValue>) : void {
         let keys = field.path.split('.');
         let keysCompleted : string[] = [];
 
