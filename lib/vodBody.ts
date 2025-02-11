@@ -1,4 +1,4 @@
-import { VodObject } from "./vodObject";
+import VodObject from "./vodObject";
 
 export type VodBody = VodObject[];
 
