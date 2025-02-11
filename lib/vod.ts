@@ -28,10 +28,10 @@ export class Vod {
         }
     }
 
-    public static else<TValue>(path : string, modus : string, value : TValue, body : VodBody) : VodObject<TValue, VodElseType, VodElse> {
+    public static else(body : VodBody) : VodObject<unknown, VodElseType, VodElse> {
         return {
             type: "else",
-            content: [path, modus, value, body] as VodElse
+            content: body as VodElse
         }
     }
 }
