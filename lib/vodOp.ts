@@ -10,6 +10,7 @@ export class VodOp {
 
     public static or : VodLogicOrSymbol = "||";
 
+
     public static eq : VodCompEqualSymbol = "==";
 
     public static neq : VodCompNotEqualSymbol = "!=";
@@ -22,6 +23,7 @@ export class VodOp {
 
     public static lte : VodCompLessThanEqualSymbol = "<=";
 
+    
     public static add : VodArithAddSymbol = "+";
 
     public static sub : VodArithSubSymbol = "-";
