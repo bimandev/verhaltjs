@@ -28,5 +28,7 @@ const fieldToUpdate : VerhaltField<string> = {
 
 test('Verhalt.update', () => {
     Verhalt.update(model, fieldToUpdate);
-    console.log(model.user.age, typeof model.user.age);
+    Verhalt.update(model, { path: "money.set", value: 31, behaviour: "set" });
+
+    console.log(model, typeof model.user.age);
 });
