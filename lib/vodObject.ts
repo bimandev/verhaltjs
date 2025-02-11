@@ -8,6 +8,6 @@ export type VodObject<TValue> = {
 
 export default VodObject;
 
-export type VodObjectType = "do" | "if";
+export type VodObjectType = "do" | "if" | "elseif" | "else";
 
 export type VodObjectContent<TValue> = VodDo<TValue> | VodIf<TValue>;
