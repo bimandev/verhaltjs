@@ -2,7 +2,7 @@ import { VerhaltEn } from "./verhaltEn";
 
 export class Verhalt {
 
-    public static update<TModel extends object, TValue>(model : TModel, field : VerhaltEn<TValue>) : void {
+    public static en<TModel extends object, TValue>(model : TModel, field : VerhaltEn<TValue>) : void {
         let keys = field.path.split('.');
         let keysCompleted : string[] = [];
 

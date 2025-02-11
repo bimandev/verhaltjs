@@ -26,8 +26,8 @@ const fieldToUpdate : VerhaltEn<string> = {
 };
 
 test('Verhalt.update', () => {
-    Verhalt.update(model, fieldToUpdate);
-    Verhalt.update(model, { path: "money", value: 31 });
+    Verhalt.en(model, fieldToUpdate);
+    Verhalt.en(model, { path: "money", value: 31 });
 
     console.log(model, typeof model.user.age);
 });
