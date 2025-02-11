@@ -38,10 +38,24 @@ export class Vod {
         }
     }
 
+    public static ifc<TValue>(co : VodCondObject<TValue>, body : VodBody, other? : VodIfOther<TValue>) : VodObject<TValue, VodIfType, VodIf<TValue>> {
+        return {
+            type: "if",
+            content: [co, body, other] as VodIf<TValue>
+        }
+    }
+
     public static elseif<TValue>(path : string, modus : string, value : TValue, body : VodBody, other? : VodIfOther<TValue>) : VodObject<TValue, VodElseIfType, VodElseIf<TValue>> {
         return {
             type: "elseif",
             content: [Vod.cs(path, modus, value), body, other] as VodElseIf<TValue>
+        }
+    }
+
+    public static elseifc<TValue>(co : VodCondObject<TValue>, body : VodBody, other? : VodIfOther<TValue>) : VodObject<TValue, VodElseIfType, VodElseIf<TValue>> {
+        return {
+            type: "elseif",
+            content: [co, body, other] as VodElseIf<TValue>
         }
     }
 
