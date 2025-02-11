@@ -7,6 +7,7 @@ import VodElseIf, { VodElseIfType } from "./objects/vodElseIf";
 import VodCond from "./operands/vodCond";
 import VodArith, { VodArithAddSymbol, VodArithDivSymbol, VodArithModSymbol, VodArithMulSymbol, VodArithSubSymbol, VodArithSymbol } from "./operands/vodArith";
 import VodValue from "./vodValue";
+import { VodCompEqualSymbol, VodCompGreaterThanEqualSymbol, VodCompGreaterThanSymbol, VodCompLessThanEqualSymbol, VodCompLessThanSymbol, VodCompNotEqualSymbol } from "./operands/vodComp";
 
 export class Vod {
     public static do<TValue>(path : string, value : TValue, modus? : string) : VodObject<TValue, VodDoType, VodDo<TValue>> {
@@ -47,17 +48,17 @@ export class Vod {
 
     public static or = "||";
 
-    public static eq = "==";
+    public static eq : VodCompEqualSymbol = "==";
 
-    public static neq = "!=";
+    public static neq : VodCompNotEqualSymbol = "!=";
 
-    public static gt = ">";
+    public static gt : VodCompGreaterThanSymbol = ">";
 
-    public static gte = ">=";
+    public static gte : VodCompGreaterThanEqualSymbol = ">=";
 
-    public static lt = "<";
+    public static lt : VodCompLessThanSymbol = "<";
 
-    public static lte = "<=";
+    public static lte : VodCompLessThanEqualSymbol = "<=";
 
     public static not = "!";
 
