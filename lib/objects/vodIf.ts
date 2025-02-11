@@ -1,3 +1,3 @@
-import { VodObject } from "../vodObject";
+import VodBody from "../vodBody";
 
-export type VodIf<TValue> = [string, string, TValue, VodObject[]];
+export type VodIf<TValue> = [string, string, TValue, VodBody];
