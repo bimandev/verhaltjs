@@ -3,8 +3,8 @@ import { VerhaltModi } from "./verhaltModi";
 
 export class Verhalt {
 
-    public static en<TModel extends object, TValue>(model : TModel, field : VerhaltEn<TValue>, modi? : VerhaltModi<TValue>) : void {
-        let keys = field.path.split('.');
+    public static en<TModel extends object, TValue>(model : TModel, en : VerhaltEn<TValue>, modi? : VerhaltModi<TValue>) : void {
+        let keys = en.path.split('.');
         let keysCompleted : string[] = [];
 
         let current = model;
@@ -15,13 +15,13 @@ export class Verhalt {
             const wanted = keys.shift();
 
             if(wanted === undefined) {
-                throw new Error(`Cannot update field ${field.path} on model, because ${keysCompleted.join('.')} is undefined.`);
+                throw new Error(`Cannot update field ${en.path} on model, because ${keysCompleted.join('.')} is undefined.`);
             }
 
             keysCompleted.push(wanted);
 
             if(typeof current !== "object") {
-                throw new Error(`Cannot update field ${field.path} on model, because ${keysCompleted.join('.')} is not an object.`);
+                throw new Error(`Cannot update field ${en.path} on model, because ${keysCompleted.join('.')} is not an object.`);
             }
 
             for (const [key, value] of Object.entries(current)) {
@@ -38,17 +38,17 @@ export class Verhalt {
         }
 
         if(targetRecord === undefined || targetKey === undefined) {
-            throw new Error(`Cannot update field ${field.path} on model, because ${keysCompleted.join('.')} is not found.`);
+            throw new Error(`Cannot update field ${en.path} on model, because ${keysCompleted.join('.')} is not found.`);
         }
 
-        modi ??= new VerhaltModi<TValue>(field.value);
-        const modus = field.modus ? modi.modus(field.modus) : undefined;
+        modi ??= new VerhaltModi<TValue>(en.value);
+        const modus = en.modus ? modi.modus(en.modus) : undefined;
 
         if(modus === undefined) {
-            targetRecord[targetKey] = field.value;
+            targetRecord[targetKey] = en.value;
         }
         else {
-            modus.do(targetKey, targetRecord, field.value);
+            modus.do(targetKey, targetRecord, en.value);
         }
     }
 }
