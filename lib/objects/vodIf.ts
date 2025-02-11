@@ -2,8 +2,8 @@ import VodBody from "../vodBody";
 import VodElse from "./vodElse";
 import VodElseIf from "./vodElseIf";
 
-export type VodIf<TValue> = [string, string, TValue, VodBody, VodIfContinue<TValue>?];
+export type VodIf<TValue> = [string, string, TValue, VodBody, VodIfOther<TValue>?];
 
 export default VodIf;
 
-export type VodIfContinue<TValue> = VodElseIf<TValue> | VodElse<TValue>;
+export type VodIfOther<TValue> = VodElseIf<TValue> | VodElse<TValue>;
