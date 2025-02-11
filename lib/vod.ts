@@ -7,7 +7,6 @@ import VodElseIf, { VodElseIfType } from "./objects/vodElseIf";
 import VodCond from "./objects/vodCond";
 
 export class Vod {
-
     public static do<TValue>(path : string, value : TValue, modus? : string) : VodObject<TValue, VodDoType, VodDo<TValue>> {
         return {
             type: "do",
@@ -35,6 +34,36 @@ export class Vod {
             content: body as VodElse
         }
     }
+
+    //
+
+    public static and = "&&";
+
+    public static or = "||";
+
+    public static eq = "==";
+
+    public static neq = "!=";
+
+    public static gt = ">";
+
+    public static gte = ">=";
+
+    public static lt = "<";
+
+    public static lte = "<=";
+
+    public static not = "!";
+
+    public static add = "+";
+
+    public static sub = "-";
+
+    public static mul = "*";
+
+    public static div = "/";
+
+    public static mod = "%";
 }
 
 export default Vod;
