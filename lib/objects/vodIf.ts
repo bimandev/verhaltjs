@@ -4,7 +4,7 @@ import VodElseIf, { VodElseIfType } from "./vodElseIf";
 import VodElse, { VodElseType } from "./vodElse";
 import VodCond from "../operands/vodCond";
 
-export type VodIf<TValue> = [VodCond<TValue>, VodBody, VodIfOther<TValue>?];
+export type VodIf<TValue> = [VodCond, VodBody, VodIfOther<TValue>?];
 
 export default VodIf;
 

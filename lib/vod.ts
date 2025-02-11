@@ -14,14 +14,14 @@ export class Vod {
         }
     }
 
-    public static if<TValue>(cond : VodCond<TValue>, body : VodBody, other? : VodIfOther<TValue>) : VodObject<TValue, VodIfType, VodIf<TValue>> {
+    public static if<TValue>(cond : VodCond, body : VodBody, other? : VodIfOther<TValue>) : VodObject<TValue, VodIfType, VodIf<TValue>> {
         return {
             type: "if",
             content: [cond, body, other] as VodIf<TValue>
         }
     }
 
-    public static elseif<TValue>(cond : VodCond<TValue>, body : VodBody, other? : VodIfOther<TValue>) : VodObject<TValue, VodElseIfType, VodElseIf<TValue>> {
+    public static elseif<TValue>(cond : VodCond, body : VodBody, other? : VodIfOther<TValue>) : VodObject<TValue, VodElseIfType, VodElseIf<TValue>> {
         return {
             type: "elseif",
             content: [cond, body, other] as VodElseIf<TValue>

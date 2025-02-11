@@ -1,3 +1,5 @@
-export type VodCondSingle<TValue> = [string, string, TValue];
+import VodValue from "../vodValue";
+
+export type VodCondSingle = [VodValue, string, VodValue];
 
 export default VodCondSingle;
