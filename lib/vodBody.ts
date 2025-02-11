@@ -1,5 +1,5 @@
-import VodObject from "./vodObject";
+import VodObject, { VodObjectContent } from "./vodObject";
 
-export type VodBody = VodObject<any>[];
+export type VodBody = VodObject<any, VodObjectContent<any>>[];
 
 export default VodBody;
