@@ -1,6 +1,6 @@
-import VodCondSingle from "./vodCondSingle";
-import VodCondBinary from "./vodCondBinary";
+import VodComp from "./vodComp";
+import VodLogic from "./vodLogic";
 
-export type VodCond = VodCondSingle | VodCondBinary;
+export type VodCond = VodComp | VodLogic;
 
 export default VodCond;
