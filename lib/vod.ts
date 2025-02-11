@@ -3,6 +3,7 @@ import VodBody from "./vodBody";
 import VodDo, { VodDoType } from "./objects/vodDo";
 import VodIf, { VodIfType,VodIfOther } from "./objects/vodIf";
 import VodElse, { VodElseType } from "./objects/vodElse";
+import VodElseIf, { VodElseIfType } from "./objects/vodElseIf";
 
 export class Vod {
 
@@ -20,10 +21,17 @@ export class Vod {
         }
     }
 
-    public static else<TValue>(path : string, modus : string, value : TValue, body : VodBody) : VodObject<TValue, VodElseType, VodElse<TValue>> {
+    public static elseif<TValue>(path : string, modus : string, value : TValue, body : VodBody, other? : VodIfOther<TValue>) : VodObject<TValue, VodElseIfType, VodElseIf<TValue>> {
+        return {
+            type: "elseif",
+            content: [path, modus, value, body, other] as VodElseIf<TValue>
+        }
+    }
+
+    public static else<TValue>(path : string, modus : string, value : TValue, body : VodBody) : VodObject<TValue, VodElseType, VodElse> {
         return {
             type: "else",
-            content: [path, modus, value, body] as VodElse<TValue>
+            content: [path, modus, value, body] as VodElse
         }
     }
 }

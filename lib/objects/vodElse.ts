@@ -1,6 +1,6 @@
 import VodBody from "../vodBody";
 
-export type VodElse<TValue> = [string, string, TValue, VodBody];
+export type VodElse = VodBody;
 
 export default VodElse;
 
