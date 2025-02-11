@@ -13,7 +13,7 @@ export class Verhalt<TModel extends object> {
     }
 
 
-    public do<TValue>(en : VerhaltEn<TValue>, modi? : VerhaltModi<TValue>) : void {
+    public do<TValue>(en : VerhaltEn<TValue>, modi? : VerhaltModi<TValue>) : Verhalt<TModel> {
         const model = this.#model;
         const [path, value, modus] = en;
 
@@ -63,5 +63,7 @@ export class Verhalt<TModel extends object> {
         else {
             _modus.do(targetKey, targetRecord, value);
         }
+
+        return this;
     }
 }

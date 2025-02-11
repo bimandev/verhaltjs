@@ -1,4 +1,4 @@
-import { Verhalt as V } from "../lib/verhalt";
+import { Verhalt } from "../lib/verhalt";
 
 export type ExampleModel = {
     money: number;
@@ -17,16 +17,18 @@ const model: ExampleModel = {
 };
 
 test('Verhalt.update', () => {
-    V.en(model, ["user.age", 31]);
-    V.en(model, ["money", 31, "+"]);
-    V.en(model, ["user.age", { first: 12, last : 35}, "*"]);
-    V.en(model, ["user.age.first", 35, "*"]);
-    V.en(model, ["user.age.first", 2, "/"]);
-    V.en(model, ["user.name", "Karamelto"]);
+    Verhalt.en(model)
+        .do(["user.age", 31])
+        .do(["money", 31, "+"])
+        .do(["user.age", { first: 12, last : 35}, "*"])
+        .do(["user.age.first", 35, "*"])
+        .do(["user.age.first", 2, "/"])
+        .do(["user.name", "Karamelto"]);
 
     console.log(JSON.stringify(model, null, 2), typeof model.user.age);
 
-    // V.if(["money", ">", 100])
+    // V.if(model, ["money", ">", 100])
     //      .then("user.age", 31, "+")
+    //          .en("user.age", 31, "+")
     //      .else("user.age", 31, "-");
 });
