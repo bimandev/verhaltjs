@@ -4,7 +4,7 @@ import VodDo, { VodDoType } from "./objects/vodDo";
 import VodIf, { VodIfType,VodIfOther } from "./objects/vodIf";
 import VodElse, { VodElseType } from "./objects/vodElse";
 import VodElseIf, { VodElseIfType } from "./objects/vodElseIf";
-import VodCond from "./objects/vodCond";
+import VodCond from "./operands/vodCond";
 
 export class Vod {
     public static do<TValue>(path : string, value : TValue, modus? : string) : VodObject<TValue, VodDoType, VodDo<TValue>> {

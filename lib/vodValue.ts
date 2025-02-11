@@ -1,3 +1,3 @@
-import VodOp from "./arithmetic/vodOp.ts";
+import VodOp from "./operands/vodOp.ts";
 
 export type VodValue = null | boolean | number | string | object | VodOp;
