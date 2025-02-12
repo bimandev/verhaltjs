@@ -1,13 +1,13 @@
 import { keyContent } from "../regex/key/keyContent";
 import { pathKeys } from "../regex/path/pathKeys";
-import VerhaltModel from "./verhaltModel";
+import VerhaltModel, { VerhaltModelObject } from "./verhaltModel";
 import VerhaltPath from "./verhaltPath";
 import { VerhaltValue } from "./verhaltValue";
-
+// :lib[:cigu]
 export class Verhalt {
     public static value<TModel extends VerhaltModel>(model: TModel, path: VerhaltPath): VerhaltValue { 
         const keys = pathKeys(path);
-        let target = model;
+        let target = model as VerhaltModelObject;
 
         for (let i = 0; i < keys.length; i++) {
             const keyContentResult = keyContent(model, keys[i]);
@@ -18,10 +18,10 @@ export class Verhalt {
             const [key, index] = keyContentResult;
             const isLast = i === keys.length - 1;
 
-            if(Array.isArray(target)) {
+            target = target[key];
+
+            if(index !== -1 && Array.isArray(target)) {
                 target = target[index] ?? undefined;
-            } else {
-                target = target[key] ?? undefined;
             }
 
             if(isLast) {
