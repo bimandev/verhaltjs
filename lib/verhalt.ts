@@ -1,11 +1,10 @@
-import { keyContent } from "../regex/key/keyContent";
 import { VerhaltKeyContent, VerhaltKeyIndex } from "./verhaltKey";
 import VerhaltModel, { VerhaltModelArray, VerhaltModelObject } from "./verhaltModel";
 import VerhaltPath from "./verhaltPath";
 import { VerhaltValue } from "./verhaltValue";
 // :lib[:cigu]
 export class Verhalt {
-    public static value<TModel extends VerhaltModel>(model: TModel, path: VerhaltPath): VerhaltValue { 
+    /*public static value<TModel extends VerhaltModel>(model: TModel, path: VerhaltPath): VerhaltValue { 
         const keys : any[] = [] //pathKeys(path);
         var target : VerhaltValue = model;
 
@@ -127,5 +126,5 @@ export class Verhalt {
         }
     
         return groups;
-    }
+    }*/
 }
