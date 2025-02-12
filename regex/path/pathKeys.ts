@@ -1,10 +1,8 @@
 import VerhaltPath from "../../lib/verhaltPath";
 
-export const pathKeysRegex = /(:[^.]+)|(\.[^.]+)/g;
-
 export function pathKeys(path: VerhaltPath) : string[] {
     if (path === undefined || path[0] !== ":") {
-        throw new Error("Path should start with ':' character");
+        throw new Error(`Path should start with ':' character\ninput: ${path}`);
     }
 
     const keys: string[] = [];
@@ -22,7 +20,7 @@ export function pathKeys(path: VerhaltPath) : string[] {
                     mode = "root";
                     cursor = -1;
                 } else if (depth === 0) {
-                    throw new Error("':' character is not allowed in the middle of the path");
+                    throw new Error(`':' character is not allowed in the middle of the path\ninput: ${path}`);
                 }
                 break;
             }
@@ -39,7 +37,7 @@ export function pathKeys(path: VerhaltPath) : string[] {
             }
             case "]": {
                 if(depth === 0) {
-                    throw new Error("Mismatch '[' character in path");
+                    throw new Error(`Mismatch '[' character in path\ninput: ${path}`);
                 }
                 
                 depth--;
@@ -47,12 +45,12 @@ export function pathKeys(path: VerhaltPath) : string[] {
             }
             default: {
                 if (!/[a-zA-Z0-9]/.test(char)) {
-                    throw new Error("Invalid character in path");
+                    throw new Error(`Invalid character in path\npath: ${path}`);
                 }
 
                 if (cursor === 0) {
                     if (/[0-9]/.test(char)) {
-                        throw new Error("Key should not start with a number");
+                        throw new Error(`"Key should not start with a number in path\ninput: ${path}`);
                     }
                 }
             }
@@ -71,7 +69,7 @@ export function pathKeys(path: VerhaltPath) : string[] {
     }
 
     if(depth !== 0) {
-        throw new Error("Mismatch ']' character in path");
+        throw new Error(`Mismatch ']' character in path\ninput: ${path}`);
     }
 
     keys.push(current.join(""));
