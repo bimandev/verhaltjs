@@ -16,8 +16,7 @@
       "resolveJsonModule": true
     },
     "include": [
-      "lib/**/*"
-, "tests/verhalt.test.ts"    ],
+      "lib/**/*"],
     "exclude": [
       "node_modules",
       "dist"
