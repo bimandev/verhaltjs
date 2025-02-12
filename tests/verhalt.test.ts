@@ -1,7 +1,3 @@
-import { Verhalt } from "../lib/verhalt";
-import { keyContent } from "../regex/key/keyContent";
-import { optionalGroups, rootGroup } from "../regex/path/pathGroups";
-import { continueKeys, rootKey } from "../regex/path/pathKeys";
 //(?:\:([^:\[]+(?:\[[^\]]*\])*[^:]*))
 type ExampleModel = {
     cigu : any[];
@@ -28,9 +24,5 @@ const exampleModel : ExampleModel = {
 }
 
 test('Verhalt.value', () => {
-    const [root, optional] = rootGroup(":lib[:cigu[:cigu[0]?].nina?]?.haha ?? :yourmama ?? :sisisu") ?? [];
-    const _optionalGroups = optionalGroups(optional ?? "");
-    const _rootKey = rootKey(root ?? "");
 
-    console.log(root, _rootKey); //
 });
