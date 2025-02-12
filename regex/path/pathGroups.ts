@@ -1,0 +1,1 @@
+export const rootGroupRegex = /(?:^:([a-z][a-zA-Z0-9.]*(?:\[(?:\S*)\])?)(?=\s|$))/
