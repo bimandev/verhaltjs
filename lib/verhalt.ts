@@ -1,42 +1,63 @@
 import { keyContent } from "../regex/key/keyContent";
 import { pathKeys } from "../regex/path/pathKeys";
-import VerhaltModel, { VerhaltModelObject } from "./verhaltModel";
+import { VerhaltKeyContent, VerhaltKeyIndex } from "./verhaltKey";
+import VerhaltModel, { VerhaltModelArray, VerhaltModelObject } from "./verhaltModel";
 import VerhaltPath from "./verhaltPath";
 import { VerhaltValue } from "./verhaltValue";
 // :lib[:cigu]
 export class Verhalt {
     public static value<TModel extends VerhaltModel>(model: TModel, path: VerhaltPath): VerhaltValue { 
         const keys = pathKeys(path);
-        let target = model as VerhaltModelObject;
+        var target : VerhaltValue = model;
 
-        for (let i = 0; i < keys.length; i++) {
-            const keyContentResult = keyContent(model, keys[i]);
-            if (!keyContentResult) {
-                return "?VERHALT_PATH_INVALID";
-            }
+        for (let i = 1; i < keys.length; i++) {
+            const [name, index] = keyContent(model, keys[0]);
 
-            const [key, index] = keyContentResult;
-            const isLast = i === keys.length - 1;
+            if(i === 0) {
+                if(name === undefined) {
+                    target = Verhalt.valueFromArray(target as VerhaltModel, index);
+                } else {
+                    target = Verhalt.valueFromObject(target as VerhaltModel, [name, index]);
+                }
+            } else {
+                if(name === undefined) {
+                    throw new Error("?VERHALT_VALUE=KEY_IS_UNDEFINED");
+                }
 
-            target = target[key];
-
-            if(index && Array.isArray(target)) {
-                target = target[index] ?? undefined;
-            }
-
-            if(isLast) {
-                return target;
-            }
-
-            if (target === null || typeof target !== "object") {
-                return "?VERHALT_PATH_INCOMPLETE";
-            }
-
-            if (target === undefined) {
-                return "?VERHALT_PATH_NOT_EXISTS";
+                target = Verhalt.valueFromObject(target as VerhaltModel, [name, index]);
             }
         }
 
-        return "?VERHALT_PATH_INVALID";
+        return target;
+    }
+
+    private static valueFromArray(model : VerhaltModel, index : VerhaltKeyIndex) {
+        if(!Array.isArray(model)) {
+            throw new Error(`?VERHALT_VALUE=MODEL_IS_NOT_ARRAY\nmodel: ${model}\nindex: ${index}`);
+        }          
+
+        if(index === undefined) {
+            throw new Error(`?VERHALT_VALUE=INDEX_IS_UNDEFINED\nmodel: ${model}\nindex: ${index}`);
+        }
+
+        return model[index];
+    }
+
+    private static valueFromObject(model : VerhaltModel, [name, index] : VerhaltKeyContent) {
+        if(typeof model !== "object") {
+            throw new Error(`?VERHALT_VALUE=MODEL_IS_NOT_OBJECT\nmodel: ${model}\nname: ${name}\nindex: ${index}`);
+        }
+
+        if(name === undefined) {
+            throw new Error(`?VERHALT_VALUE=NAME_IS_UNDEFINED\nmodel: ${model}\nname: ${name}\nindex: ${index}`);
+        }
+
+        let target = (model as VerhaltModelObject)[name];
+
+        if(index !== undefined) {
+            target = Verhalt.valueFromArray(target, index);
+        }
+
+        return target;
     }
 }
