@@ -1,4 +1,4 @@
-export function pathValueParser(input? : string) : string[] {
+export function pathValuesParser(input? : string) : string[] {
     if(input === undefined) {
         return [];
     }
