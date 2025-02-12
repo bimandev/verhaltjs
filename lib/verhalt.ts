@@ -12,7 +12,6 @@ export class Verhalt {
 
         for (let i = 0; i < keys.length; i++) {
             const [name, index] = keyContent(model, keys[i]);
-            console.log(name);
             if(i === 0) {
                 if(name === undefined) {
                     target = Verhalt.valueFromArray(target as VerhaltModel, index);
