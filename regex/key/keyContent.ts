@@ -2,7 +2,7 @@ import VerhaltKey, { VerhaltKeyContent } from "../../lib/verhaltKey";
 import VerhaltModel from "../../lib/verhaltModel";
 import { keyIndex } from "./keyIndex";
 
-const regex = /^([a-zA-Z][a-zA-Z0-9]*)(?:\[(.*?)]$)?/;
+const regex = /^([a-zA-Z][a-zA-Z0-9]*)?(?:\[(.*?)]$)?/;
 
 export function keyContent(model : VerhaltModel, input : string) : VerhaltKeyContent | undefined {
     const match = input?.match(regex) ?? undefined;
@@ -11,7 +11,7 @@ export function keyContent(model : VerhaltModel, input : string) : VerhaltKeyCon
         const name = match[1];
         const index = match[2];
 
-        return [name, index ? keyIndex(model, index) ?? -1 : -1];
+        return [name, index ? keyIndex(model, index) ?? undefined : undefined];
     }
 
     return undefined;
