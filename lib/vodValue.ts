@@ -1,6 +1,7 @@
+import VodKey from "./vodKey.ts";
 import VodArith from "./operands/vodArith.ts";
 
-export type VodValue = VodValueNull | VodValueBoolean | VodValueNumber | VodValueString | VodValueArith | VodValueObject;
+export type VodValue = VodValueNull | VodValueBoolean | VodValueNumber | VodValueString | VodValueKey | VodValueArith | VodValueObject;
 
 export default VodValue;
 
@@ -11,6 +12,8 @@ export type VodValueBoolean = boolean;
 export type VodValueNumber = number;
 
 export type VodValueString = string;
+
+export type VodValueKey = VodKey;
 
 export type VodValueArith = VodArith;
 
