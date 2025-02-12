@@ -31,6 +31,18 @@ export function pathKeysParser(input? : string) : string[] {
 
                 throw new Error();
             }
+            case ":" : {
+                if(depth !== 0) {
+                    break;
+                }
+
+                if(record.length === 0) {
+                    disable = true;
+                    break;
+                }
+
+                throw new Error();
+            }
             case "." : {
                 if(depth !== 0) {
                     break;
