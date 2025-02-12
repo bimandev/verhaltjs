@@ -1,6 +1,6 @@
 import VodValue from "./vodValue";
 import VodCond from "./operands/vodCond";
-import VodArith, { VodArithAddSymbol, VodArithSubSymbol, VodArithMulSymbol, VodArithDivSymbol, VodArithModSymbol, VodArithSymbol } from "./operands/vodArith";
+import VodArith, { VodArithAddSymbol, VodArithSubSymbol, VodArithMulSymbol, VodArithDivSymbol, VodArithModSymbol, VodArithSymbol, VodArithValue } from "./operands/vodArith";
 import VodComp, { VodCompEqualSymbol, VodCompNotEqualSymbol, VodCompGreaterThanSymbol, VodCompGreaterThanEqualSymbol, VodCompLessThanSymbol, VodCompLessThanEqualSymbol, VodCompSymbol } from "./operands/vodComp";
 import VodLogic, { VodLogicAndSymbol, VodLogicOrSymbol, VodLogicSymbol } from "./operands/vodLogic";
 
@@ -36,7 +36,7 @@ export class VodOp {
 
     //
 
-    public static arith(value1 : VodValue, symbol : VodArithSymbol, value2 : VodValue) : VodArith {
+    public static arith(value1 : VodArithValue, symbol : VodArithSymbol, value2 : VodArithValue) : VodArith {
         return [value1, symbol, value2] as VodArith;
     }
 
