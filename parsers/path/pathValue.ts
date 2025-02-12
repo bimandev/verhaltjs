@@ -1,6 +1,6 @@
-export function pathValueParser(input: string) : string[] {
-    if(input === undefined || input[0] !== ":") {
-        throw new Error();
+export function pathValueParser(input? : string) : string[] {
+    if(input === undefined) {
+        return [];
     }
 
     const values : string[] = []; // :haha[]
