@@ -36,6 +36,10 @@ export function pathKeysParser(input? : string) : string[] {
                     break;
                 }
 
+                if(input[i + 1] === ".") {
+                    throw new Error();
+                }
+
                 values.push(record.join(""));
                 record = [];
                 disable = true;
