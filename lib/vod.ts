@@ -6,12 +6,13 @@ import VodIf, { VodIfType,VodIfOther } from "./objects/vodIf";
 import VodElse, { VodElseType } from "./objects/vodElse";
 import VodElseIf, { VodElseIfType } from "./objects/vodElseIf";
 import VodValue from "./vodValue";
+import VodKey from "./vodKey";
 
 export class Vod {
-    public static do(path : string, value : VodValue, modus? : string) : VodObject<VodDoType, VodDo> {
+    public static do(key : VodKey, symbol : string, value : VodValue) : VodObject<VodDoType, VodDo> {
         return {
             type: "do",
-            content: [path, value, modus] as VodDo
+            content: [key, symbol, value] as VodDo
         }
     }
 

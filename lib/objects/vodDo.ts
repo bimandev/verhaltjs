@@ -1,6 +1,7 @@
+import VodKey from "../vodKey";
 import VodValue from "../vodValue";
 
-export type VodDo = [string, string, VodValue];
+export type VodDo = [VodKey, string, VodValue];
 
 export default VodDo;
 
