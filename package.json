@@ -31,5 +31,8 @@
     "rimraf": "^6.0.1",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "verhalt-vod": "^1.0.0"
   }
 }
