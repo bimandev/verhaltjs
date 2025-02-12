@@ -1,7 +1,7 @@
-export const rootValueRegex = /(?:^:([a-z][a-zA-Z0-9]*(?:\[\S*\])[\?]?))|(\S)/g;
+export const rootKeyRegex = /(?:^:([a-z][a-zA-Z0-9]*(?:\[\S*\])[\?]?))|(\S)/g;
 
-export function rootValue(input : string) : [string, string] | undefined {
-    const match = input.match(rootValueRegex)
+export function rootKey(input : string) : [string, string] | undefined {
+    const match = input.match(rootKeyRegex)
     if (match) {
         return [match[0], match[1]]
     }
