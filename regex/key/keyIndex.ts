@@ -1,7 +1,6 @@
 import { Verhalt } from "../../lib/verhalt";
 import { VerhaltKeyIndex } from "../../lib/verhaltKey";
 import VerhaltModel from "../../lib/verhaltModel";
-import { pathKeys, pathKeysRegex } from "../path/pathKeys";
 
 
 export function keyIndex(model : VerhaltModel, input: string) : VerhaltKeyIndex {
