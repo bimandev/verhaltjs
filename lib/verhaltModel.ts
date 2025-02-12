@@ -1,1 +1,1 @@
-export type VerhaltModel =  { [key: string]: any };
+export type VerhaltModel = Record<string, any>;
