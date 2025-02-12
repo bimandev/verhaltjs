@@ -1,4 +1,4 @@
-import { pathKeys } from "../util/pathKeys";
+import { pathKeys } from "../regex/pathKeys";
 import VerhaltModel from "./verhaltModel";
 import VerhaltPath, { verhaltPathRegex } from "./verhaltPath";
 import { VerhaltValue } from "./verhaltValue";
