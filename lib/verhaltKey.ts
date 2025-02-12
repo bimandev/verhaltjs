@@ -1,4 +1,4 @@
-export type VerhaltKey = string;
+export type VerhaltKey = string | undefined;
 
 export default VerhaltKey;
 
