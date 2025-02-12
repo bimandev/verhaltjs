@@ -33,6 +33,6 @@
     "ts-node": "^10.9.2"
   },
   "dependencies": {
-    "verhalt-vod": "^1.0.0"
+    "verhalt-vod": "^1.1.1"
   }
 }
