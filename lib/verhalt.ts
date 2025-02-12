@@ -6,7 +6,7 @@ import { VerhaltValue } from "./verhaltValue";
 // :lib[:cigu]
 export class Verhalt {
     public static value<TModel extends VerhaltModel>(model: TModel, path: VerhaltPath): VerhaltValue { 
-        const keys = pathKeys(path);
+        const keys : any[] = [] //pathKeys(path);
         var target : VerhaltValue = model;
 
         for (let i = 0; i < keys.length; i++) {
