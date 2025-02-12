@@ -3,17 +3,20 @@ import { VerhaltKeyIndex } from "../../lib/verhaltKey";
 import VerhaltModel from "../../lib/verhaltModel";
 import { pathKeysRegex } from "../path/pathKeys";
 
-export const keyIndexRegex = new RegExp(`^(?:${pathKeysRegex.source}|/^\d+$/)$`);
+export const keyIndexRegex = new RegExp(`^(?:${pathKeysRegex.source}|^\\d+$)$`);
 
 export function keyIndex(model : VerhaltModel, input: string) : VerhaltKeyIndex | undefined {
     const match = input?.match(keyIndexRegex) ?? undefined;
 
     if (match) {
-        if(match[1]) {
-            return Verhalt.value(model, input) as number;
+        let index = Number(input);
+        if(Number.isInteger(index)) {
+            return index;
         }
-        else if(match[2]) {
-            return parseInt(input, 10);
+
+        const value = Verhalt.value(model, input);
+        if(Number.isInteger(value)) {
+            return value as number;
         }
     }
 
