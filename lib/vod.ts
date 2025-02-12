@@ -7,8 +7,16 @@ import VodElse, { VodElseType } from "./objects/vodElse";
 import VodElseIf, { VodElseIfType } from "./objects/vodElseIf";
 import VodValue from "./vodValue";
 import VodKey from "./vodKey";
+import VodSet, { VodSetType } from "./objects/vodSet";
 
 export class Vod {
+    public static set(key : VodKey, value : VodValue) : VodObject<VodSetType, VodSet> {
+        return {
+            type: "set",
+            content: [key, value] as VodSet
+        }
+    }
+
     public static do(key : VodKey, symbol : string, value : VodValue) : VodObject<VodDoType, VodDo> {
         return {
             type: "do",
