@@ -1,10 +1,10 @@
-import VodValue, { VodValueArith, VodValueNumber, VodValueString } from "../vodValue";
+import { VodValueNumber, VodValueKey, VodValueArith } from "../vodValue";
 
 export type VodArith = [VodArithValue, VodArithSymbol, VodArithValue];
 
 export default VodArith;
 
-export type VodArithValue = VodValueNumber | VodValueString | VodValueArith;
+export type VodArithValue = VodValueNumber | VodValueKey | VodValueArith;
 
 export type VodArithSymbol = 
     VodArithAddSymbol | 
