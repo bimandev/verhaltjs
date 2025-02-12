@@ -23,7 +23,7 @@ export class Verhalt {
                     return "?VERHALT_PATH_INCOMPLETE";
                 }
 
-                if (target[key] === undefined) {
+                if (target === undefined) {
                     return "?VERHALT_PATH_INVALID";
                 }
             }
