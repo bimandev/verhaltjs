@@ -1,3 +1,3 @@
-export type VodKey = `:${string}`;
+export type VodKey = `:${string}` | `${string}:${string}`;
 
 export default VodKey;
