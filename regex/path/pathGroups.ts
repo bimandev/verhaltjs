@@ -10,3 +10,14 @@ export function rootGroup(input: string) : [string, string] | undefined {
 
     return undefined;
 }
+
+export function optionalGroups(input: string) : string[] {
+    const matches = input.matchAll(optionalGroupsRegex)
+    const groups: string[] = []
+    
+    for (const match of matches) {
+        groups.push(match[1])
+    }
+
+    return groups;
+}
