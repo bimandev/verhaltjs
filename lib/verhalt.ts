@@ -11,19 +11,19 @@ export class Verhalt {
         var target : VerhaltValue = model;
 
         for (let i = 0; i < keys.length; i++) {
-            const [name, index] = keyContent(model, keys[i]);
+            const [name, index, nullable] = keyContent(model, keys[i]);
             if(i === 0) {
                 if(name === undefined) {
                     target = Verhalt.valueFromArray(target as VerhaltModel, index);
                 } else {
-                    target = Verhalt.valueFromObject(target as VerhaltModel, [name, index]);
+                    target = Verhalt.valueFromObject(target as VerhaltModel, [name, index, nullable]);
                 }
             } else {
                 if(name === undefined) {
                     throw new Error("?VERHALT_VALUE=KEY_IS_UNDEFINED");
                 }
 
-                target = Verhalt.valueFromObject(target as VerhaltModel, [name, index]);
+                target = Verhalt.valueFromObject(target as VerhaltModel, [name, index, nullable]);
             }
         }
 
