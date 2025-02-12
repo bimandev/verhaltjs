@@ -10,7 +10,6 @@ export function keyIndex(model : VerhaltModel, input: string) : VerhaltKeyIndex 
 
     if (match) {
         if(match[1]) {
-            console.log(input, Verhalt.value(model, input));
             return Verhalt.value(model, input) as number;
         }
         else if(match[2]) {

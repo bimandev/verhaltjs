@@ -1,13 +1,17 @@
 import VerhaltPath from "../../lib/verhaltPath";
 
-export const pathKeysRegex = /^:([a-zA-Z][a-zA-Z0-9]*)(?:\[[^\]]*\])?(?:\.[a-zA-Z][a-zA-Z0-9]*(?:\[[^\]]*\])?)*$/;
+export const pathKeysRegex = /(:[^.]+)|(\.[^.]+)/g;
 
 export function pathKeys(path: VerhaltPath) : string[] {
+    if(path === undefined || path[0] !== ":") {
+        return [];
+    }
+
     const match = path?.match(pathKeysRegex) ?? undefined;
 
     if (!match) {
         return [];
     }
 
-    return path.split(/[:.]/).filter(Boolean);
+    return match.slice(0).map((x) => x.slice(1));
 }
