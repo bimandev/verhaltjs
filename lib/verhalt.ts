@@ -1,3 +1,4 @@
+import { keyContent } from "../regex/key/keyContent";
 import { pathKeys } from "../regex/path/pathKeys";
 import VerhaltModel from "./verhaltModel";
 import VerhaltPath from "./verhaltPath";
@@ -9,10 +10,20 @@ export class Verhalt {
         let target = model;
 
         for (let i = 0; i < keys.length; i++) {
-            const key = keys[i];
+            const keyContentResult = keyContent(model, keys[i]);
+            if (!keyContentResult) {
+                return "?VERHALT_PATH_INVALID";
+            }
+
+            const [key, index] = keyContentResult;
             const isLast = i === keys.length - 1;
 
-            target = target[key];
+            if(Array.isArray(target)) {
+                target = target[index] ?? undefined;
+            } else {
+                target = target[key] ?? undefined;
+            }
+
             if(isLast) {
                 return target;
             }
