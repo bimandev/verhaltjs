@@ -24,7 +24,7 @@ export class Verhalt {
                 }
 
                 if (target === undefined) {
-                    return "?VERHALT_PATH_INVALID";
+                    return "?VERHALT_PATH_NOT_EXISTS";
                 }
             }
         }
