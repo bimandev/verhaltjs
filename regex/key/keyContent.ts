@@ -4,7 +4,7 @@ import { keyIndex } from "./keyIndex";
 
 const regex = /^([a-zA-Z][a-zA-Z0-9]*)?(?:\[(.*?)]$)?/;
 
-export function keyContent(model : VerhaltModel, input : string) : VerhaltKeyContent | undefined {
+export function keyContent(model : VerhaltModel, input : string) : VerhaltKeyContent {
     const match = input?.match(regex) ?? undefined;
     
     if (match) {
@@ -14,5 +14,5 @@ export function keyContent(model : VerhaltModel, input : string) : VerhaltKeyCon
         return [name, index ? keyIndex(model, index) ?? undefined : undefined];
     }
 
-    return undefined;
+    return [undefined, undefined];
 }
