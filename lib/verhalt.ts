@@ -20,7 +20,7 @@ export class Verhalt {
 
             target = target[key];
 
-            if(index !== -1 && Array.isArray(target)) {
+            if(index && Array.isArray(target)) {
                 target = target[index] ?? undefined;
             }
 

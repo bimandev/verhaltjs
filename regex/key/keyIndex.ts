@@ -5,7 +5,7 @@ import { pathKeysRegex } from "../path/pathKeys";
 
 export const keyIndexRegex = new RegExp(`^(?:${pathKeysRegex.source}|^\\d+$)$`);
 
-export function keyIndex(model : VerhaltModel, input: string) : VerhaltKeyIndex | undefined {
+export function keyIndex(model : VerhaltModel, input: string) : VerhaltKeyIndex {
     const match = input?.match(keyIndexRegex) ?? undefined;
 
     if (match) {
