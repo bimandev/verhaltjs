@@ -7,14 +7,14 @@ export class Verhalt {
         const pathMatch = path.match(verhaltPathRegex);
 
         if (pathMatch) {
-            const keys = pathMatch.slice(1);
+            const keys = pathMatch.slice(1).filter((k) => k !== undefined);
             let target = model;
+
             for (let i = 0; i < keys.length; i++) {
                 const key = keys[i];
                 const isLast = i === keys.length - 1;
 
                 target = target[key];
-
                 if(isLast) {
                     return target;
                 }
