@@ -2,9 +2,8 @@ import VodObject from "../vodObject";
 import VodBody from "../vodBody";
 import VodElseIf, { VodElseIfType } from "./vodElseIf";
 import VodElse, { VodElseType } from "./vodElse";
-import VodCond from "../operands/vodCond";
 
-export type VodIf = [VodCond, VodBody, VodIfOther?];
+export type VodIf = [string, VodBody, VodIfOther?];
 
 export default VodIf;
 

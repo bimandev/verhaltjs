@@ -24,17 +24,17 @@ export class Vod {
         }
     }
 
-    public static if(cond : VodCond, body : VodBody, other? : VodIfOther) : VodObject<VodIfType, VodIf> {
+    public static if(ex : string, body : VodBody, other? : VodIfOther) : VodObject<VodIfType, VodIf> {
         return {
             type: "if",
-            content: [cond, body, other] as VodIf
+            content: [ex, body, other] as VodIf
         }
     }
 
-    public static elseif(cond : VodCond, body : VodBody, other? : VodIfOther) : VodObject<VodElseIfType, VodElseIf> {
+    public static elseif(ex : string, body : VodBody, other? : VodIfOther) : VodObject<VodElseIfType, VodElseIf> {
         return {
             type: "elseif",
-            content: [cond, body, other] as VodElseIf
+            content: [ex, body, other] as VodElseIf
         }
     }
 
