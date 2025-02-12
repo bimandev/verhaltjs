@@ -1,5 +1,5 @@
-import VodKey from "./vodKey.ts";
-import VodArith from "./operands/vodArith.ts";
+import VodKey from "./vodKey";
+import VodArith from "./operands/vodArith";
 
 export type VodValue = VodValueNull | VodValueBoolean | VodValueNumber | VodValueString | VodValueKey | VodValueArith | VodValueObject;
 
