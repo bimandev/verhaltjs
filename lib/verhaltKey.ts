@@ -1,7 +1,7 @@
-export type VerhaltKey = [VerhaltKeyName, VerhaltKeyContent];
+export type VerhaltKey = [VerhaltKeyName, VerhaltKeyIndex];
 
 export default VerhaltKey;
 
 export type VerhaltKeyName = string;
 
-export type VerhaltKeyContent = string | undefined;
+export type VerhaltKeyIndex = string | undefined;
