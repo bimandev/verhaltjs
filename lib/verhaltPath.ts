@@ -1,4 +1,4 @@
-export type VerhaltPath = `:${string}`;
+export type VerhaltPath = string;
 
 export default VerhaltPath;
 
