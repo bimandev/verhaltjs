@@ -1,0 +1,1 @@
+export type VerhaltModel = Record<string, any>;
