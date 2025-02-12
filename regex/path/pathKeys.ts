@@ -48,6 +48,15 @@ export function pathKeys(path: VerhaltPath) : string[] {
                 depth--;
                 break;
             }
+            case "?": {
+                if(depth === 0) {
+                    const next = path.length - 1 !== i ? path[i + 1] : undefined;
+                    if(!(next === "." || next === undefined)) {
+                        throw new Error(`Invalid character in path\npath: ${path}`);
+                    } ":root?."
+                }
+                break;
+            }
             default: {
                 if (!/[a-zA-Z0-9]/.test(char)) {
                     throw new Error(`Invalid character in path\npath: ${path}`);
