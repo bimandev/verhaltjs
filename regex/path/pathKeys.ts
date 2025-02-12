@@ -10,6 +10,7 @@ export function pathKeys(path: VerhaltPath) : string[] {
     let cursor: number = 0;
     let depth: number = 0;
     let mode: PathKeysMode = "root";
+    let named : boolean = false;
 
     for (let i = 0; i < path.length; i++) {
         const char = path[i];
@@ -32,6 +33,10 @@ export function pathKeys(path: VerhaltPath) : string[] {
                 break;
             }
             case "[": {
+                if(!named && mode === "group") {
+                    throw new Error(`The index was opened before naming was done.\ninput: ${path}`);
+                }
+
                 depth++;
                 break;
             }
@@ -53,10 +58,14 @@ export function pathKeys(path: VerhaltPath) : string[] {
                         throw new Error(`"Key should not start with a number in path\ninput: ${path}`);
                     }
                 }
+
+                named = true;
             }
         }
 
         if (cursor === -1) {
+            named = false;
+
             if (mode === "group") {
                 keys.push(current.join(""));
                 current = [];
