@@ -1,4 +1,4 @@
-import { verhaltPathRegex } from "../lib/verhaltPath";
+import { verhaltPathRegex } from "../../lib/verhaltPath";
 
 export function pathKeys(path: string) : string[] {
     const match = path.match(verhaltPathRegex);
