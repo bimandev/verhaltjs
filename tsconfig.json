@@ -15,8 +15,7 @@
       "lib": ["esnext", "dom"],
       "resolveJsonModule": true
     },
-    "include": [
-      "lib/**/*"],
+    "include": ["lib/**/*", "tests/**/*"],
     "exclude": [
       "node_modules",
       "dist"
