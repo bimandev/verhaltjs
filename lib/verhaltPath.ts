@@ -17,3 +17,9 @@ export class VerhaltPath {
 }
 
 export default VerhaltPath;
+
+export type VerhaltPathKeyHead = [string, boolean];
+
+export type VerhaltPathKeyBody = [string, boolean][];
+
+export type VerhaltPathKeyContent = [VerhaltPathKeyHead, VerhaltPathKeyBody];
