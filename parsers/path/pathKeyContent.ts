@@ -1,0 +1,106 @@
+export function pathKeyContentParser(input? : string) : [[string, boolean]?, [string, boolean][]?] {
+    if(input === undefined) {
+        return [undefined, undefined];
+    }
+    let name : string | undefined = undefined;
+    const nameChars : string[] = []
+
+    let depth = 0;
+    let depthChars : string[] = [];
+    let nullSignable = false;
+
+    let indexes : [string, boolean][] = [];
+
+    for (let i = 0; i < input.length; i++) {
+        const char = input[i];
+        const indexer = indexes[indexes.length - 1];
+        
+        if(name) {
+            if(depth === 0) {
+                if(char !== "?") {
+                    nullSignable = false;
+                }
+            }
+        }
+        else {
+            switch(char) {
+                case "?" : {
+                    nullSignable = true;
+                }
+                case "[" : {
+                    if(nameChars.length === 0) {
+                        throw new Error();
+                    }
+
+                    name = nameChars.join("");
+                    break;
+                }
+            }
+        }
+
+  
+
+        switch (char) {
+            case "[" : {
+                if(depth === 0) {
+                    indexes.push(["", false]);
+                    depthChars = [];
+                }
+
+                depth++;
+                break;
+            }
+            case "]" : {
+                if(!name) {
+                    throw new Error();
+                }
+
+                if(depth === 0) {
+                    throw new Error();
+                }
+
+                depth--;
+
+                if(depth === 0) {
+                    indexer[0] = depthChars.join("");
+                    nullSignable = true;
+                }
+                break;
+            }
+            case "?" : {
+                if(depth !== 0) {
+                    break;
+                }
+
+                if(!nullSignable) {
+                    throw new Error();
+                }
+
+                indexer[1] = true;
+            }
+            default: {
+                if(name) {
+                    if(depth !== 0) {
+                        depthChars.push(char);
+                    }
+                }
+                else {
+                    if(nameChars.length === 0) {
+                        if(!/[a-zA-Z]/.test(char)) {
+                            throw new Error();
+                        }
+                    }
+                    else {
+                        if(!/[a-zA-Z0-9]/.test(char)) {
+                            throw new Error();
+                        }
+                    }
+        
+                    nameChars.push(char);
+                }
+            }
+        }
+    }
+
+    return [[name as string, true], indexes];
+}
