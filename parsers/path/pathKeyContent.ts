@@ -9,6 +9,7 @@ export function pathKeyContentParser(input? : string) : [[string, boolean]?, [st
     let depth = 0;
     let depthChars : string[] = [];
     let nullSignable = false;
+    let beginDepth = false;
 
     let indexes : [string, boolean][] = [];
 
@@ -39,23 +40,6 @@ export function pathKeyContentParser(input? : string) : [[string, boolean]?, [st
             }
         }
 
-        if(char === "?") {
-            if(depth !== 0) {
-                break;
-            }
-
-            if(!nullSignable) {
-                throw new Error();
-            }
-
-            if(indexer) {
-                indexer[1] = true;
-            }
-            else {
-                nullable = true;
-            }
-        }
-
         switch (char) {
             case "[" : {
                 if(depth === 0) {
@@ -80,30 +64,50 @@ export function pathKeyContentParser(input? : string) : [[string, boolean]?, [st
                 if(depth === 0) {
                     indexer[0] = depthChars.join("");
                     nullSignable = true;
+                    beginDepth = false;
                 }
                 break;
             }
-            default: {
-                if(name) {
-                    if(depth !== 0) {
-                        depthChars.push(char);
-                    }
+            case "?" : {
+                if(depth !== 0) {
+                    break;
+                }
+
+                if(!nullSignable) {
+                    throw new Error();
+                }
+
+                if(indexer) {
+                    indexer[1] = true;
                 }
                 else {
-                    if(nameChars.length === 0) {
-                        if(!/[a-zA-Z]/.test(char)) {
-                            throw new Error();
-                        }
-                    }
-                    else {
-                        if(!/[a-zA-Z0-9]/.test(char)) {
-                            throw new Error();
-                        }
-                    }
-        
-                    nameChars.push(char);
+                    nullable = true;
                 }
             }
+        }
+
+        if(name) {
+            if(beginDepth) {
+                depthChars.push(char);
+            }
+        }
+        else {
+            if(nameChars.length === 0) {
+                if(!/[a-zA-Z]/.test(char)) {
+                    throw new Error();
+                }
+            }
+            else {
+                if(!/[a-zA-Z0-9]/.test(char)) {
+                    throw new Error();
+                }
+            }
+
+            nameChars.push(char);
+        }
+
+        if(depth !== 0) {
+            beginDepth = true;
         }
     }
 
