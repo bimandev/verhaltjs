@@ -1,5 +1,5 @@
 import VerhaltValue from "./core/verhaltValue";
-import VerhaltParser from "./verhaltParser";
+import { routePaths, pathKeys, keyContent } from "@verhalt/parser/lib"
 
 export class Verhalt {
     public static value(path? : string) : VerhaltValue {
@@ -7,14 +7,14 @@ export class Verhalt {
             return undefined;
         }
 
-        const pathValues = VerhaltParser.pathValues(path);
+        const paths = routePaths(path);
 
-        for(const pathWay of pathValues) {
+        for(const pathWay of paths) {
             try {
                 Verhalt.valueFromWay(pathWay);
             }
             catch(error) {
-                if(pathValues[pathValues.length - 1] === pathWay) {
+                if(paths[paths.length - 1] === pathWay) {
                     throw error;
                 }
 
@@ -28,12 +28,12 @@ export class Verhalt {
             return undefined;
         }
 
-        const keys = VerhaltParser.pathKeys(way);
+        const keys = pathKeys(way);
 
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
             
-            const content = VerhaltParser.pathKeyContent(key);
+            const content = keyContent(key);
             console.log(content);
         }
     }
