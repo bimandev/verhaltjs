@@ -1,19 +1,19 @@
 import { routePaths, pathKeys, keyContent } from "@verhalt/parser/lib"
 
 export class Verhalt {
-    public static value(path? : string) : any {
-        if(path === undefined) {
+    public static value(route? : string) : any {
+        if(route === undefined) {
             return undefined;
         }
 
-        const paths = routePaths(path);
+        const paths = routePaths(route);
 
-        for(const pathWay of paths) {
-            try {
-                Verhalt.valueFromWay(pathWay);
+        for(const path of paths) {
+            try {                
+                Verhalt.valueFromWay(path);
             }
             catch(error) {
-                if(paths[paths.length - 1] === pathWay) {
+                if(paths[paths.length - 1] === path) {
                     throw error;
                 }
 
@@ -22,18 +22,24 @@ export class Verhalt {
         }
     }
 
-    private static valueFromWay(way? : string) : any {
-        if(way === undefined) {
+    private static valueFromWay(path? : string) : any {
+        if(path === undefined) {
             return undefined;
         }
 
-        const keys = pathKeys(way);
+        const keys = pathKeys(path);
 
         for (let i = 0; i < keys.length; i++) {
-            const key = keys[i];
-            
-            const content = keyContent(key);
-            console.log(content);
+            const key = keys[0];
+
+            const [head, body] = keyContent(key);
+            const [headNull, headName] = head ?? [false, undefined];
+            console.log([head, body]);
+
+            if(body) {
+                for(const [contentNull, contentValue] of body) {
+                }
+            }
         }
     }
 }
