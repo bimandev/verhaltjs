@@ -5,19 +5,19 @@ import { pathKeyContentParser } from "../parsers/path/pathKeyContent";
 import { pathKeyIndexParser } from "../parsers/path/pathKeyIndex";
 
 export class VerhaltParser {
-    static valuesParser(input? : string) : string[] {
+    static values(input? : string) : string[] {
         return pathValuesParser(input);
     }
 
-    static keysParser(input? : string) : string[] {
+    static keys(input? : string) : string[] {
         return pathKeysParser(input);
     }
     
-    static keyContentParser(input? : string) : VerhaltPathKeyContent {
+    static keyContent(input? : string) : VerhaltPathKeyContent {
         return pathKeyContentParser(input);
     }
 
-    static keyIndexParser(input? : string) : number {
+    static keyIndex(input? : string) : number {
         return pathKeyIndexParser(input);
     }
 }
