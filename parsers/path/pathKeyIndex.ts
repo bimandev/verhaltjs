@@ -3,7 +3,7 @@ export function pathKeyIndexParser(input? : string) : number {
         return -1;
     }
 
-    if(/(([1-9][0-9]*)|0)$/.test(input)) {
+    if(/^(([1-9][0-9]*)|0)/.test(input)) {
         return parseInt(input);
     }
 
