@@ -18,8 +18,8 @@ export class VerhaltPath {
 
 export default VerhaltPath;
 
-export type VerhaltPathKeyHead = [string, boolean];
+export type VerhaltPathKeyHead = [boolean, string?] | undefined;
 
-export type VerhaltPathKeyBody = [string, boolean][];
+export type VerhaltPathKeyBody = [boolean, string][] | undefined;
 
 export type VerhaltPathKeyContent = [VerhaltPathKeyHead, VerhaltPathKeyBody];
