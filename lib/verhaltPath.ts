@@ -1,18 +1,18 @@
-import { pathKeyContentParser } from "../parsers/path/pathKeyContent";
-import { pathKeysParser } from "../parsers/path/pathKeys";
 import { pathValuesParser } from "../parsers/path/pathValues";
+import { pathKeysParser } from "../parsers/path/pathKeys";
+import { pathKeyContentParser } from "../parsers/path/pathKeyContent";
 
 export class VerhaltPath {
-    static keyContentParser(input? : string) {
-        return pathKeyContentParser(input);
+    static valuesParser(input? : string) : string[] {
+        return pathValuesParser(input);
     }
 
     static keysParser(input? : string) : string[] {
         return pathKeysParser(input);
     }
     
-    static valuesParser(input? : string) : string[] {
-        return pathValuesParser(input);
+    static keyContentParser(input? : string) {
+        return pathKeyContentParser(input);
     }
 }
 
