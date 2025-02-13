@@ -25,7 +25,7 @@ export function pathKeyContentParser(input?: string): [[string, boolean]?, [stri
                     break;
                 case '[':
                     if (nameChars.length === 0) {
-                        throw new Error("Anahtar adı bulunamadı.");
+                        throw new Error("Key name was not found.");
                     }
                     break;
             }            
@@ -49,11 +49,11 @@ export function pathKeyContentParser(input?: string): [[string, boolean]?, [stri
             }        
             case ']': {
                 if (!name) {
-                    throw new Error("Anahtar adı bulunamadı.");
+                    throw new Error("Key name was not found.");
                 }
             
                 if (depth === 0) {
-                    throw new Error("Köşeli parantezler dengeli değil.");
+                    throw new Error("Square brackets are not balanced.");
                 }
             
                 if (depth === 1) {
@@ -69,7 +69,7 @@ export function pathKeyContentParser(input?: string): [[string, boolean]?, [stri
                 }
             
                 if (!isNullSignable) {
-                    throw new Error("Geçersiz '?' karakteri.");
+                    throw new Error("Invalid '?' Character");
                 }
             
                 if (currentIndexer) {
@@ -87,11 +87,11 @@ export function pathKeyContentParser(input?: string): [[string, boolean]?, [stri
             }
         } else {
             if (nameChars.length === 0 && !/[a-zA-Z]/.test(char)) {
-                throw new Error("Geçersiz karakter: Anahtar adı harf ile başlamalı.");
+                throw new Error("Invalid Character: Key name must start with a letter.");
             }
         
             if (nameChars.length > 0 && !/[a-zA-Z0-9]/.test(char)) {
-                throw new Error("Geçersiz karakter: Anahtar adı harf veya rakam içermeli.");
+                throw new Error("Invalid Character: Key name must contain letters or numbers.");
             }            
             nameChars.push(char);
         }
@@ -101,6 +101,10 @@ export function pathKeyContentParser(input?: string): [[string, boolean]?, [stri
         } else {
             isInsideBrackets = false;
         }
+    }
+
+    if (depth !== 0) {
+        throw new Error("Square brackets are not balanced.");
     }
 
     if (name === undefined) {
