@@ -1,4 +1,5 @@
 import { VerhaltPathKeyBody, VerhaltPathKeyContent, VerhaltPathKeyHead } from "../../lib/verhaltPath";
+import { pathKeyIndexParser } from "./pathKeyIndex";
 
 export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
     if (input === undefined) {
@@ -43,7 +44,7 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
         switch (char) {
             case '[': {
                 if (depth === 0) {
-                    body.push([false, ""]);
+                    body.push([false, -1]);
                     depthChars = [];
                 }
                 depth++;
@@ -59,7 +60,7 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
                 }
             
                 if (depth === 1) {
-                    current[1] = depthChars.join("");
+                    current[1] = pathKeyIndexParser(depthChars.join(""));
                     isNullSignable = true;
                 }
                 depth--;
