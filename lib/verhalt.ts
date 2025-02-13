@@ -1,8 +1,7 @@
-import VerhaltValue from "./core/verhaltValue";
 import { routePaths, pathKeys, keyContent } from "@verhalt/parser/lib"
 
 export class Verhalt {
-    public static value(path? : string) : VerhaltValue {
+    public static value(path? : string) : any {
         if(path === undefined) {
             return undefined;
         }
@@ -23,7 +22,7 @@ export class Verhalt {
         }
     }
 
-    private static valueFromWay(way? : string) : VerhaltValue {
+    private static valueFromWay(way? : string) : any {
         if(way === undefined) {
             return undefined;
         }
