@@ -12,7 +12,7 @@ export class VerhaltPath {
         return pathKeysParser(input);
     }
     
-    static keyContentParser(input? : string) {
+    static keyContentParser(input? : string) : VerhaltPathKeyContent {
         return pathKeyContentParser(input);
     }
 
