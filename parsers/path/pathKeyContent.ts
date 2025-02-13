@@ -1,11 +1,10 @@
-import { VerhaltPathKeyBody, VerhaltPathKeyContent } from "../../lib/verhaltPath";
+import { VerhaltPathKeyBody, VerhaltPathKeyContent, VerhaltPathKeyHead } from "../../lib/verhaltPath";
 
 export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
     if (input === undefined) {
         return [undefined, undefined];
     }
 
-    let name: string | undefined = undefined;
     const nameChars: string[] = [];
     let isNullable: boolean = false;
 
@@ -14,13 +13,14 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
     let isNullSignable: boolean = false;
     let isInsideBrackets: boolean = false;
 
+    let head : VerhaltPathKeyHead = [false, undefined];
     let body : VerhaltPathKeyBody = [];
 
     for (let i = 0; i < input.length; i++) {
         const char = input[i];
         const current = body[body.length - 1];
 
-        if (!name) {
+        if (!head[1]) {
             switch (char) {
                 case '?':
                     isNullSignable = true;
@@ -32,7 +32,7 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
                     break;
             }            
             if (char === '[') {
-                name = nameChars.join("");
+                head[1] = nameChars.join("");
             }
         } else {
             if (depth === 0 && char !== '?') {
@@ -43,14 +43,14 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
         switch (char) {
             case '[': {
                 if (depth === 0) {
-                    body.push(["", false]);
+                    body.push([false, ""]);
                     depthChars = [];
                 }
                 depth++;
                 break;
             }        
             case ']': {
-                if (!name) {
+                if (!head[1]) {
                     throw new Error("Key name was not found.");
                 }
             
@@ -59,7 +59,7 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
                 }
             
                 if (depth === 1) {
-                    current[0] = depthChars.join("");
+                    current[1] = depthChars.join("");
                     isNullSignable = true;
                 }
                 depth--;
@@ -75,7 +75,7 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
                 }
             
                 if (current) {
-                    current[1] = true;
+                    current[0] = true;
                 } else {
                     isNullable = true;
                 }
@@ -83,7 +83,7 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
             }
         }
 
-        if (name) {
+        if (head[1]) {
             if (isInsideBrackets) {
                 depthChars.push(char);
             }
@@ -109,9 +109,9 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
         throw new Error("Square brackets are not balanced.");
     }
 
-    if (name === undefined) {
-        name = nameChars.join("");
+    if (head[1] === undefined) {
+        head[1] = nameChars.join("");
     }
 
-    return [[name as string, isNullable], body];
+    return [head, body];
 }
