@@ -8,6 +8,6 @@ export type VerhaltKeyHeadName = string | null;
 
 export type VerhaltKeyBody = VerhaltKeyBodyContent[];
 
-export type VerhaltKeyBodyIndex = number;
+export type VerhaltKeyBodyValue= string;
 
-export type VerhaltKeyBodyContent = [VerhaltKeyNullable, VerhaltKeyBodyIndex];
+export type VerhaltKeyBodyContent = [VerhaltKeyNullable, VerhaltKeyBodyValue];
