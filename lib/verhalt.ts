@@ -7,7 +7,8 @@ export class Verhalt {
             return undefined;
         }
 
-        const pathValues = VerhaltParser.pathValues();
+        const pathValues = VerhaltParser.pathValues(path);
+
         for(const pathWay of pathValues) {
             try {
                 return Verhalt.valueFromWay(pathWay);
@@ -28,6 +29,7 @@ export class Verhalt {
         }
 
         const keys = VerhaltParser.pathKeys(way);
+        
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
             
