@@ -1,9 +1,10 @@
+import { VerhaltPathKeyContent } from "./core/verhaltPath";
 import { pathValuesParser } from "../parsers/path/pathValues";
 import { pathKeysParser } from "../parsers/path/pathKeys";
 import { pathKeyContentParser } from "../parsers/path/pathKeyContent";
 import { pathKeyIndexParser } from "../parsers/path/pathKeyIndex";
 
-export class VerhaltPath {
+export class VerhaltParser {
     static valuesParser(input? : string) : string[] {
         return pathValuesParser(input);
     }
@@ -21,10 +22,4 @@ export class VerhaltPath {
     }
 }
 
-export default VerhaltPath;
-
-export type VerhaltPathKeyHead = [boolean, string?] | undefined;
-
-export type VerhaltPathKeyBody = [boolean, number][] | undefined;
-
-export type VerhaltPathKeyContent = [VerhaltPathKeyHead, VerhaltPathKeyBody];
+export default VerhaltParser;

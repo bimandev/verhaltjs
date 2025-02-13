@@ -1,4 +1,4 @@
-import { VerhaltPathKeyBody, VerhaltPathKeyContent, VerhaltPathKeyHead } from "../../lib/verhaltPath";
+import { VerhaltPathKeyBody, VerhaltPathKeyContent, VerhaltPathKeyHead } from "../../lib/core/verhaltPath";
 import { pathKeyIndexParser } from "./pathKeyIndex";
 
 export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
