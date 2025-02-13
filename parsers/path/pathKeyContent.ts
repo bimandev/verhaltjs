@@ -4,6 +4,7 @@ export function pathKeyContentParser(input? : string) : [[string, boolean]?, [st
     }
     let name : string | undefined = undefined;
     const nameChars : string[] = []
+    let nullable : boolean = false;
 
     let depth = 0;
     let depthChars : string[] = [];
@@ -38,7 +39,22 @@ export function pathKeyContentParser(input? : string) : [[string, boolean]?, [st
             }
         }
 
-  
+        if(char === "?") {
+            if(depth !== 0) {
+                break;
+            }
+
+            if(!nullSignable) {
+                throw new Error();
+            }
+
+            if(indexer) {
+                indexer[1] = true;
+            }
+            else {
+                nullable = true;
+            }
+        }
 
         switch (char) {
             case "[" : {
@@ -67,17 +83,6 @@ export function pathKeyContentParser(input? : string) : [[string, boolean]?, [st
                 }
                 break;
             }
-            case "?" : {
-                if(depth !== 0) {
-                    break;
-                }
-
-                if(!nullSignable) {
-                    throw new Error();
-                }
-
-                indexer[1] = true;
-            }
             default: {
                 if(name) {
                     if(depth !== 0) {
@@ -102,5 +107,5 @@ export function pathKeyContentParser(input? : string) : [[string, boolean]?, [st
         }
     }
 
-    return [[name as string, true], indexes];
+    return [[name as string, nullable], indexes];
 }
