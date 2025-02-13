@@ -2,7 +2,7 @@ import { routePaths, pathKeys, keyContent } from "@verhalt/parser/lib"
 import { VerhaltModel } from "@verhalt/types/lib";
 
 export class Verhalt {
-    public static value(root : VerhaltModel, route? : string) : VerhaltModel {
+    public static model<TModel extends VerhaltModel>(source : TModel, route? : string) : VerhaltModel {
         if(route === undefined) {
             return undefined;
         }
@@ -11,7 +11,7 @@ export class Verhalt {
 
         for(const path of paths) {
             try {                
-                Verhalt.valueFromWay(path);
+                Verhalt.modelFromPath(source, path);
             }
             catch(error) {
                 if(paths[paths.length - 1] === path) {
@@ -23,7 +23,7 @@ export class Verhalt {
         }
     }
 
-    private static valueFromWay(path? : string) : any {
+    private static modelFromPath<TModel extends VerhaltModel>(source : TModel, path? : string) : any {
         if(path === undefined) {
             return undefined;
         }
