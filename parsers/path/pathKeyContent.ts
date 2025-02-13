@@ -1,115 +1,111 @@
-export function pathKeyContentParser(input? : string) : [[string, boolean]?, [string, boolean][]?] {
-    if(input === undefined) {
+export function pathKeyContentParser(input?: string): [[string, boolean]?, [string, boolean][]?] {
+    if (input === undefined) {
         return [undefined, undefined];
     }
-    let name : string | undefined = undefined;
-    const nameChars : string[] = []
-    let nullable : boolean = false;
+
+    let name: string | undefined = undefined;
+    const nameChars: string[] = [];
+    let isNullable: boolean = false;
 
     let depth = 0;
-    let depthChars : string[] = [];
-    let nullSignable = false;
-    let beginDepth = false;
+    let depthChars: string[] = [];
+    let isNullSignable: boolean = false;
+    let isInsideBrackets: boolean = false;
 
-    let indexes : [string, boolean][] = [];
+    let indexes: [string, boolean][] = [];
 
     for (let i = 0; i < input.length; i++) {
         const char = input[i];
-        const indexer = indexes[indexes.length - 1];
-        
-        if(name) {
-            if(depth === 0) {
-                if(char !== "?") {
-                    nullSignable = false;
-                }
-            }
-        }
-        else {
-            switch(char) {
-                case "?" : {
-                    nullSignable = true;
-                }
-                case "[" : {
-                    if(nameChars.length === 0) {
-                        throw new Error();
-                    }
+        const currentIndexer = indexes[indexes.length - 1];
 
-                    name = nameChars.join("");
+        if (!name) {
+            switch (char) {
+                case '?':
+                    isNullSignable = true;
                     break;
-                }
+                case '[':
+                    if (nameChars.length === 0) {
+                        throw new Error("Anahtar adı bulunamadı.");
+                    }
+                    break;
+            }            
+            if (char === '[') {
+                name = nameChars.join("");
             }
+        } else {
+            if (depth === 0 && char !== '?') {
+                isNullSignable = false;
+            }        
         }
 
         switch (char) {
-            case "[" : {
-                if(depth === 0) {
+            case '[': {
+                if (depth === 0) {
                     indexes.push(["", false]);
                     depthChars = [];
                 }
-
                 depth++;
                 break;
-            }
-            case "]" : {
-                if(!name) {
-                    throw new Error();
+            }        
+            case ']': {
+                if (!name) {
+                    throw new Error("Anahtar adı bulunamadı.");
                 }
-
-                if(depth === 0) {
-                    throw new Error();
+            
+                if (depth === 0) {
+                    throw new Error("Köşeli parantezler dengeli değil.");
                 }
-
+            
+                if (depth === 1) {
+                    currentIndexer[0] = depthChars.join("");
+                    isNullSignable = true;
+                }
                 depth--;
-
-                if(depth === 0) {
-                    indexer[0] = depthChars.join("");
-                    nullSignable = true;
-                    beginDepth = false;
+                break;
+            }
+            case '?': {
+                if (depth !== 0) {
+                    break;
+                }
+            
+                if (!isNullSignable) {
+                    throw new Error("Geçersiz '?' karakteri.");
+                }
+            
+                if (currentIndexer) {
+                    currentIndexer[1] = true;
+                } else {
+                    isNullable = true;
                 }
                 break;
             }
-            case "?" : {
-                if(depth !== 0) {
-                    break;
-                }
-
-                if(!nullSignable) {
-                    throw new Error();
-                }
-
-                if(indexer) {
-                    indexer[1] = true;
-                }
-                else {
-                    nullable = true;
-                }
-            }
         }
 
-        if(name) {
-            if(beginDepth) {
+        if (name) {
+            if (isInsideBrackets) {
                 depthChars.push(char);
             }
-        }
-        else {
-            if(nameChars.length === 0) {
-                if(!/[a-zA-Z]/.test(char)) {
-                    throw new Error();
-                }
+        } else {
+            if (nameChars.length === 0 && !/[a-zA-Z]/.test(char)) {
+                throw new Error("Geçersiz karakter: Anahtar adı harf ile başlamalı.");
             }
-            else {
-                if(!/[a-zA-Z0-9]/.test(char)) {
-                    throw new Error();
-                }
-            }
-
+        
+            if (nameChars.length > 0 && !/[a-zA-Z0-9]/.test(char)) {
+                throw new Error("Geçersiz karakter: Anahtar adı harf veya rakam içermeli.");
+            }            
             nameChars.push(char);
         }
 
-        if(depth !== 0) {
-            beginDepth = true;
+        if (depth !== 0) {
+            isInsideBrackets = true;
+        } else {
+            isInsideBrackets = false;
         }
     }
 
-    return [[name as string, nullable], indexes];
+    if (name === undefined) {
+        name = nameChars.join("");
+    }
+
+    return [[name as string, isNullable], indexes];
 }
