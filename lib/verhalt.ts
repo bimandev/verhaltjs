@@ -1,4 +1,3 @@
-import { VerhaltKeyContent, VerhaltKeyIndex } from "./verhaltKey";
 import VerhaltModel, { VerhaltModelArray, VerhaltModelObject } from "./verhaltModel";
 import VerhaltPath from "./verhaltPath";
 import { VerhaltValue } from "./verhaltValue";
