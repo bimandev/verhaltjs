@@ -1,6 +1,7 @@
 import { pathValuesParser } from "../parsers/path/pathValues";
 import { pathKeysParser } from "../parsers/path/pathKeys";
 import { pathKeyContentParser } from "../parsers/path/pathKeyContent";
+import { pathKeyIndexParser } from "../parsers/path/pathKeyIndex";
 
 export class VerhaltPath {
     static valuesParser(input? : string) : string[] {
@@ -13,6 +14,10 @@ export class VerhaltPath {
     
     static keyContentParser(input? : string) {
         return pathKeyContentParser(input);
+    }
+
+    static keyIndexParser(input? : string) : number {
+        return pathKeyIndexParser(input);
     }
 }
 
