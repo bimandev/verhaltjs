@@ -1,5 +1,5 @@
-export type VerhaltKey = [VerhaltKeyHead, VerhaltKeyBody];
+export type VerhaltKey = [VerhaltKeyHead?, VerhaltKeyBody?];
 
-export type VerhaltKeyHead = [boolean, string?] | undefined;
+export type VerhaltKeyHead = [boolean, string?];
 
-export type VerhaltKeyBody = [boolean, number][] | undefined;
+export type VerhaltKeyBody = [boolean, number][];
