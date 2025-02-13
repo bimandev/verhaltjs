@@ -1,4 +1,4 @@
-import { routePaths, pathKeys, keyContent } from "@verhalt/parser/lib"
+import { routePaths, pathKeys, keyContent } from "@verhalt/parser"
 
 export class Verhalt {
     public static value(path? : string) : any {
