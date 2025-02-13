@@ -1,5 +1,13 @@
 export type VerhaltKey = [VerhaltKeyHead?, VerhaltKeyBody?];
 
-export type VerhaltKeyHead = [boolean, string?];
+export type VerhaltKeyNullable = boolean;
 
-export type VerhaltKeyBody = [boolean, number][];
+export type VerhaltKeyHead = [VerhaltKeyNullable, VerhaltKeyHeadName?];
+
+export type VerhaltKeyHeadName = string | null;
+
+export type VerhaltKeyBody = VerhaltKeyBodyContent[];
+
+export type VerhaltKeyBodyIndex = number;
+
+export type VerhaltKeyBodyContent = [VerhaltKeyNullable, VerhaltKeyBodyIndex];
