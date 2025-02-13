@@ -1,5 +1,8 @@
 {
     "compilerOptions": {
+      "target": "ESNext",
+      "module": "Node16",
+      "moduleResolution": "node16",
       "strict": true,
       "esModuleInterop": true,
       "skipLibCheck": true,
@@ -12,9 +15,7 @@
       "resolveJsonModule": true
     },
     "include": ["lib/**/*", "parsers/**/*", "tests/**/*"],
-    "exclude": [
-      "node_modules",
-      "dist"
+    "exclude": ["node_modules", "dist"
     ]
 }
   
