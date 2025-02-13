@@ -1,7 +1,8 @@
 import { routePaths, pathKeys, keyContent } from "@verhalt/parser/lib"
+import { VerhaltModel } from "@verhalt/types/lib";
 
 export class Verhalt {
-    public static value(route? : string) : any {
+    public static value(root : VerhaltModel, route? : string) : VerhaltModel {
         if(route === undefined) {
             return undefined;
         }
@@ -30,14 +31,18 @@ export class Verhalt {
         const keys = pathKeys(path);
 
         for (let i = 0; i < keys.length; i++) {
-            const key = keys[0];
+            const key = keys[i];
 
             const [head, body] = keyContent(key);
             const [headNull, headName] = head ?? [false, undefined];
-            console.log([head, body]);
+
+            if(headName) {
+                
+            }
 
             if(body) {
                 for(const [contentNull, contentValue] of body) {
+
                 }
             }
         }
