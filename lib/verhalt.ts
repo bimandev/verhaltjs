@@ -1,7 +1,9 @@
+import VerhaltValue from "./core/verhaltValue";
+
 export class Verhalt {
-    
+    public static value() : VerhaltValue {
+
+    }
 }
 
 export default Verhalt;
-
-export type VerhaltValue = any;
