@@ -1,8 +1,8 @@
 {
-  "name": "verhaltjs",
+  "name": "verhalt",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/lib/index.js",
   "directories": {
     "lib": "lib"
   },
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/schamrockt/verhaltjs.git"
+    "url": "git+https://github.com/bimandev/verhalt.js.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/schamrockt/verhaltjs/issues"
+    "url": "https://github.com/bimandev/verhalt.js/issues"
   },
-  "homepage": "https://github.com/schamrockt/verhaltjs#readme",
+  "homepage": "https://github.com/bimandev/verhalt.js#readme",
   "devDependencies": {
     "@babel/core": "^7.26.8",
     "@babel/preset-env": "^7.26.8",
