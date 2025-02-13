@@ -1,4 +1,6 @@
-export function pathKeyContentParser(input?: string): [[string, boolean]?, [string, boolean][]?] {
+import { VerhaltPathKeyContent } from "../../lib/verhaltPath";
+
+export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
     if (input === undefined) {
         return [undefined, undefined];
     }
