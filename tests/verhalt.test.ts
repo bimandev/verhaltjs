@@ -30,5 +30,5 @@ const exampleModel : ExampleModel = {
 test('Verhalt.value', () => {
     //const values = VerhaltParser.pathValues(":cigu[0]? ?? :money[:age ?? 0]? ?? :name[first] ?? :lib[:lib[1].a ?? 0]?.haha? ?? :cigu[2].nina");
     //const keys = VerhaltParser.pathKeyContent("lib[:age ?? 0]?[4]?[dsf][0]?[:cigu[0]? ?? :money[:age ?? 0]? ?? :name[first] ?? :lib[:lib[1].a ?? 0]?.haha? ?? :cigu[2].nina]?[dfsd]");
-    console.log(Verhalt.value(":lib[0].aha.hihi[1] ?? :cigu[0]?[:dffd]")); 
+    console.log(VerhaltParser.pathKeyContent("lib[0].aha.hihi[1]")); 
 });
