@@ -1,4 +1,4 @@
-import { VerhaltPathKeyContent } from "../../lib/verhaltPath";
+import { VerhaltPathKeyBody, VerhaltPathKeyContent } from "../../lib/verhaltPath";
 
 export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
     if (input === undefined) {
@@ -14,11 +14,11 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
     let isNullSignable: boolean = false;
     let isInsideBrackets: boolean = false;
 
-    let indexes: [string, boolean][] = [];
+    let body : VerhaltPathKeyBody = [];
 
     for (let i = 0; i < input.length; i++) {
         const char = input[i];
-        const currentIndexer = indexes[indexes.length - 1];
+        const current = body[body.length - 1];
 
         if (!name) {
             switch (char) {
@@ -43,7 +43,7 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
         switch (char) {
             case '[': {
                 if (depth === 0) {
-                    indexes.push(["", false]);
+                    body.push(["", false]);
                     depthChars = [];
                 }
                 depth++;
@@ -59,7 +59,7 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
                 }
             
                 if (depth === 1) {
-                    currentIndexer[0] = depthChars.join("");
+                    current[0] = depthChars.join("");
                     isNullSignable = true;
                 }
                 depth--;
@@ -74,8 +74,8 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
                     throw new Error("Invalid '?' Character");
                 }
             
-                if (currentIndexer) {
-                    currentIndexer[1] = true;
+                if (current) {
+                    current[1] = true;
                 } else {
                     isNullable = true;
                 }
@@ -113,5 +113,5 @@ export function pathKeyContentParser(input?: string) : VerhaltPathKeyContent {
         name = nameChars.join("");
     }
 
-    return [[name as string, isNullable], indexes];
+    return [[name as string, isNullable], body];
 }
