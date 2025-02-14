@@ -4,4 +4,4 @@ export type VerhaltReference = VerhaltReferenceEntry[]
 
 export type VerhaltReferenceEntry = [string, VerhaltObjectModel]
 
-export type VerhaltReferenceType = "target" | "parent" | "full";
+export type VerhaltReferenceMatch = "target" | "parent" | "list" | "list+" | "source";
