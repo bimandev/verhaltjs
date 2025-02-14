@@ -9,9 +9,10 @@ export type VerhaltKeyItem = {
 };
 
 export type VerhaltKeyHead = { 
-    name : VerhaltKeyItem;
+    silent : boolean;
 };
 
 export type VerhaltKeyBody = { 
+    name : VerhaltKeyItem;
     indexes : VerhaltKeyItem[] 
 };
