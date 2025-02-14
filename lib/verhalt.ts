@@ -36,15 +36,16 @@ export class Verhalt {
             const completedRefs = [];
             const ref : VerhaltReference = [];
     
-            for (let i = 0; i < keys.length - 1; i++) {
+            for (let i = 0; i < keys.length; i++) {
                 const key = keys[i];
                 completedKeys.push(key);
-                completedRefs.push(key);
 
                 const [head, body] = keyContent(key);
                 const [headNull, headName] = head ?? [false, undefined];
     
                 if(headName) {
+                    completedRefs.push(`${key[0]}${headName}`);
+
                     if(typeof current !== "object") {
                         throw pathError(completedKeys, `Expected object, got ${typeof current}`);
                     }
