@@ -102,8 +102,25 @@ export class Verhalt {
                         }
                     }
                 }
+
+                if(i === keys.length - 2) {
+                    if(type === "parent") {
+                        ref.push([completedKeys.join(""), current]);
+                    }
+                }
             }
-            
+
+            if(keys.length === 1) {
+                if(type === "parent") {
+                    ref.push([":", source]);
+                }
+            }
+            else {
+                if(type === "target") {
+                    ref.push([completedKeys.join(""), current]);
+                }    
+            }
+
             return ref;
         }
     }
