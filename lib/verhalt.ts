@@ -1,5 +1,6 @@
 import { routePaths, pathKeys, keyContent, keyIndex } from "@verhalt/parser/lib"
 import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel } from "@verhalt/types/lib";
+import { pathError } from "./utils/error";
 
 export class Verhalt {
     public static model<TModel extends VerhaltModel>(source : TModel, route? : string) : VerhaltModel {
@@ -30,24 +31,26 @@ export class Verhalt {
 
         let current = source;
         const keys = pathKeys(path);
+        const completedKeys = [];
 
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
+            completedKeys.push(key);
 
             const [head, body] = keyContent(key);
             const [headNull, headName] = head ?? [false, undefined];
 
             if(headName) {
                 if(typeof current !== "object") {
-                    throw new Error(`Expected object, got ${typeof current}`);
+                    throw pathError(completedKeys, `Expected object, got ${typeof current}`);
                 }
 
                 if(Array.isArray(current)) {
-                    throw new Error(`Expected object, got array`);
+                    throw pathError(completedKeys, `Expected object, got array`);
                 }
 
                 if(!(headName in (current as object))) {
-                    throw new Error(`Expected key ${headName} in object`);
+                    throw pathError(completedKeys, `Expected key ${headName} in object`);
                 }
 
                 current = (current as VerhaltObjectModel)[headName];
@@ -56,20 +59,27 @@ export class Verhalt {
             if(body) {
                 for(const [contentNull, contentValue] of body) {
                     if(!Array.isArray(current)) {
-                        throw new Error(`Expected array, got ${typeof current}`);
+                        throw pathError(completedKeys, `Expected array, got ${typeof current}`);
                     }
 
                     let index = keyIndex(contentValue);
 
                     if(index === null) {
-                        throw new Error(`Expected index, got null`);
+                        throw pathError(completedKeys, `Expected index number, got ${typeof index}`);
                     }
 
                     if(typeof index === "string") {
-                        const value = Verhalt.model(index);
+                        
+                        let value;
+                        try {
+                            value = Verhalt.model(source, index);
+                        }
+                        catch(error) {
+                            throw pathError(completedKeys, `Error during model lookup. \error:${error}`);
+                        }
 
                         if(typeof value !== "number") {
-                            throw new Error(`Expected index number, got ${typeof value}`);
+                            throw pathError(completedKeys, `Expected number, got ${typeof value}`);
                         }
 
                         index = value;
