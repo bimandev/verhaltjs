@@ -43,7 +43,7 @@ export class Verhalt {
                 const [headNull, headName] = head ?? [false, undefined];
     
                 if(headName) {
-                    completedRefs.push(`${key[0]}${headName}`);
+                    completedKeys.push(key);
 
                     if(typeof current !== "object") {
                         throw pathError(completedKeys, `Expected object, got ${typeof current}`);
@@ -60,7 +60,7 @@ export class Verhalt {
                     current = (current as VerhaltStructureModel)[headName];
 
                     if(type === "full") {
-                        completedKeys.push(key);
+                        completedRefs.push(`${key[0]}${headName}`);
                         ref.push([completedRefs.join(""), current]);
                     }
                 }
@@ -103,7 +103,7 @@ export class Verhalt {
                     }
                 }
             }
-    
+            
             return ref;
         }
     }
