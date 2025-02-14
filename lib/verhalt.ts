@@ -98,7 +98,7 @@ export class Verhalt {
                             
                             let value;
                             try {
-                                //value = Verhalt.lookup(source, index);
+                                value = Verhalt.lookup(model, index);
                             }
                             catch(error) {
                                 throw pathError(completedRefs, `Error during model lookup. \error:${error}`);
@@ -139,17 +139,19 @@ export class Verhalt {
         }
     }
 
-    /*public static lookup<TModel extends VerhaltObjectModel>(source : TModel, route : string) : VerhaltModel {
-        const [_, ref] = Verhalt.ref(source, route, "parent")[0] ?? [undefined, undefined];
+    public static lookup<TModel extends VerhaltObjectModel>(model : TModel, route : string) : VerhaltModel {
+        const [value, obj] = Verhalt.ref(model, route, "parent")[0] ?? [undefined, undefined];
 
-        if(ref) {
-            if(Array.isArray(ref)) {
-                return ref[]
+        if(obj) {
+            if(Array.isArray(obj)) {
+                return obj[value as number];
             }
+
+            return obj[value as string];
         }
 
         return undefined;
-    }*/
+    }
 }
 
 export default Verhalt;
