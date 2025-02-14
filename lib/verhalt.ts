@@ -152,6 +152,23 @@ export class Verhalt {
 
         return undefined;
     }
+
+    public static assign<TModel extends VerhaltObjectModel>(model : TModel, route : string, content : VerhaltModel) : boolean {
+        const [value, obj] : VerhaltReferenceEntry = Verhalt.ref(model, route, "source")[0] ?? [undefined, undefined];
+
+        if(obj) {
+            if(Array.isArray(obj)) {
+                obj[value as number] = content;
+                console.log("assign", value, obj, content, obj[value as number]);
+            }
+            else {
+                obj[value as string] = content;
+            }
+            return true
+        }
+
+        return false;
+    }
 }
 
 export default Verhalt;
