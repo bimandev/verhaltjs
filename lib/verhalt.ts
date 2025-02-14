@@ -59,7 +59,13 @@ export class Verhalt {
                         throw new Error(`Expected array, got ${typeof current}`);
                     }
 
-                    current = (current as VerhaltArrayModel)[keyIndex(contentValue)];
+                    const index = keyIndex(source, contentValue);
+
+                    if(index === null) {
+                        throw new Error(`Expected index, got null`);
+                    }
+
+                    current = (current as VerhaltArrayModel)[index];
                 }
             }
         }
