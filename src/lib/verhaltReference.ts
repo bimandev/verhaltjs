@@ -1,3 +1,5 @@
 import { VerhaltObjectModel } from "./verhaltModel";
 
-export type VerhaltReference = [VerhaltObjectModel, string]
+export type VerhaltReference = VerhaltReferenceEntry[]
+
+export type VerhaltReferenceEntry = [string, VerhaltObjectModel]
