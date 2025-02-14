@@ -3,7 +3,7 @@ import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel, VerhaltReference, 
 import { pathError } from "./utils/error";
 
 export class Verhalt {
-    private static ref<TModel extends VerhaltObjectModel>(source : TModel, route? : string) : VerhaltReference {
+    public static ref<TModel extends VerhaltObjectModel>(source : TModel, route? : string) : VerhaltReference {
         if(route === undefined) {
             return [];
         }
