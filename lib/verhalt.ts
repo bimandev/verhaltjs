@@ -37,13 +37,15 @@ export class Verhalt {
             let source = model;
 
             const keys = pathKeys(path);
-            const completedKeys = [];
-            const completedRefs = [];
+            const completedKeys : string[]= [];
+            const completedRefs : string[]= [];
             const ref : VerhaltReference = [];
     
-            for (let i = 0; i < keys.length; i++) {
+            while(keys.length > 0) {
+                const key = keys.shift() as string;
+                completedKeys.push(key);
+
                 source = current;
-                const key = keys[i];
 
                 const [head, body] = keyContent(key);
                 const [headNull, headName] = head ?? [false, undefined];
@@ -121,7 +123,7 @@ export class Verhalt {
                         ref.push([completedKeys.join(""), source]);
                         break;
                 }
-            }   
+            }
 
             return ref;
         }
