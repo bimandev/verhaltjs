@@ -45,30 +45,28 @@ export class Verhalt {
                 const key = keys.shift() as string;
                 completedKeys.push(key);
 
-                source = current;
-
                 const [head, body] = keyContent(key);
                 const [headNull, headName] = head ?? [false, undefined];
     
                 if(headName) {
-                    completedKeys.push(key);
+                    completedRefs.push(`${key[0]}${headName}`);
 
                     if(typeof current !== "object") {
-                        throw pathError(completedKeys, `Expected object, got ${typeof current}`);
+                        throw pathError(completedRefs, `Expected object, got ${typeof current}`);
                     }
     
                     if(Array.isArray(current)) {
-                        throw pathError(completedKeys, `Expected object, got array`);
+                        throw pathError(completedRefs, `Expected object, got array`);
                     }
     
                     if(!(headName in (current as object))) {
-                        throw pathError(completedKeys, `Expected key ${headName} in object`);
+                        throw pathError(completedRefs, `Expected key ${headName} in object`);
                     }
     
+                    source = current;
                     current = (current as VerhaltStructureModel)[headName];
 
                     if(matchList) {
-                        completedRefs.push(`${key[0]}${headName}`);
                         ref.push([completedRefs.join(""), current]);
                     }
                 }
@@ -76,15 +74,16 @@ export class Verhalt {
                 if(body) {
                     for(let b = 0; b < body.length; b++) {
                         const [contentNull, contentValue] = body[b];
+                        completedRefs.push(`[${contentValue}]`);
 
                         if(!Array.isArray(current)) {
-                            throw pathError(completedKeys, `Expected array, got ${typeof current}`);
+                            throw pathError(completedRefs, `Expected array, got ${typeof current}`);
                         }
     
                         let index = keyIndex(contentValue);
     
                         if(index === null) {
-                            throw pathError(completedKeys, `Expected index number, got ${typeof index}`);
+                            throw pathError(completedRefs, `Expected index number, got ${typeof index}`);
                         }
     
                         if(typeof index === "string") {
@@ -94,20 +93,20 @@ export class Verhalt {
                                 //value = Verhalt.lookup(source, index);
                             }
                             catch(error) {
-                                throw pathError(completedKeys, `Error during model lookup. \error:${error}`);
+                                throw pathError(completedRefs, `Error during model lookup. \error:${error}`);
                             }
     
                             if(typeof value !== "number") {
-                                throw pathError(completedKeys, `Expected number, got ${typeof value}`);
+                                throw pathError(completedRefs, `Expected number, got ${typeof value}`);
                             }
     
                             index = value;
                         }
-    
+                        
+                        source = current;
                         current = (current as VerhaltArrayModel)[index];
 
                         if(matchList) {
-                            completedRefs.push(`[${contentValue}]`);
                             ref.push([completedRefs.join(""), current]);
                         }
                     }
@@ -120,7 +119,7 @@ export class Verhalt {
                         ref.push([completedKeys.join(""), current]);
                         break;
                     case "source":
-                        ref.push([completedKeys.join(""), source]);
+                        ref.push([completedRefs[completedRefs.length - 1], source]);
                         break;
                 }
             }
