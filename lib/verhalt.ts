@@ -1,5 +1,5 @@
-import { routePaths, pathKeys, keyContent, keyIndex } from "@verhalt/parser/lib"
-import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel, VerhaltReference, VerhaltReferenceMatch, VerhaltStructureModel } from "@verhalt/types/lib";
+import { parseRoutePaths, parsePathKeys, parseKey, parseKeyIndex } from "@verhalt/parser/lib"
+import { VerhaltArrayModel, VerhaltKey, VerhaltModel, VerhaltObjectModel, VerhaltReference, VerhaltReferenceMatch, VerhaltStructureModel } from "@verhalt/types/lib";
 import { pathError } from "./utils/error";
 
 export class verhalt {
@@ -12,7 +12,7 @@ export class verhalt {
         const matchList = matchListPlus || match === "list";
         const matchSource = !matchList && match === "source";
 
-        const paths = routePaths(route);
+        const paths = parseRoutePaths(route);
 
         for(const path of paths) {
             try {                
@@ -37,24 +37,24 @@ export class verhalt {
             let current = model;
             let source : VerhaltReference | undefined = undefined;
 
-            const keys = pathKeys(path);
+            const keys = parsePathKeys(path);
             const completedKeys : string[]= [];
             const completedRefs : string[]= [];
             const ref : VerhaltReference[] = [];
 
             if(matchListPlus) {
-                ref.push([":", model]);
+                ref.push({ flag: "current", target: model });
             }
     
             while(keys.length > 0) {
                 const key = keys.shift() as string;
                 completedKeys.push(key);
 
-                const [head, body] = keyContent(key);
-                const [headNull, headName] = head ?? [false, undefined];
+                const {head, body} = parseKey(key) as VerhaltKey;
     
-                if(headName) {
-                    completedRefs.push(`${key[0]}${headName}`);
+                if(body.name) {
+                    const nameValue = body.name.value;
+                    completedRefs.push(`${key[0]}${nameValue}`);
 
                     if(typeof current !== "object") {
                         throw pathError(completedRefs, `Expected object, got ${typeof current}`);
@@ -64,31 +64,32 @@ export class verhalt {
                         throw pathError(completedRefs, `Expected object, got array`);
                     }
     
-                    if(!(headName in (current as object))) {
-                        throw pathError(completedRefs, `Expected key ${headName} in object`);
+                    if(!(nameValue in (current as object))) {
+                        throw pathError(completedRefs, `Expected key ${nameValue} in object`);
                     }
     
                     if(matchSource) {
-                        source = [headName, current];
+                        source = { flag: nameValue, target: current};
                     }
 
-                    current = (current as VerhaltStructureModel)[headName];
+                    current = (current as VerhaltStructureModel)[nameValue];
 
                     if(matchList) {
-                        ref.push([completedRefs.join(""), current]);
+                        ref.push({ flag: completedRefs.join(""), target: current});
                     }
                 }
     
-                if(body) {
-                    for(let b = 0; b < body.length; b++) {
-                        const [contentNull, contentValue] = body[b];
-                        completedRefs.push(`[${contentValue}]`);
+                if(body.indexes) {
+                    const indexes = body.indexes;
+                    for(let b = 0; b < indexes.length; b++) {
+                        const { value, nullable, dynamic} = indexes[b];
+                        completedRefs.push(`[${value}]`);
 
                         if(!Array.isArray(current)) {
                             throw pathError(completedRefs, `Expected array, got ${typeof current}`);
                         }
     
-                        let index = keyIndex(contentValue);
+                        let index = parseKeyIndex(value as string); // ! change value as string later
     
                         if(index === null) {
                             throw pathError(completedRefs, `Expected index number, got ${typeof index}`);
@@ -112,13 +113,13 @@ export class verhalt {
                         }
 
                         if(matchSource) {
-                            source = [index, current];
+                            source = { flag:index, target:current};
                         }
 
                         current = (current as VerhaltArrayModel)[index];
 
                         if(matchList) {
-                            ref.push([completedRefs.join(""), current]);
+                            ref.push({ flag:completedRefs.join(""), target:current});
                         }
                     }
                 }
@@ -127,7 +128,7 @@ export class verhalt {
             if(!matchList) {
                 switch(match) {
                     case "target":
-                        ref.push([completedKeys.join(""), current]);
+                        ref.push({ flag: completedKeys.join(""), target: current});
                         break;
                     case "source":
                         ref.push(source as VerhaltReference);
@@ -140,29 +141,28 @@ export class verhalt {
     }
 
     public static lookup<TModel extends VerhaltObjectModel>(model : TModel, route : string) : VerhaltModel {
-        const [value, obj] : VerhaltReference= verhalt.ref(model, route, "source")[0] ?? [undefined, undefined];
+        const { flag, target} : VerhaltReference= verhalt.ref(model, route, "source")[0] as VerhaltReference; // ! also check as modifiable
 
-        if(obj) {
-            if(Array.isArray(obj)) {
-                return obj[value as number];
+        if(target) {    // ! check if variable
+            if(Array.isArray(target)) {
+                return target[flag as number];
             }
 
-            return obj[value as string];
+            return target[flag as string];
         }
 
         return undefined;
     }
 
     public static assign<TModel extends VerhaltObjectModel>(model : TModel, route : string, content : VerhaltModel) : boolean {
-        const [value, obj] : VerhaltReference = verhalt.ref(model, route, "source")[0] ?? [undefined, undefined];
+        const { flag, target} : VerhaltReference = verhalt.ref(model, route, "source")[0] as VerhaltReference // ! also check as modifiable
 
-        if(obj) {
-            if(Array.isArray(obj)) {
-                obj[value as number] = content;
-                console.log("assign", value, obj, content, obj[value as number]);
+        if(target) {
+            if(Array.isArray(target)) {
+                target[flag as number] = content;
             }
             else {
-                obj[value as string] = content;
+                target[flag as string] = content;
             }
             return true
         }
