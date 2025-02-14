@@ -130,7 +130,7 @@ export class Verhalt {
                         ref.push([completedKeys.join(""), current]);
                         break;
                     case "source":
-                        ref.push([completedRefs[completedRefs.length - 1], source as VerhaltReferenceEntry]);
+                        ref.push(source as VerhaltReferenceEntry);
                         break;
                 }
             }
@@ -140,7 +140,7 @@ export class Verhalt {
     }
 
     public static lookup<TModel extends VerhaltObjectModel>(model : TModel, route : string) : VerhaltModel {
-        const [value, obj] = Verhalt.ref(model, route, "parent")[0] ?? [undefined, undefined];
+        const [value, obj] : VerhaltReferenceEntry = Verhalt.ref(model, route, "source")[0] ?? [undefined, undefined];
 
         if(obj) {
             if(Array.isArray(obj)) {
