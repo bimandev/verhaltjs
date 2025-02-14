@@ -11,7 +11,8 @@
   },
   "scripts": {
     "prepublish": "npm run build",
-    "build": "rimraf dist && tsc"
+    "build": "rimraf dist && tsc",
+    "depends": "npm install @verhalt/parser@latest @verhalt/types@latest"
   },
   "repository": {
     "type": "git",
