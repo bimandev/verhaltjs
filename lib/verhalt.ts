@@ -1,5 +1,5 @@
 import { routePaths, pathKeys, keyContent, keyIndex } from "@verhalt/parser/lib"
-import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel, VerhaltReference, VerhaltReferenceMatch, VerhaltStructureModel } from "@verhalt/types/lib";
+import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel, VerhaltReference, VerhaltReferenceEntry, VerhaltReferenceMatch, VerhaltStructureModel } from "@verhalt/types/lib";
 import { pathError } from "./utils/error";
 
 export class Verhalt {
@@ -10,6 +10,7 @@ export class Verhalt {
 
         const matchListPlus = match === "list+";
         const matchList = matchListPlus || match === "list";
+        const matchSource = !matchList && match === "source";
 
         const paths = routePaths(route);
 
@@ -34,12 +35,16 @@ export class Verhalt {
             }
     
             let current = model;
-            let source = model;
+            let source : VerhaltReferenceEntry | undefined = undefined;
 
             const keys = pathKeys(path);
             const completedKeys : string[]= [];
             const completedRefs : string[]= [];
             const ref : VerhaltReference = [];
+
+            if(matchListPlus) {
+                ref.push([":", model]);
+            }
     
             while(keys.length > 0) {
                 const key = keys.shift() as string;
@@ -63,7 +68,10 @@ export class Verhalt {
                         throw pathError(completedRefs, `Expected key ${headName} in object`);
                     }
     
-                    source = current;
+                    if(matchSource) {
+                        source = [headName, current];
+                    }
+
                     current = (current as VerhaltStructureModel)[headName];
 
                     if(matchList) {
@@ -102,8 +110,11 @@ export class Verhalt {
     
                             index = value;
                         }
-                        
-                        source = current;
+
+                        if(matchSource) {
+                            source = [index, current];
+                        }
+
                         current = (current as VerhaltArrayModel)[index];
 
                         if(matchList) {
@@ -119,7 +130,7 @@ export class Verhalt {
                         ref.push([completedKeys.join(""), current]);
                         break;
                     case "source":
-                        ref.push([completedRefs[completedRefs.length - 1], source]);
+                        ref.push([completedRefs[completedRefs.length - 1], source as VerhaltReferenceEntry]);
                         break;
                 }
             }
