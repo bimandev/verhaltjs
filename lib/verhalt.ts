@@ -1,9 +1,9 @@
 import { routePaths, pathKeys, keyContent, keyIndex } from "@verhalt/parser/lib"
-import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel, VerhaltReference, VerhaltStructureModel } from "@verhalt/types/lib";
+import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel, VerhaltReference, VerhaltReferenceType, VerhaltStructureModel } from "@verhalt/types/lib";
 import { pathError } from "./utils/error";
 
 export class Verhalt {
-    public static ref<TModel extends VerhaltObjectModel>(source : TModel, route? : string) : VerhaltReference {
+    public static ref<TModel extends VerhaltObjectModel>(source : TModel, route : string, type : VerhaltReferenceType = "target") : VerhaltReference {
         if(route === undefined) {
             return [];
         }
@@ -38,7 +38,6 @@ export class Verhalt {
     
             for (let i = 0; i < keys.length; i++) {
                 const key = keys[i];
-                completedKeys.push(key);
 
                 const [head, body] = keyContent(key);
                 const [headNull, headName] = head ?? [false, undefined];
@@ -59,13 +58,15 @@ export class Verhalt {
                     }
     
                     current = (current as VerhaltStructureModel)[headName];
-                    ref.push([completedRefs.join(""), current]);
+
+                    if(type === "full") {
+                        completedKeys.push(key);
+                        ref.push([completedRefs.join(""), current]);
+                    }
                 }
     
                 if(body) {
                     for(const [contentNull, contentValue] of body) {
-                        completedRefs.push(`[${contentValue}]`);
-
                         if(!Array.isArray(current)) {
                             throw pathError(completedKeys, `Expected array, got ${typeof current}`);
                         }
@@ -94,7 +95,11 @@ export class Verhalt {
                         }
     
                         current = (current as VerhaltArrayModel)[index];
-                        ref.push([completedRefs.join(""), current]);
+
+                        if(type === "full") {
+                            completedRefs.push(`[${contentValue}]`);
+                            ref.push([completedRefs.join(""), current]);
+                        }
                     }
                 }
             }
