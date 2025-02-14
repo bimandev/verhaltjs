@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@verhalt/parser": "^1.7.0",
-    "@verhalt/types": "^1.4.3",
+    "@verhalt/types": "^1.4.4",
     "verhalt-vod": "^1.1.1"
   }
 }
