@@ -35,7 +35,7 @@
     "vitest": "^3.0.5"
   },
   "dependencies": {
-    "@verhalt/parser": "^1.5.0",
+    "@verhalt/parser": "^1.6.0",
     "@verhalt/types": "^1.2.1",
     "verhalt-vod": "^1.1.1"
   }
