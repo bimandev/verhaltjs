@@ -34,7 +34,7 @@ export class Verhalt {
             }
     
             let current = model;
-            let source = undefined;
+            let source = model;
 
             const keys = pathKeys(path);
             const completedKeys = [];
@@ -42,6 +42,7 @@ export class Verhalt {
             const ref : VerhaltReference = [];
     
             for (let i = 0; i < keys.length; i++) {
+                source = current;
                 const key = keys[i];
 
                 const [head, body] = keyContent(key);
@@ -107,10 +108,6 @@ export class Verhalt {
                             completedRefs.push(`[${contentValue}]`);
                             ref.push([completedRefs.join(""), current]);
                         }
-
-                        if(!matchList && i === keys.length - 2 && b === body.length - 2) {
-                            source = current;
-                        }
                     }
                 }
             }
@@ -121,10 +118,9 @@ export class Verhalt {
                         ref.push([completedKeys.join(""), current]);
                         break;
                     case "source":
-                        ref.push([completedKeys.join(""), source ?? model]);
+                        ref.push([completedKeys.join(""), source]);
                         break;
                 }
-                ref.push([completedKeys.join(""), current]);
             }   
 
             return ref;
