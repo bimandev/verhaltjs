@@ -2,7 +2,7 @@ import { routePaths, pathKeys, keyContent, keyIndex } from "@verhalt/parser/lib"
 import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel, VerhaltReference, VerhaltReferenceMatch, VerhaltStructureModel } from "@verhalt/types/lib";
 import { pathError } from "./utils/error";
 
-export class Verhalt {
+export class verhalt {
     public static ref<TModel extends VerhaltObjectModel>(model : TModel, route : string, match : VerhaltReferenceMatch = "target") : VerhaltReference[] {
         if(route === undefined) {
             return [];
@@ -98,7 +98,7 @@ export class Verhalt {
                             
                             let value;
                             try {
-                                value = Verhalt.lookup(model, index);
+                                value = verhalt.lookup(model, index);
                             }
                             catch(error) {
                                 throw pathError(completedRefs, `Error during model lookup. \error:${error}`);
@@ -140,7 +140,7 @@ export class Verhalt {
     }
 
     public static lookup<TModel extends VerhaltObjectModel>(model : TModel, route : string) : VerhaltModel {
-        const [value, obj] : VerhaltReference= Verhalt.ref(model, route, "source")[0] ?? [undefined, undefined];
+        const [value, obj] : VerhaltReference= verhalt.ref(model, route, "source")[0] ?? [undefined, undefined];
 
         if(obj) {
             if(Array.isArray(obj)) {
@@ -154,7 +154,7 @@ export class Verhalt {
     }
 
     public static assign<TModel extends VerhaltObjectModel>(model : TModel, route : string, content : VerhaltModel) : boolean {
-        const [value, obj] : VerhaltReference = Verhalt.ref(model, route, "source")[0] ?? [undefined, undefined];
+        const [value, obj] : VerhaltReference = verhalt.ref(model, route, "source")[0] ?? [undefined, undefined];
 
         if(obj) {
             if(Array.isArray(obj)) {
@@ -171,4 +171,4 @@ export class Verhalt {
     }
 }
 
-export default Verhalt;
+export default verhalt;
