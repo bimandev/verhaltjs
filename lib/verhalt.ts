@@ -1,12 +1,15 @@
 import { routePaths, pathKeys, keyContent, keyIndex } from "@verhalt/parser/lib"
-import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel, VerhaltReference, VerhaltReferenceType, VerhaltStructureModel } from "@verhalt/types/lib";
+import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel, VerhaltReference, VerhaltReferenceMatch, VerhaltStructureModel } from "@verhalt/types/lib";
 import { pathError } from "./utils/error";
 
 export class Verhalt {
-    public static ref<TModel extends VerhaltObjectModel>(source : TModel, route : string, type : VerhaltReferenceType = "target") : VerhaltReference {
+    public static ref<TModel extends VerhaltObjectModel>(model : TModel, route : string, match : VerhaltReferenceMatch = "target") : VerhaltReference {
         if(route === undefined) {
             return [];
         }
+
+        const matchListPlus = match === "list+";
+        const matchList = matchListPlus || match === "list";
 
         const paths = routePaths(route);
 
@@ -30,7 +33,9 @@ export class Verhalt {
                 return [];
             }
     
-            let current = source;
+            let current = model;
+            let source = undefined;
+
             const keys = pathKeys(path);
             const completedKeys = [];
             const completedRefs = [];
@@ -59,14 +64,16 @@ export class Verhalt {
     
                     current = (current as VerhaltStructureModel)[headName];
 
-                    if(type === "full") {
+                    if(matchList) {
                         completedRefs.push(`${key[0]}${headName}`);
                         ref.push([completedRefs.join(""), current]);
                     }
                 }
     
                 if(body) {
-                    for(const [contentNull, contentValue] of body) {
+                    for(let b = 0; b < body.length; b++) {
+                        const [contentNull, contentValue] = body[b];
+
                         if(!Array.isArray(current)) {
                             throw pathError(completedKeys, `Expected array, got ${typeof current}`);
                         }
@@ -96,37 +103,37 @@ export class Verhalt {
     
                         current = (current as VerhaltArrayModel)[index];
 
-                        if(type === "full") {
+                        if(matchList) {
                             completedRefs.push(`[${contentValue}]`);
                             ref.push([completedRefs.join(""), current]);
                         }
+
+                        if(!matchList && i === keys.length - 2 && b === body.length - 2) {
+                            source = current;
+                        }
                     }
                 }
+            }
 
-                if(i === keys.length - 2) {
-                    if(type === "parent") {
+            if(!matchList) {
+                switch(match) {
+                    case "target":
                         ref.push([completedKeys.join(""), current]);
-                    }
+                        break;
+                    case "source":
+                        ref.push([completedKeys.join(""), source ?? model]);
+                        break;
                 }
-            }
-
-            if(keys.length === 1) {
-                if(type === "parent") {
-                    ref.push([":", source]);
-                }
-            }
-            else {
-                if(type === "target") {
-                    ref.push([completedKeys.join(""), current]);
-                }    
-            }
+                ref.push([completedKeys.join(""), current]);
+            }   
 
             return ref;
         }
     }
 
     /*public static lookup<TModel extends VerhaltObjectModel>(source : TModel, route : string) : VerhaltModel {
-        const ref = Verhalt.ref(source, route);
+        const [_, ref] = Verhalt.ref(source, route, "parent")[0] ?? [undefined, undefined];
+
         if(ref) {
             if(Array.isArray(ref)) {
                 return ref[]
