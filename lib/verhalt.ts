@@ -1,9 +1,13 @@
 import { routePaths, pathKeys, keyContent, keyIndex } from "@verhalt/parser/lib"
-import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel } from "@verhalt/types/lib";
+import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel, VerhaltStructureModel } from "@verhalt/types/lib";
 import { pathError } from "./utils/error";
 
 export class Verhalt {
-    public static model<TModel extends VerhaltModel>(source : TModel, route? : string) : VerhaltModel {
+    public static lookup<TModel extends VerhaltObjectModel>(source : TModel, route : string) : VerhaltModel {
+        return Verhalt.resolve(source, route);
+    }
+
+    private static resolve<TModel extends VerhaltObjectModel>(source : TModel, route? : string) : VerhaltModel {
         if(route === undefined) {
             return undefined;
         }
@@ -12,7 +16,7 @@ export class Verhalt {
 
         for(const path of paths) {
             try {                
-                return Verhalt.modelFromPath(source, path);
+                return Verhalt.resolve_path(source, path);
             }
             catch(error) {
                 if(paths[paths.length - 1] === path) {
@@ -24,7 +28,7 @@ export class Verhalt {
         }
     }
 
-    private static modelFromPath<TModel extends VerhaltModel>(source : TModel, path? : string) : VerhaltModel {
+    private static resolve_path<TModel extends VerhaltObjectModel>(source : TModel, path? : string) : VerhaltModel {
         if(path === undefined) {
             return undefined;
         }
@@ -33,7 +37,7 @@ export class Verhalt {
         const keys = pathKeys(path);
         const completedKeys = [];
 
-        for (let i = 0; i < keys.length; i++) {
+        for (let i = 0; i < keys.length - 1; i++) {
             const key = keys[i];
             completedKeys.push(key);
 
@@ -53,7 +57,7 @@ export class Verhalt {
                     throw pathError(completedKeys, `Expected key ${headName} in object`);
                 }
 
-                current = (current as VerhaltObjectModel)[headName];
+                current = (current as VerhaltStructureModel)[headName];
             }
 
             if(body) {
@@ -72,7 +76,7 @@ export class Verhalt {
                         
                         let value;
                         try {
-                            value = Verhalt.model(source, index);
+                            value = Verhalt.lookup(source, index);
                         }
                         catch(error) {
                             throw pathError(completedKeys, `Error during model lookup. \error:${error}`);
