@@ -1,18 +1,19 @@
 export type VerhaltKey = {
-    head : VerhaltKeyHead, 
+    head : VerhaltKeyHead
     body: VerhaltKeyBody 
 };
 
 export type VerhaltKeyItem = {
-    value: string | null, 
-    nullable: boolean 
+    value: string | number
+    dynamic: boolean
+    nullable: boolean
 };
 
 export type VerhaltKeyHead = { 
-    silent : boolean;
+    silent : boolean
 };
 
 export type VerhaltKeyBody = { 
-    name : VerhaltKeyItem;
+    name : VerhaltKeyItem
     indexes : VerhaltKeyItem[] 
 };
