@@ -59,10 +59,20 @@ export class Verhalt {
                         throw new Error(`Expected array, got ${typeof current}`);
                     }
 
-                    const index = keyIndex(source, contentValue);
+                    let index = keyIndex(contentValue);
 
                     if(index === null) {
                         throw new Error(`Expected index, got null`);
+                    }
+
+                    if(typeof index === "string") {
+                        const value = Verhalt.model(index);
+
+                        if(typeof value !== "number") {
+                            throw new Error(`Expected index number, got ${typeof value}`);
+                        }
+
+                        index = value;
                     }
 
                     current = (current as VerhaltArrayModel)[index];
