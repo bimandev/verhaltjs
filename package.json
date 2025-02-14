@@ -1,12 +1,16 @@
 {
   "name": "verhalt",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
-  "main": "dist/lib/index.js",
-  "directories": {
-    "lib": "lib"
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
   "scripts": {
+    "prepublish": "npm run build",
     "build": "rimraf dist && tsc"
   },
   "repository": {
