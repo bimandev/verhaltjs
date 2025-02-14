@@ -1,9 +1,9 @@
 import { routePaths, pathKeys, keyContent, keyIndex } from "@verhalt/parser/lib"
-import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel, VerhaltReference, VerhaltReferenceEntry, VerhaltReferenceMatch, VerhaltStructureModel } from "@verhalt/types/lib";
+import { VerhaltArrayModel, VerhaltModel, VerhaltObjectModel, VerhaltReference, VerhaltReferenceMatch, VerhaltStructureModel } from "@verhalt/types/lib";
 import { pathError } from "./utils/error";
 
 export class Verhalt {
-    public static ref<TModel extends VerhaltObjectModel>(model : TModel, route : string, match : VerhaltReferenceMatch = "target") : VerhaltReference {
+    public static ref<TModel extends VerhaltObjectModel>(model : TModel, route : string, match : VerhaltReferenceMatch = "target") : VerhaltReference[] {
         if(route === undefined) {
             return [];
         }
@@ -29,18 +29,18 @@ export class Verhalt {
 
         return [];
 
-        function fromPath(path? : string) : VerhaltReference {
+        function fromPath(path? : string) : VerhaltReference[] {
             if(path === undefined) {
                 return [];
             }
     
             let current = model;
-            let source : VerhaltReferenceEntry | undefined = undefined;
+            let source : VerhaltReference | undefined = undefined;
 
             const keys = pathKeys(path);
             const completedKeys : string[]= [];
             const completedRefs : string[]= [];
-            const ref : VerhaltReference = [];
+            const ref : VerhaltReference[] = [];
 
             if(matchListPlus) {
                 ref.push([":", model]);
@@ -130,7 +130,7 @@ export class Verhalt {
                         ref.push([completedKeys.join(""), current]);
                         break;
                     case "source":
-                        ref.push(source as VerhaltReferenceEntry);
+                        ref.push(source as VerhaltReference);
                         break;
                 }
             }
@@ -140,7 +140,7 @@ export class Verhalt {
     }
 
     public static lookup<TModel extends VerhaltObjectModel>(model : TModel, route : string) : VerhaltModel {
-        const [value, obj] : VerhaltReferenceEntry = Verhalt.ref(model, route, "source")[0] ?? [undefined, undefined];
+        const [value, obj] : VerhaltReference= Verhalt.ref(model, route, "source")[0] ?? [undefined, undefined];
 
         if(obj) {
             if(Array.isArray(obj)) {
@@ -154,7 +154,7 @@ export class Verhalt {
     }
 
     public static assign<TModel extends VerhaltObjectModel>(model : TModel, route : string, content : VerhaltModel) : boolean {
-        const [value, obj] : VerhaltReferenceEntry = Verhalt.ref(model, route, "source")[0] ?? [undefined, undefined];
+        const [value, obj] : VerhaltReference = Verhalt.ref(model, route, "source")[0] ?? [undefined, undefined];
 
         if(obj) {
             if(Array.isArray(obj)) {
