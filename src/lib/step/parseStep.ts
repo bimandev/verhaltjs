@@ -18,8 +18,8 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
     let content : VerhaltStepContent | null = null;
     let structure : VerhaltStepStructure | null = null;
     let catching : VerhaltStepCatching = "native";
+    let useRedirect : boolean = false;
 
-    let finalize : boolean = false;
     let bracketForm : "{}" | "[]" | undefined = undefined;
     let bracketDepth = 0;
 
@@ -118,8 +118,8 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
         structure = validateStepIndex(content) ? "static" : "variable";
     }
 
-    if(form && display && content && structure && catching) {
-        return { form, display, content, structure, catching };
+    if(form && display && structure && catching) {
+        return { form, display, content, structure, catching, useRedirect };
     }
 
     throw new Error("[VERHALT-STEP]: An error occurred while parsing step.");
