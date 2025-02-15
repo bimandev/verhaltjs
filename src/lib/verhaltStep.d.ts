@@ -5,6 +5,7 @@ export type VerhaltStep = {
 
     structure : VerhaltStepStructure
     catching : VerhaltStepCatching
+    useRedirect : VerhaltStepUseRedirect
 }
 
 export type VerhaltStepForm = VerhaltStepNameForm | VerhaltStepIndexForm;
@@ -34,3 +35,5 @@ export type VerhaltStepNativeCatching = "native";
 export type VerhaltStepOptionalCatching = "optional";
 
 export type VerhaltStepStrictCatching = "strict";
+
+export type VerhaltStepUseRedirect = boolean;
