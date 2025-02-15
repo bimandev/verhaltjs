@@ -1,8 +1,12 @@
 import { VerhaltObjectModel } from "./verhaltModel";
 
 export type VerhaltReference = {
+    target : VerhaltReferenceTarget
+}
+
+export type VerhaltReferenceTarget = {
     key : string
-    target : VerhaltObjectModel
+    obj : VerhaltObjectModel
 }
 
 export type VerhaltReferenceMatch = "target" | "parent" | "list" | "list+" | "source";
