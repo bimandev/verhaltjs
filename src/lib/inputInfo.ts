@@ -4,8 +4,8 @@ export class InputInfo {
     #input : string;
     #cursor : number = 0;
     #current : CharInfo | undefined ;
-    #curlyCount : number = 0;
-    #squareCount : number = 0;
+    #curlyStack : number = 0;
+    #squareStack : number = 0;
 
     constructor(input : string) {
         if(typeof input !== "string") throw new Error("[VERHALT-INPUTINFO]: Input must be string");
@@ -27,6 +27,15 @@ export class InputInfo {
     }
 
 
+    public get curlyStack() : number {
+        return this.#curlyStack;
+    }
+
+    public get squareStack() : number {
+        return this.#squareStack;
+    }
+
+
     public next() : CharInfo | undefined {
         this.#cursor++;
 
@@ -38,16 +47,16 @@ export class InputInfo {
 
             switch(this.#current.target) {
                 case "{":
-                    this.#curlyCount++;
+                    this.#curlyStack++;
                     break;
                 case "}":
-                    this.#curlyCount--;
+                    this.#curlyStack--;
                     break;
                 case "[":
-                    this.#squareCount++;
+                    this.#squareStack++;
                     break;
                 case "]":
-                    this.#squareCount--;
+                    this.#squareStack--;
                     break;
             }
         }
