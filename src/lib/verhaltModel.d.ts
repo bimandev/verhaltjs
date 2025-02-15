@@ -4,6 +4,8 @@ export type VerhaltModelType = "primitive" | "object";
 
 export type VerhaltPrimitiveModel = undefined | null | boolean | number | string ;
 
+export type VerhaltPrimitiveType = "undefined" | "null" | "boolean" | "number" | "string";
+
 export type VerhaltObjectModel = VerhaltStructureObject | VerhaltArrayObject;
 
 export type VerhaltObjectModelType = "structure" | "array";
