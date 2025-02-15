@@ -7,7 +7,14 @@ export type VerhaltReference = {
 
 export type VerhaltReferenceItem = {
     key : string
+    step : VerhaltReferenceStep
     obj : VerhaltObjectModel
 }
 
-export type VerhaltReferenceMatch = "target" | "parent" | "source";
+
+export type VerhaltReferenceStep = {
+    display : string
+    value : string | number
+}
+
+export type VerhaltReferenceMatch = "target" | "parent" | "source" | "origin";
