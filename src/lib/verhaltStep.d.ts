@@ -3,7 +3,7 @@ export type VerhaltStep = {
     content : VerhaltStepContent
 
     structure : VerhaltStepStructure
-    behavior : VerhaltStepBehavior
+    behaviour : VerhaltStepBehaviour
 }
 
 export type VerhaltStepForm = "name" | "index"
@@ -12,4 +12,4 @@ export type VerhaltStepContent = string
 
 export type VerhaltStepStructure = "static" | "variable"
 
-export type VerhaltStepBehavior = "default" | "optional" | "strict"
+export type VerhaltStepBehaviour = "default" | "optional" | "strict"
