@@ -21,7 +21,8 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
     let useRedirect : VerhaltStepUseRedirect | undefined = undefined;
 
     let bracketForm : "{}" | "[]" | undefined = undefined;
-    let bracketDepth = 0;
+    let bracketDepth : number = 0;
+    let finalize = false;
 
     const contentBuffer : string[] = [];
 
@@ -46,62 +47,72 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
                 throw new Error("[VERHALT-STEP]: It must start with alphabetic character. " + char.target);
             }
         }
-
-        if(char.isCrulyOpenBracket || char.isSquareOpenBracket) {
-            if(!bracketForm) {
-                throw new Error("[VERHALT-STEP]: Bracket is not defined.");
-            }
-
-            if(bracketForm.includes(char.target)) {
-                if(bracketDepth === 0) {
-                    contentBuffer.pop();
-                }
-    
-                bracketDepth++;
-            }
-        }
-        else if(char.isCrulyCloseBracket || char.isSquareCloseBracket) {
-            if(!bracketForm) {
-                throw new Error("[VERHALT-STEP]: Bracket is not defined.");
-            }
-
-            if(bracketForm.includes(char.target)) {
-                if(bracketDepth === 1) {
-                    if(!["?", "!", undefined].includes(input[ci + 1])) {
-                        throw new Error("[VERHALT-STEP]: Unexpected character after closing bracket." + ci);
-                    }
-    
-                    contentBuffer.pop();
-                }
-
-                bracketDepth--;
+        
+        if((char.isAlphanumeric || char.target === "_")) {
+            if(finalize) {
+                throw new Error("[VERHALT-STEP]: Unexpected character after finalize.");
             }
         }
         else {
+            if(char.isCrulyCloseBracket || char.isSquareCloseBracket) {
+                if(bracketDepth === 0) {
+                    throw new Error("[VERHALT-STEP]: Brackets are not balanced.");
+                }
+
+                if(bracketForm?.includes(char.target)) {
+                    if(bracketDepth === 1) {
+                        if(!["?", "!", undefined].includes(input[ci + 1])) {
+                            throw new Error("[VERHALT-STEP]: Unexpected character after closing bracket." + ci);
+                        }
+    
+                        finalize = true;
+                    }
+    
+                    bracketDepth--;
+                }
+            }
+
             if(bracketDepth === 0) {
-                if(!(char.isAlphanumeric||char.target === "_")) {
-                    if(char.isQuestionMark || char.isExclamationMark) {            
-                        if(catching) {
-                            throw new Error("[VERHALT-STEP]: Catching is already defined.");
-                        }
-
-                        catching = char.isQuestionMark ? "optional" : "strict";
-
-                        if(!useRedirect)
-                            useRedirect = false;
+                if(char.isBracket) {
+                    if(!bracketForm) {
+                        throw new Error("[VERHALT-STEP]: Bracket is not defined.");
                     }
-                    else if(char.isGreaterThanSign) {
-                        if(useRedirect) {
-                            throw new Error("[VERHALT-STEP]: Redirect is already defined.");
-                        }
-
-                        useRedirect = true;
+                }
+                else if(char.isQuestionMark || char.isExclamationMark) {            
+                    if(catching) {
+                        throw new Error("[VERHALT-STEP]: Catching is already defined.");
                     }
-                    else {
+    
+                    catching = char.isQuestionMark ? "optional" : "strict";
+    
+                    if(!useRedirect)
+                        useRedirect = false;
+                }
+                else if(char.isGreaterThanSign) {
+                    if(useRedirect) {
+                        throw new Error("[VERHALT-STEP]: Redirect is already defined.");
+                    }
+    
+                    useRedirect = true;
+                }
+                else {
+                    if(!char.isBracket) {
                         throw new Error("[VERHALT-STEP]: Unexpected character.");
+                    }                    
+                }
+    
+                if(!finalize) {
+                    if(!(char.isCrulyOpenBracket || char.isSquareOpenBracket)) {
+                        finalize = true;
                     }
+                }
 
-                    contentBuffer.pop();
+                contentBuffer.pop();
+            }
+
+            if(char.isCrulyOpenBracket || char.isSquareOpenBracket) {
+                if(bracketForm?.includes(char.target)) {
+                    bracketDepth++;                    
                 }
             }
         }
