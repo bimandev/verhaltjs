@@ -7,19 +7,23 @@ export type VerhaltStep = {
     behaviour : VerhaltStepBehaviour
 }
 
-export type VerhaltStepForm = "name" | "index"
+export type VerhaltStepForm = VerhaltStepNameForm | VerhaltStepIndexForm;
 
-export type VerhaltStepDisplay = string
+export type VerhaltStepNameForm = "name";
 
-export type VerhaltStepContent = string | number
+export type VerhaltStepIndexForm = "index";
 
-export type VerhaltStepStructure = VerhaltStepStaticStructure | VerhaltStepVariableStructure
+export type VerhaltStepDisplay = string;
+
+export type VerhaltStepContent = string | number;
+
+export type VerhaltStepStructure = VerhaltStepStaticStructure | VerhaltStepVariableStructure;
 
 export type VerhaltStepStaticStructure = "static";
 
 export type VerhaltStepVariableStructure = "variable";
 
-export type VerhaltStepBehaviour = VerhaltStepDefaultBehaviour | VerhaltStepOptionalBehaviour | VerhaltStepStrictBehaviour
+export type VerhaltStepBehaviour = VerhaltStepDefaultBehaviour | VerhaltStepOptionalBehaviour | VerhaltStepStrictBehaviour;
 
 export type VerhaltStepDefaultBehaviour = "default";
 
