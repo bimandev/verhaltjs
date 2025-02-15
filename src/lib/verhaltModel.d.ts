@@ -4,10 +4,10 @@ export type VerhaltModelType = "primitive" | "object";
 
 export type VerhaltPrimitiveModel = undefined | null | boolean | number | string ;
 
-export type VerhaltObjectModel = VerhaltStructureModel | VerhaltArrayModel;
+export type VerhaltObjectModel = VerhaltStructureObject | VerhaltArrayObject;
 
 export type VerhaltObjectModelType = "structure" | "array";
 
-export type VerhaltStructureModel = Record<string, any>;
+export type VerhaltStructureObject = Record<string, any>;
 
-export type VerhaltArrayModel = any[];
+export type VerhaltArrayObject = any[];
