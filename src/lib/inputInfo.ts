@@ -71,6 +71,6 @@ export class InputInfo {
     //
 
     public error(message : string) {
-        throw new Error(message + "\ninput: " + this.#input + "\ncursor: " + this.#cursor);
+       return new Error(message + "\ninput: " + this.#input + "\ncursor: " + this.#cursor);
     }
 }
