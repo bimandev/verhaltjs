@@ -1,9 +1,11 @@
 import { VerhaltStep } from "./verhaltStep";
 
 export type VerhaltKey = {
-    steps : VerhaltStep[]
+    steps : VerhaltKeySteps
     catching : VerhaltKeyCatching
 };
+
+export type VerhaltKeySteps = VerhaltStep[];
 
 export type VerhaltKeyCatching = VerhaltKeyNativeCatching | VerhaltKeyToleratedCatching;
 
