@@ -33,7 +33,7 @@ describe("Static Name Steps", () => {
     });
 });
 
-describe("Static Name Redirect Steps", () => {
+describe("Static Redirect Name Steps", () => {
     it("should return correct values", () => {
         expect(parseStep("My_StEp>")).toEqual({ form: "name", display: "My_StEp>", content: "My_StEp", structure: "static", catching: "native", useRedirect: true });
         expect(parseStep("My_StEp>?")).toEqual({ form: "name", display: "My_StEp>?", content: "My_StEp", structure: "static", catching: "optional", useRedirect: true  });
@@ -69,7 +69,7 @@ describe("Variable Name Steps", () => {
     })
 });
 
-describe("Variable Name Redirect Steps", () => {
+describe("Variable Redirect Name Steps", () => {
     it("should return correct values for variable name steps", () => {
         expect(parseStep("{:My_StEp[0]}>")).toEqual({ form: "name", display: "{:My_StEp[0]}>", content: ":My_StEp[0]", structure: "variable", catching: "native", useRedirect: true });
         expect(parseStep("{:My_StEp[0]}>?")).toEqual({ form: "name", display: "{:My_StEp[0]}>?", content: ":My_StEp[0]", structure: "variable", catching: "optional", useRedirect: true });
