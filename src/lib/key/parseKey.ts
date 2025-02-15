@@ -25,18 +25,15 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
 
     const steps : VerhaltKeySteps = [];
 
-    let mode : string | undefined = undefined;
     let info = new InputInfo(input);
     let keyBuffer : string[] = [];
 
     do {
         const char = info.current as CharInfo;
+        // {haha}>?[:dereshishishi{23}]
 
         if(info.cursor === 0) {
-            if(char.isAlphabetic) {
-                mode = "pure";
-            }
-            else {
+            if(!char.isAlphabetic) {
                 if(char.isCrulyOpenBracket || char.isSquareOpenBracket) {
                     if(!isRoot) {
                         throw new Error("[VERHALT-KEY]: It must start with alphabetic character.");
@@ -45,44 +42,16 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
                 else {
                     throw new Error("[VERHALT-KEY]: It must start with alphabetic character.");
                 }
-
-                mode = char.isCrulyOpenBracket ? "cruly" : "square";
             }
         }
-        else {
-            if(mode === "pure") {
-                if(char.isCrulyOpenBracket || char.isSquareOpenBracket || info.isLast()) {
-                    if(info.isLast()) {
-                        keyBuffer.push(char.target);
-                    }
 
-                    steps.push(parseStepUnsafe(keyBuffer.join("")) as VerhaltStep);
-                    keyBuffer = [];
-                }
-                mode = "square";
+        if(info.isLast() || (char.isSquareOpenBracket && info.squareStack === 1)) {
+            if(info.isLast()) {
+                keyBuffer.push(char.target);
             }
-            else if (mode === "cruly") {     
-                if((char.isCrulyOpenBracket && info.curlyStack === 1) || info.isLast()) {
-                    if(info.isLast()) {
-                        keyBuffer.push(char.target);
-                    }
 
-                    console.log(input);
-                    steps.push(parseStepUnsafe(keyBuffer.join("")) as VerhaltStep);
-                    keyBuffer = [];
-                }
-            }
-            else if (mode === "square") {
-                if((char.isSquareOpenBracket && info.squareStack === 1) || info.isLast()) {
-                    if(info.isLast()) {
-                        keyBuffer.push(char.target);
-                    }
-
-                    console.log(input);
-                    steps.push(parseStepUnsafe(keyBuffer.join("")) as VerhaltStep);
-                    keyBuffer = [];
-                }
-            }
+            steps.push(parseStepUnsafe(keyBuffer.join("")) as VerhaltStep);
+            keyBuffer = [];
         }
 
         keyBuffer.push(char.target);
