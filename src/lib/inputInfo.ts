@@ -80,8 +80,20 @@ export class InputInfo {
         }
     }
 
+    public checkCurlyOpen(head : string = "VERHALT-INPUTINFO") {
+        if(this.#curlyStack > 0) {
+            throw this.error(`[${head}]: Curly brackets are not balanced.`);
+        }
+    }
+
     public checkSquareClose(head : string = "VERHALT-INPUTINFO") {
         if(this.#squareStack < 0) {
+            throw this.error(`[${head}]: Square brackets are not balanced.`);
+        }
+    }
+
+    public checkSquareOpen(head : string = "VERHALT-INPUTINFO") {
+        if(this.#squareStack > 0) {
             throw this.error(`[${head}]: Square brackets are not balanced.`);
         }
     }
