@@ -1,13 +1,8 @@
 import { VerhaltStep } from "./verhaltStep";
 
 export type VerhaltKey = {
-    head : VerhaltKeyHead
-    body: VerhaltKeyBody 
-};
-export type VerhaltKeyHead = { 
-    silent : boolean
+    steps : VerhaltStep[]
+    catching : VerhaltKeyCatching
 };
 
-export type VerhaltKeyBody = { 
-    steps : VerhaltStep[]
-};
+export type VerhaltKeyCatching = "native" | "tolerated";
