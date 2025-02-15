@@ -73,4 +73,10 @@ export class InputInfo {
     public error(message : string) {
        return new Error(message + "\ninput: " + this.#input + "\ncursor: " + this.#cursor);
     }
+
+    public checkCurlyClose(head : string = "VERHALT-INPUTINFO") {
+        if(this.#curlyStack < 0) {
+            throw this.error(`[${head}]: Curly brackets are not balanced.`);
+        }
+    }
 }
