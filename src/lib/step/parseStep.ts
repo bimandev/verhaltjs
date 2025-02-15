@@ -102,6 +102,8 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
                     else {
                         throw new Error("[VERHALT-STEP]: Unexpected character.");
                     }
+
+                    contentBuffer.pop();
                 }
             }
         }
@@ -112,6 +114,7 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
     display = input;
     content = contentBuffer.join("");
     catching ??= "native";
+    useRedirect ??= false;
 
     if(form === "name") {
         structure = validateStepName(content) ? "static" : "variable";
@@ -120,7 +123,7 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
         structure = validateStepIndex(content) ? "static" : "variable";
     }
 
-    if(form && display && structure && catching && useRedirect) {
+    if(form && display && structure && catching && (useRedirect !== undefined)) {
         return { form, display, content, structure, catching, useRedirect };
     }
 
