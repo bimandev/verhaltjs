@@ -36,7 +36,7 @@ export class InputInfo {
     }
 
 
-    public next() : CharInfo | undefined {
+    public next(calc : boolean = true) : CharInfo | undefined {
         this.#cursor++;
 
         if(this.#cursor >= this.#input.length){
@@ -45,23 +45,31 @@ export class InputInfo {
         else {
             this.#current = new CharInfo(this.#input[this.#cursor]);
 
-            switch(this.#current.target) {
-                case "{":
-                    this.#curlyStack++;
-                    break;
-                case "}":
-                    this.#curlyStack--;
-                    break;
-                case "[":
-                    this.#squareStack++;
-                    break;
-                case "]":
-                    this.#squareStack--;
-                    break;
+            if(calc) {
+                switch(this.#current.target) {
+                    case "{":
+                        this.#curlyStack++;
+                        break;
+                    case "}":
+                        this.#curlyStack--;
+                        break;
+                    case "[":
+                        this.#squareStack++;
+                        break;
+                    case "]":
+                        this.#squareStack--;
+                        break;
+                }
             }
         }
 
         return this.#current;
+    }
+
+    public skip(count : number = 1) {
+        for(let i = 0; i < count; i++) {
+            this.next(false);
+        }
     }
 
     public isLast() : boolean {
