@@ -2,7 +2,7 @@ export type VerhaltStep = {
     form : VerhaltStepForm
     content : VerhaltStepContent
 
-    isDynamic : VerhaltStepIsDynamic
+    structure : VerhaltStepStructure
     behavior : VerhaltStepBehavior
 }
 
@@ -10,6 +10,6 @@ export type VerhaltStepForm = "name" | "index"
 
 export type VerhaltStepContent = string
 
-export type VerhaltStepIsDynamic = boolean
+export type VerhaltStepStructure = "static" | "variable"
 
 export type VerhaltStepBehavior = "default" | "optional" | "strict"
