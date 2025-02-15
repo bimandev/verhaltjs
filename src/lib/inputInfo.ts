@@ -63,4 +63,8 @@ export class InputInfo {
 
         return this.#current;
     }
+
+    public isLast() : boolean {
+        return this.#cursor === this.#input.length - 1;
+    }
 }
