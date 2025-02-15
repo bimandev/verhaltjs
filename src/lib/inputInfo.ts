@@ -26,9 +26,15 @@ export class InputInfo {
 
 
     public next() : CharInfo | undefined {
-        if(this.#cursor >= this.#input.length)
-            return this.#current = undefined;
+        this.#cursor++;
+        
+        if(this.#cursor >= this.#input.length){
+            this.#current = undefined;
+        }
+        else {
+            this.#current = new CharInfo(this.#input[this.#cursor]);
+        }
 
-        return this.#current = new CharInfo(this.#input[this.#cursor + 1]);
+        return this.#current;
     }
 }
