@@ -14,13 +14,19 @@ export function parseKeyUnsafe(input: string) : VerhaltKey | undefined {
     return parseKeyWithoutTokenUnsafe(input.substring(1), input[0] === ":");
 }
 
-export function parseKeyWithoutToken(input: string) : VerhaltKey | undefined {
+export function parseKeyWithoutToken(input: string, isRoot : boolean = false) : VerhaltKey | undefined {
     checkKeyWithoutToken(input);
 
-    return parseKeyWithoutTokenUnsafe(input);
+    return doParseKey(true, input, isRoot);
 }
 
 export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = false) : VerhaltKey | undefined {
+    return doParseKey(false, input, isRoot);
+}
+
+//
+
+export function doParseKey(safe : boolean, input: string, isRoot : boolean = false) : VerhaltKey | undefined {
     if(!input) return undefined;
 
     const head = "VERHALT-KEY";
@@ -32,8 +38,10 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
     let stepsBuffer : string[] = [];   
 
     do {
-        info.checkCurlyClose(head);
-        info.checkSquareClose(head);
+        if(safe) {
+            info.checkCurlyOpen(head);
+            info.checkSquareOpen(head);
+        }
 
         const char = info.current as CharInfo;
 
@@ -58,8 +66,10 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
 
     } while(info.next());
 
-    info.checkCurlyOpen(head);
-    info.checkCurlyOpen(head);
+    if(safe) {
+        info.checkCurlyOpen(head);
+        info.checkCurlyOpen(head);
+    }
 
     for(let stepTXT of stepsBuffer) {
         const parsedStep = parseStepUnsafe(stepTXT);
