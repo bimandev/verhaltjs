@@ -5,4 +5,8 @@ export type VerhaltKey = {
     catching : VerhaltKeyCatching
 };
 
-export type VerhaltKeyCatching = "native" | "tolerated";
+export type VerhaltKeyCatching = VerhaltKeyNativeCatching | VerhaltKeyToleratedCatching;
+
+export type VerhaltKeyNativeCatching = "native";
+
+export type VerhaltKeyToleratedCatching = "tolerated";
