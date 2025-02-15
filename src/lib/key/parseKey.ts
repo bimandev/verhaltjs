@@ -52,21 +52,34 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
         else {
             if(onPure) {
                 if(char.isCrulyOpenBracket || char.isSquareOpenBracket || info.isLast()) {
+                    if(info.isLast()) {
+                        keyBuffer.push(char.target);
+                    }
+
                     steps.push(parseStepUnsafe(keyBuffer.join("")) as VerhaltStep);
                     keyBuffer = [];
                 }
             }
             else {
+                
                 if(info.curlyStack === 0 && info.squareStack === 0) {
                     if(char.isCrulyOpenBracket || char.isSquareOpenBracket || info.isLast()) {
+                        if(info.isLast()) {
+                            keyBuffer.push(char.target);
+                        }
+
                         steps.push(parseStepUnsafe(keyBuffer.join("")) as VerhaltStep);
                         keyBuffer = [];
                     }
                 }
+
+                console.log(info.curlyStack, info.squareStack);
             }
         }
 
         keyBuffer.push(char.target);
 
     } while(info.next());
+
+    return { steps, catching: "native" };
 }
