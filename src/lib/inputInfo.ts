@@ -2,7 +2,7 @@ import { CharInfo } from "./charInfo";
 
 export class InputInfo {
     #input : string;
-    #cursor : number = 0;
+    #cursor : number = -1;
     #current : CharInfo | undefined ;
     #curlyStack : number = 0;
     #squareStack : number = 0;
@@ -11,7 +11,7 @@ export class InputInfo {
         if(typeof input !== "string") throw new Error("[VERHALT-INPUTINFO]: Input must be string");
 
         this.#input = input;
-        this.#current = new CharInfo(input[this.#cursor]);
+        this.#current = this.next();
     }
 
     public get input() : string {
