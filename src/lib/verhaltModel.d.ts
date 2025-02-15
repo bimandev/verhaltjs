@@ -1,6 +1,6 @@
 export type VerhaltModel = VerhaltPrimitiveModel | VerhaltObjectModel;
 
-export type VerhaltModelType = "primitive" | "object";
+export type VerhaltModelForm = "primitive" | "object";
 
 export type VerhaltPrimitiveModel = undefined | null | boolean | number | string ;
 
