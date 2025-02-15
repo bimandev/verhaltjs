@@ -1,11 +1,15 @@
 export type VerhaltStep = {
     form : VerhaltStepForm
-    display : VerhaltStepDisplay,
-    value : VerhaltStepValue
+    content : VerhaltStepContent
+
+    isDynamic : VerhaltStepIsDynamic
+    isNullable : VerhaltStepIsNullable
 }
 
 export type VerhaltStepForm = "name" | "index"
 
-export type VerhaltStepDisplay = string
+export type VerhaltStepContent = string
 
-export type VerhaltStepValue = string | number
+export type VerhaltStepIsDynamic = boolean
+
+export type VerhaltStepIsNullable = boolean
