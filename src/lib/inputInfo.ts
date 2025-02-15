@@ -79,4 +79,10 @@ export class InputInfo {
             throw this.error(`[${head}]: Curly brackets are not balanced.`);
         }
     }
+
+    public checkSquareClose(head : string = "VERHALT-INPUTINFO") {
+        if(this.#squareStack < 0) {
+            throw this.error(`[${head}]: Square brackets are not balanced.`);
+        }
+    }
 }
