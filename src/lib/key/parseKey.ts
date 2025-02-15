@@ -30,6 +30,9 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
     let keyBuffer : string[] = [];
 
     do {
+        info.checkCurlyClose();
+        info.checkSquareClose();
+
         const char = info.current as CharInfo;
 
         if(info.cursor === 0) {
@@ -52,6 +55,9 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
         keyBuffer.push(char.target);
 
     } while(info.next());
+
+    info.checkCurlyOpen();
+    info.checkCurlyOpen();
 
     return { form, steps, catching: "native" };
 }
