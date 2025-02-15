@@ -93,6 +93,14 @@ describe("Static Index Steps", () => {
     })
 });
 
+describe("Static Redirect Index Steps", () => {
+    it("should return correct values", () => {
+        expect(parseStep("[12]>")).toEqual({ form: "index", display: "[12]>", content: "12", structure: "static", catching: "native", useRedirect: true });
+        expect(parseStep("[12]>?")).toEqual({ form: "index", display: "[12]>?", content: "12", structure: "static", catching: "optional", useRedirect: true });
+        expect(parseStep("[12]>!")).toEqual({ form: "index", display: "[12]>!", content: "12", structure: "static", catching: "strict", useRedirect: true });
+    })
+});
+
 describe("Variable Index Steps", () => {
     it("should return correct values", () => {
         expect(parseStep("[:My_StEp[0]]")).toEqual({ form: "index", display: "[:My_StEp[0]]", content: ":My_StEp[0]", structure: "variable", catching: "native", useRedirect: false });
@@ -106,5 +114,21 @@ describe("Variable Index Steps", () => {
         expect(parseStep("[irrelevant content !_^'^_'!^!'_ 354* [] {} ]")).toEqual({ form: "index", display: "[irrelevant content !_^'^_'!^!'_ 354* [] {} ]", content: "irrelevant content !_^'^_'!^!'_ 354* [] {} ", structure: "variable", catching: "native", useRedirect: false });
         expect(parseStep("[irrelevant content !_^'^_'!^!'_ 354* [] {} ]?")).toEqual({ form: "index", display: "[irrelevant content !_^'^_'!^!'_ 354* [] {} ]?", content: "irrelevant content !_^'^_'!^!'_ 354* [] {} ", structure: "variable", catching: "optional", useRedirect: false });
         expect(parseStep("[irrelevant content !_^'^_'!^!'_ 354* [] {} ]!")).toEqual({ form: "index", display: "[irrelevant content !_^'^_'!^!'_ 354* [] {} ]!", content: "irrelevant content !_^'^_'!^!'_ 354* [] {} ", structure: "variable", catching: "strict", useRedirect: false });
+    })
+});
+
+describe("Variable Redirect Index Steps", () => {
+    it("should return correct values", () => {
+        expect(parseStep("[:My_StEp[0]]>")).toEqual({ form: "index", display: "[:My_StEp[0]]>", content: ":My_StEp[0]", structure: "variable", catching: "native", useRedirect: true });
+        expect(parseStep("[:My_StEp[0]]>?")).toEqual({ form: "index", display: "[:My_StEp[0]]>?", content: ":My_StEp[0]", structure: "variable", catching: "optional", useRedirect: true });
+        expect(parseStep("[:My_StEp[0]]>!")).toEqual({ form: "index", display: "[:My_StEp[0]]>!", content: ":My_StEp[0]", structure: "variable", catching: "strict", useRedirect: true });
+    
+        expect(parseStep("[:My_StEp[:{My_OtHeR_sTeP}]]>")).toEqual({ form: "index", display: "[:My_StEp[:{My_OtHeR_sTeP}]]>", content: ":My_StEp[:{My_OtHeR_sTeP}]", structure: "variable", catching: "native", useRedirect: true });
+        expect(parseStep("[:My_StEp[:{My_OtHeR_sTeP}]]>?")).toEqual({ form: "index", display: "[:My_StEp[:{My_OtHeR_sTeP}]]>?", content: ":My_StEp[:{My_OtHeR_sTeP}]", structure: "variable", catching: "optional", useRedirect: true });
+        expect(parseStep("[:My_StEp[:{My_OtHeR_sTeP}]]>!")).toEqual({ form: "index", display: "[:My_StEp[:{My_OtHeR_sTeP}]]>!", content: ":My_StEp[:{My_OtHeR_sTeP}]", structure: "variable", catching: "strict", useRedirect: true });
+    
+        expect(parseStep("[irrelevant content !_^'^_'!^!'_ 354* [] {} ]>")).toEqual({ form: "index", display: "[irrelevant content !_^'^_'!^!'_ 354* [] {} ]>", content: "irrelevant content !_^'^_'!^!'_ 354* [] {} ", structure: "variable", catching: "native", useRedirect: true });
+        expect(parseStep("[irrelevant content !_^'^_'!^!'_ 354* [] {} ]>?")).toEqual({ form: "index", display: "[irrelevant content !_^'^_'!^!'_ 354* [] {} ]>?", content: "irrelevant content !_^'^_'!^!'_ 354* [] {} ", structure: "variable", catching: "optional", useRedirect: true });
+        expect(parseStep("[irrelevant content !_^'^_'!^!'_ 354* [] {} ]>!")).toEqual({ form: "index", display: "[irrelevant content !_^'^_'!^!'_ 354* [] {} ]>!", content: "irrelevant content !_^'^_'!^!'_ 354* [] {} ", structure: "variable", catching: "strict", useRedirect: true });
     })
 });
