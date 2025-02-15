@@ -13,6 +13,10 @@ export type VerhaltStepDisplay = string
 
 export type VerhaltStepContent = string | number
 
-export type VerhaltStepStructure = "static" | "variable"
+export type VerhaltStepStructure = VerhaltStepStaticStructure | VerhaltStepVariableStructure
+
+export type VerhaltStepStaticStructure = "static";
+
+export type VerhaltStepVariableStructure = "variable";
 
 export type VerhaltStepBehaviour = "default" | "optional" | "strict"
