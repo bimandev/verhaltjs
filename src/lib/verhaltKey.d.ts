@@ -1,16 +1,16 @@
 import { VerhaltStep } from "./verhaltStep";
 
 export type VerhaltKey = {
-    form : VerhaltForm
+    form : VerhaltKeyForm
     steps : VerhaltKeySteps
     catching : VerhaltKeyCatching
 };
 
-export type VerhaltForm = VerhaltRootForm | VerhaltExtensionForm;
+export type VerhaltKeyForm = VerhaltKeyRootForm | VerhaltKeyExtensionForm;
 
-export type VerhaltRootForm = "root";
+export type VerhaltKeyRootForm = "root";
 
-export type VerhaltExtensionForm = "extension";
+export type VerhaltKeyExtensionForm = "extension";
 
 export type VerhaltKeySteps = VerhaltStep[];
 
