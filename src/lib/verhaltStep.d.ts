@@ -15,7 +15,11 @@ export type VerhaltStepIndexForm = "index";
 
 export type VerhaltStepDisplay = string;
 
-export type VerhaltStepContent = string | number;
+export type VerhaltStepContent = VerhaltStepNameContent | VerhaltStepIndexContent;
+
+export type VerhaltStepNameContent = string;
+
+export type VerhaltStepIndexContent = number;
 
 export type VerhaltStepStructure = VerhaltStepStaticStructure | VerhaltStepVariableStructure;
 
