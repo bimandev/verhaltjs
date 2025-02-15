@@ -8,7 +8,7 @@ export type VerhaltPrimitiveType = "undefined" | "null" | "boolean" | "number" |
 
 export type VerhaltObjectModel = VerhaltStructureObject | VerhaltArrayObject;
 
-export type VerhaltObjectModelType = "structure" | "array";
+export type VerhaltObjectType = "structure" | "array";
 
 export type VerhaltStructureObject = Record<string, any>;
 
