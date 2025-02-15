@@ -4,7 +4,7 @@ export type VerhaltStep = {
     content : VerhaltStepContent
 
     structure : VerhaltStepStructure
-    behaviour : VerhaltStepBehaviour
+    catching : VerhaltStepCatching
 }
 
 export type VerhaltStepForm = VerhaltStepNameForm | VerhaltStepIndexForm;
@@ -27,10 +27,10 @@ export type VerhaltStepStaticStructure = "static";
 
 export type VerhaltStepVariableStructure = "variable";
 
-export type VerhaltStepBehaviour = VerhaltStepDefaultBehaviour | VerhaltStepOptionalBehaviour | VerhaltStepStrictBehaviour;
+export type VerhaltStepCatching = VerhaltStepDefaultCatching | VerhaltStepOptionalCatching | VerhaltStepStrictCatching;
 
-export type VerhaltStepDefaultBehaviour = "default";
+export type VerhaltStepDefaultCatching = "native";
 
-export type VerhaltStepOptionalBehaviour = "optional";
+export type VerhaltStepOptionalCatching = "optional";
 
-export type VerhaltStepStrictBehaviour = "strict";
+export type VerhaltStepStrictCatching = "strict";
