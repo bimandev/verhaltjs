@@ -1,4 +1,4 @@
-import { VerhaltKey, VerhaltKeySteps, VerhaltStep } from "@verhalt/types/lib";
+import { VerhaltKey, VerhaltKeyForm, VerhaltKeySteps, VerhaltStep } from "@verhalt/types/lib";
 import { checkKey, checkKeyWithoutToken } from "./checkKey";
 import { InputInfo } from "../inputInfo";
 import { CharInfo } from "../charInfo";
@@ -23,6 +23,7 @@ export function parseKeyWithoutToken(input: string) : VerhaltKey | undefined {
 export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = false) : VerhaltKey | undefined {
     if(!input) return undefined;
 
+    const form : VerhaltKeyForm = isRoot ? "root" : "extension";
     const steps : VerhaltKeySteps = [];
 
     let info = new InputInfo(input);
@@ -33,13 +34,8 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
 
         if(info.cursor === 0) {
             if(!(char.isAlphabetic || char.target === "_")) {
-                if(char.isCrulyOpenBracket || char.isSquareOpenBracket) {
-                    if(!isRoot) {
-                        throw new Error("[VERHALT-KEY]: It must start with alphabetic character.");
-                    }            
-                }
-                else {
-                    throw new Error("[VERHALT-KEY]: It must start with alphabetic character.");
+                if(isRoot && !(char.isCrulyOpenBracket || char.isSquareOpenBracket)) {
+                    throw new Error("[VERHALT-KEY]: It must start with alphabetic character.");         
                 }
             }
         }
@@ -57,5 +53,5 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
 
     } while(info.next());
 
-    return { steps, catching: "native" };
+    return { form, steps, catching: "native" };
 }
