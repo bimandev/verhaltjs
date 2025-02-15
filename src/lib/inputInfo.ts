@@ -67,4 +67,10 @@ export class InputInfo {
     public isLast() : boolean {
         return this.#cursor === this.#input.length - 1;
     }
+
+    //
+
+    public error(message : string) {
+        throw new Error(message + "\ninput: " + this.#input + "\ncursor: " + this.#cursor);
+    }
 }
