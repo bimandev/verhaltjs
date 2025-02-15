@@ -11,6 +11,7 @@ export class CharInfo implements Disposable {
     #isCrulyCloseBracket : boolean | undefined = false;
     #isSquareOpenBracket : boolean | undefined = false;
     #isSquareCloseBracket : boolean | undefined = false;
+    #isGreaterThanSign : boolean | undefined = false;
 
     #isQuestionMark : boolean | undefined = false;
     #isExclamationMark : boolean | undefined = false;
@@ -47,6 +48,9 @@ export class CharInfo implements Disposable {
                     break;
                 case "!":
                     this.#isExclamationMark = true;
+                    break;
+                case ">":
+                    this.#isGreaterThanSign = true;
                     break;
             }
         }
@@ -129,6 +133,10 @@ export class CharInfo implements Disposable {
 
     public get isMark() : boolean {
         return this.isQuestionMark || this.isExclamationMark;
+    }
+
+    public get isGreaterThanSign() : boolean {
+        return this.#isGreaterThanSign as boolean;
     }
 
 
