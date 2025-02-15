@@ -23,6 +23,7 @@ export function parseKeyWithoutToken(input: string) : VerhaltKey | undefined {
 export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = false) : VerhaltKey | undefined {
     if(!input) return undefined;
 
+    const head = "VERHALT-KEY";
     const form : VerhaltKeyForm = isRoot ? "root" : "extension";
     const steps : VerhaltKeySteps = [];
 
@@ -30,8 +31,8 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
     let keyBuffer : string[] = [];
 
     do {
-        info.checkCurlyClose();
-        info.checkSquareClose();
+        info.checkCurlyClose(head);
+        info.checkSquareClose(head);
 
         const char = info.current as CharInfo;
 
@@ -56,8 +57,8 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
 
     } while(info.next());
 
-    info.checkCurlyOpen();
-    info.checkCurlyOpen();
+    info.checkCurlyOpen(head);
+    info.checkCurlyOpen(head);
 
     return { form, steps, catching: "native" };
 }
