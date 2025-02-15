@@ -1,4 +1,4 @@
-import { VerhaltStep, VerhaltStepCatching, VerhaltStepContent, VerhaltStepDisplay, VerhaltStepForm, VerhaltStepStructure } from "@verhalt/types/lib";
+import { VerhaltStep, VerhaltStepCatching, VerhaltStepContent, VerhaltStepDisplay, VerhaltStepForm, VerhaltStepStructure, VerhaltStepUseRedirect } from "@verhalt/types/lib";
 import { validateStepName } from "./validateStepName";
 import { validateStepIndex } from "./validateStepIndex";
 import { CharInfo } from "../charInfo";
@@ -13,15 +13,16 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
     if (!input) return undefined;
     if (input.length === 0) return undefined;
 
-    let form : VerhaltStepForm | null = null;
-    let display : VerhaltStepDisplay | null = null;
-    let content : VerhaltStepContent | null = null;
-    let structure : VerhaltStepStructure | null = null;
-    let catching : VerhaltStepCatching = "native";
-    let useRedirect : boolean = false;
+    let form : VerhaltStepForm | undefined = undefined;
+    let display : VerhaltStepDisplay | undefined = undefined;
+    let content : VerhaltStepContent | undefined = undefined;
+    let structure : VerhaltStepStructure | undefined = undefined;
+    let catching : VerhaltStepCatching | undefined = undefined;
+    let useRedirect : VerhaltStepUseRedirect | undefined = undefined;
 
     let bracketForm : "{}" | "[]" | undefined = undefined;
     let bracketDepth = 0;
+    let finalize = false;
 
     const contentBuffer : string[] = [];
 
@@ -72,6 +73,7 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
                     }
     
                     contentBuffer.pop();
+                    finalize = true;
                 }
 
                 bracketDepth--;
@@ -80,23 +82,22 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
         else {
             if(bracketDepth === 0) {
                 if(!(char.isAlphanumeric||char.target === "_")) {
-
-                    if(ci === input.length - 1) {
-
-                        if(!(char.isQuestionMark || char.isExclamationMark)) {
-                            throw new Error("[VERHALT-STEP]: Unexpected character after '?' or '!'.");
+                    if(char.isQuestionMark || char.isExclamationMark) {            
+                        if(catching) {
+                            throw new Error("[VERHALT-STEP]: Catching is already defined.");
                         }
 
-                        switch  (char.target) {
-                            case "?":
-                                catching = "optional";
-                                break;
-                            case "!":
-                                catching = "strict";
-                                break;
+                        catching = char.isQuestionMark ? "optional" : "strict";
+
+                        if(!useRedirect)
+                            useRedirect = false;
+                    }
+                    else if(char.isGreaterThanSign) {
+                        if(useRedirect) {
+                            throw new Error("[VERHALT-STEP]: Redirect is already defined.");
                         }
 
-                        contentBuffer.pop();
+                        useRedirect = true;
                     }
                     else {
                         throw new Error("[VERHALT-STEP]: Unexpected character.");
@@ -110,6 +111,7 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
 
     display = input;
     content = contentBuffer.join("");
+    catching ??= "native";
 
     if(form === "name") {
         structure = validateStepName(content) ? "static" : "variable";
@@ -118,7 +120,7 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
         structure = validateStepIndex(content) ? "static" : "variable";
     }
 
-    if(form && display && structure && catching) {
+    if(form && display && structure && catching && useRedirect) {
         return { form, display, content, structure, catching, useRedirect };
     }
 
