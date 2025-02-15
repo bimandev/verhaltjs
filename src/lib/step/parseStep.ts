@@ -22,7 +22,6 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
 
     let bracketForm : "{}" | "[]" | undefined = undefined;
     let bracketDepth = 0;
-    let finalize = false;
 
     const contentBuffer : string[] = [];
 
@@ -73,7 +72,6 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
                     }
     
                     contentBuffer.pop();
-                    finalize = true;
                 }
 
                 bracketDepth--;
