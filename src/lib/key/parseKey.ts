@@ -30,10 +30,9 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
 
     do {
         const char = info.current as CharInfo;
-        // {haha}>?[:dereshishishi{23}]
 
         if(info.cursor === 0) {
-            if(!char.isAlphabetic) {
+            if(!(char.isAlphabetic || char.target === "_")) {
                 if(char.isCrulyOpenBracket || char.isSquareOpenBracket) {
                     if(!isRoot) {
                         throw new Error("[VERHALT-KEY]: It must start with alphabetic character.");
