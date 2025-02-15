@@ -29,6 +29,7 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
 
     let info = new InputInfo(input);
     let keyBuffer : string[] = [];
+    let stepsBuffer : string[] = [];   
 
     do {
         info.checkCurlyClose(head);
@@ -49,7 +50,7 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
                 keyBuffer.push(char.target);
             }
 
-            steps.push(parseStepUnsafe(keyBuffer.join("")) as VerhaltStep);
+            stepsBuffer.push(keyBuffer.join(""));
             keyBuffer = [];
         }
 
@@ -59,6 +60,13 @@ export function parseKeyWithoutTokenUnsafe(input: string, isRoot : boolean = fal
 
     info.checkCurlyOpen(head);
     info.checkCurlyOpen(head);
+
+    for(let stepTXT of stepsBuffer) {
+        const parsedStep = parseStepUnsafe(stepTXT);
+        if(parsedStep) {
+            steps.push(parsedStep);
+        }
+    }
 
     return { form, steps, catching: "native" };
 }
