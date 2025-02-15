@@ -10,4 +10,4 @@ export type VerhaltReferenceItem = {
     obj : VerhaltObjectModel
 }
 
-export type VerhaltReferenceMatch = "target" | "parent" | "source" | "source+" | "source";
+export type VerhaltReferenceMatch = "target" | "parent" | "source";
