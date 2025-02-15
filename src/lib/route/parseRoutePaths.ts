@@ -32,6 +32,9 @@ export function parseRoutePaths(input?: string): string[] {
             }
         }
 
+        if(info.isLast()) {
+            paths.push(pathBuffer.join(""));
+        }
 
     } while(info.next());
 
