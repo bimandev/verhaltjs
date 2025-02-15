@@ -27,9 +27,9 @@ export type VerhaltStepStaticStructure = "static";
 
 export type VerhaltStepVariableStructure = "variable";
 
-export type VerhaltStepCatching = VerhaltStepDefaultCatching | VerhaltStepOptionalCatching | VerhaltStepStrictCatching;
+export type VerhaltStepCatching = VerhaltStepNativeCatching | VerhaltStepOptionalCatching | VerhaltStepStrictCatching;
 
-export type VerhaltStepDefaultCatching = "native";
+export type VerhaltStepNativeCatching = "native";
 
 export type VerhaltStepOptionalCatching = "optional";
 
