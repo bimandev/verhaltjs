@@ -6,6 +6,8 @@ export type VerhaltPrimitiveModel = undefined | null | boolean | number | string
 
 export type VerhaltObjectModel = VerhaltStructureModel | VerhaltArrayModel;
 
+export type VerhaltObjectModelType = "structure" | "array";
+
 export type VerhaltStructureModel = Record<string, any>;
 
 export type VerhaltArrayModel = any[];
