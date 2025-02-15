@@ -85,23 +85,26 @@ describe("Variable Redirect Name Steps", () => {
     })
 });
 
+describe("Static Index Steps", () => {
+    it("should return correct values", () => {
+        expect(parseStep("[12]")).toEqual({ form: "index", display: "[12]", content: "12", structure: "static", catching: "native", useRedirect: false });
+        expect(parseStep("[12]?")).toEqual({ form: "index", display: "[12]?", content: "12", structure: "static", catching: "optional", useRedirect: false });
+        expect(parseStep("[12]!")).toEqual({ form: "index", display: "[12]!", content: "12", structure: "static", catching: "strict", useRedirect: false });
+    })
+});
 
-it("should return correct values for static index steps", () => {
-    expect(parseStep("[12]")).toEqual({ form: "index", display: "[12]", content: "12", structure: "static", catching: "native", useRedirect: false });
-    expect(parseStep("[12]?")).toEqual({ form: "index", display: "[12]?", content: "12", structure: "static", catching: "optional", useRedirect: false });
-    expect(parseStep("[12]!")).toEqual({ form: "index", display: "[12]!", content: "12", structure: "static", catching: "strict", useRedirect: false });
-})
-
-it("should return correct values for variable index steps", () => {
-    expect(parseStep("[:My_StEp[0]]")).toEqual({ form: "index", display: "[:My_StEp[0]]", content: ":My_StEp[0]", structure: "variable", catching: "native", useRedirect: false });
-    expect(parseStep("[:My_StEp[0]]?")).toEqual({ form: "index", display: "[:My_StEp[0]]?", content: ":My_StEp[0]", structure: "variable", catching: "optional", useRedirect: false });
-    expect(parseStep("[:My_StEp[0]]!")).toEqual({ form: "index", display: "[:My_StEp[0]]!", content: ":My_StEp[0]", structure: "variable", catching: "strict", useRedirect: false });
-
-    expect(parseStep("[:My_StEp[:{My_OtHeR_sTeP}]]")).toEqual({ form: "index", display: "[:My_StEp[:{My_OtHeR_sTeP}]]", content: ":My_StEp[:{My_OtHeR_sTeP}]", structure: "variable", catching: "native", useRedirect: false });
-    expect(parseStep("[:My_StEp[:{My_OtHeR_sTeP}]]?")).toEqual({ form: "index", display: "[:My_StEp[:{My_OtHeR_sTeP}]]?", content: ":My_StEp[:{My_OtHeR_sTeP}]", structure: "variable", catching: "optional", useRedirect: false });
-    expect(parseStep("[:My_StEp[:{My_OtHeR_sTeP}]]!")).toEqual({ form: "index", display: "[:My_StEp[:{My_OtHeR_sTeP}]]!", content: ":My_StEp[:{My_OtHeR_sTeP}]", structure: "variable", catching: "strict", useRedirect: false });
-
-    expect(parseStep("[irrelevant content !_^'^_'!^!'_ 354* [] {} ]")).toEqual({ form: "index", display: "[irrelevant content !_^'^_'!^!'_ 354* [] {} ]", content: "irrelevant content !_^'^_'!^!'_ 354* [] {} ", structure: "variable", catching: "native", useRedirect: false });
-    expect(parseStep("[irrelevant content !_^'^_'!^!'_ 354* [] {} ]?")).toEqual({ form: "index", display: "[irrelevant content !_^'^_'!^!'_ 354* [] {} ]?", content: "irrelevant content !_^'^_'!^!'_ 354* [] {} ", structure: "variable", catching: "optional", useRedirect: false });
-    expect(parseStep("[irrelevant content !_^'^_'!^!'_ 354* [] {} ]!")).toEqual({ form: "index", display: "[irrelevant content !_^'^_'!^!'_ 354* [] {} ]!", content: "irrelevant content !_^'^_'!^!'_ 354* [] {} ", structure: "variable", catching: "strict", useRedirect: false });
-})
+describe("Variable Index Steps", () => {
+    it("should return correct values", () => {
+        expect(parseStep("[:My_StEp[0]]")).toEqual({ form: "index", display: "[:My_StEp[0]]", content: ":My_StEp[0]", structure: "variable", catching: "native", useRedirect: false });
+        expect(parseStep("[:My_StEp[0]]?")).toEqual({ form: "index", display: "[:My_StEp[0]]?", content: ":My_StEp[0]", structure: "variable", catching: "optional", useRedirect: false });
+        expect(parseStep("[:My_StEp[0]]!")).toEqual({ form: "index", display: "[:My_StEp[0]]!", content: ":My_StEp[0]", structure: "variable", catching: "strict", useRedirect: false });
+    
+        expect(parseStep("[:My_StEp[:{My_OtHeR_sTeP}]]")).toEqual({ form: "index", display: "[:My_StEp[:{My_OtHeR_sTeP}]]", content: ":My_StEp[:{My_OtHeR_sTeP}]", structure: "variable", catching: "native", useRedirect: false });
+        expect(parseStep("[:My_StEp[:{My_OtHeR_sTeP}]]?")).toEqual({ form: "index", display: "[:My_StEp[:{My_OtHeR_sTeP}]]?", content: ":My_StEp[:{My_OtHeR_sTeP}]", structure: "variable", catching: "optional", useRedirect: false });
+        expect(parseStep("[:My_StEp[:{My_OtHeR_sTeP}]]!")).toEqual({ form: "index", display: "[:My_StEp[:{My_OtHeR_sTeP}]]!", content: ":My_StEp[:{My_OtHeR_sTeP}]", structure: "variable", catching: "strict", useRedirect: false });
+    
+        expect(parseStep("[irrelevant content !_^'^_'!^!'_ 354* [] {} ]")).toEqual({ form: "index", display: "[irrelevant content !_^'^_'!^!'_ 354* [] {} ]", content: "irrelevant content !_^'^_'!^!'_ 354* [] {} ", structure: "variable", catching: "native", useRedirect: false });
+        expect(parseStep("[irrelevant content !_^'^_'!^!'_ 354* [] {} ]?")).toEqual({ form: "index", display: "[irrelevant content !_^'^_'!^!'_ 354* [] {} ]?", content: "irrelevant content !_^'^_'!^!'_ 354* [] {} ", structure: "variable", catching: "optional", useRedirect: false });
+        expect(parseStep("[irrelevant content !_^'^_'!^!'_ 354* [] {} ]!")).toEqual({ form: "index", display: "[irrelevant content !_^'^_'!^!'_ 354* [] {} ]!", content: "irrelevant content !_^'^_'!^!'_ 354* [] {} ", structure: "variable", catching: "strict", useRedirect: false });
+    })
+});
