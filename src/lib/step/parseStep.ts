@@ -61,10 +61,6 @@ export function parseStepUnsafe(input : string) : VerhaltStep | undefined {
 
                 if(bracketForm?.includes(char.target)) {
                     if(bracketDepth === 1) {
-                        if(!["?", "!", undefined].includes(input[ci + 1])) {
-                            throw new Error("[VERHALT-STEP]: Unexpected character after closing bracket." + ci);
-                        }
-    
                         finalize = true;
                     }
     
