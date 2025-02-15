@@ -19,4 +19,10 @@ export type VerhaltStepStaticStructure = "static";
 
 export type VerhaltStepVariableStructure = "variable";
 
-export type VerhaltStepBehaviour = "default" | "optional" | "strict"
+export type VerhaltStepBehaviour = VerhaltStepDefaultBehaviour | VerhaltStepOptionalBehaviour | VerhaltStepStrictBehaviour
+
+export type VerhaltStepDefaultBehaviour = "default";
+
+export type VerhaltStepOptionalBehaviour = "optional";
+
+export type VerhaltStepStrictBehaviour = "strict";
