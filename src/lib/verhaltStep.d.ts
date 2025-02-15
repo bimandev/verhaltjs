@@ -3,7 +3,7 @@ export type VerhaltStep = {
     content : VerhaltStepContent
 
     isDynamic : VerhaltStepIsDynamic
-    isNullable : VerhaltStepIsNullable
+    behavior : VerhaltStepBehavior
 }
 
 export type VerhaltStepForm = "name" | "index"
@@ -12,4 +12,4 @@ export type VerhaltStepContent = string
 
 export type VerhaltStepIsDynamic = boolean
 
-export type VerhaltStepIsNullable = boolean
+export type VerhaltStepBehavior = "default" | "optional" | "strict"
