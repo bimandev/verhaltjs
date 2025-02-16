@@ -52,6 +52,21 @@ export class VerhaltLink {
     }
 
 
+    public refs(includeOrigin : boolean = false) : VerhaltReference[] {
+        const refs: VerhaltReference[] = [];
+
+        if (includeOrigin) {
+            refs.push(this.origin);
+        }
+
+        for (const pointer of this._pointers) {
+            for (const ref of pointer.refs) {
+                refs.push(ref);
+            }
+        }
+        return refs;
+    }
+
     public get parent() : VerhaltReference | undefined {
         return this._parent;
     }
