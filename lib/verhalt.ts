@@ -62,6 +62,11 @@ export class verhalt {
         const link = verhalt.link(model, path);
         return link.current.obj;
     }
+
+    public static assign(model : VerhaltObjectModel, path : string, value : VerhaltModel) : void {
+        const link = verhalt.link(model, path);
+        (link.parent!.obj as VerhaltStructureObject)[link.current.step.content] = value;
+    }
 }
 
 export default verhalt;
