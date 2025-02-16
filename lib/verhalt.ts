@@ -1,5 +1,5 @@
 import { parsePathKeys, parseKey, parseKeyIndex } from "@verhalt/parser/lib"
-import { VerhaltArrayObject, VerhaltKey, VerhaltLink, VerhaltLinkOptions, VerhaltObjectModel, VerhaltPointer, VerhaltReference, VerhaltStep, VerhaltStructureObject } from "@verhalt/types/lib";
+import { VerhaltArrayObject, VerhaltKey, VerhaltLink, VerhaltLinkOptions, VerhaltModel, VerhaltObjectModel, VerhaltPointer, VerhaltReference, VerhaltStep, VerhaltStructureObject } from "@verhalt/types/lib";
 
 export class verhalt {
     public static link(model : VerhaltObjectModel, path : string, options? : VerhaltLinkOptions) : VerhaltLink {
@@ -49,10 +49,10 @@ export class verhalt {
                     }
                 }
 
-                references.unshift(new VerhaltReference(step, target));
+                references.push(new VerhaltReference(step, target));
             }
 
-            pointers.unshift(new VerhaltPointer(key, references));
+            pointers.push(new VerhaltPointer(key, references));
         }
 
         return new VerhaltLink(origin, path, options ?? {}, pointers);
