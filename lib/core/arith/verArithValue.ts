@@ -1,4 +1,4 @@
-import { VerArithValueContent, VerArithValueType } from "./verArithValue.d";
+import { VerArithValueContent, VerArithValueType } from "./verArithValue";
 
 export class VerArithValue {
     type : VerArithValueType;

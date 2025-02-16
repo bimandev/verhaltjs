@@ -1,5 +1,5 @@
 import { VerPathReferenceFlag } from "./verPathReference.d";
-import { VerhaltObjectModel } from "../../verhaltModel";
+import { VerhaltObjectModel } from "../verhaltModel";
 import { VerPathStep } from "./verPathStep";
 
 export class VerPathReference {
