@@ -1,9 +1,9 @@
-export type VerhaltLinkOptions = {
+export type VerhaltLinkOptions = Readonly<{
     referenceHandling : VerhaltLinkReferenceHandlingOption
     includeOrigin : VerhaltLinkIncludeOriginOption    
     includeAllKeys : VerhaltLinkIncludeKeysOption
     includeSteps : VerhaltLinkIncludeStepsOption 
-}
+}>;
 
 export type VerhaltLinkReferenceHandlingOption = "default" | "source";
 
