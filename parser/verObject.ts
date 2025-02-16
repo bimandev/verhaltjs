@@ -1,9 +1,9 @@
-import { CharInfo } from "./charInfo";
+import { VerChar } from "./verChar";
 
-export class InputInfo {
+export class VerObject {
     #input : string;
     #cursor : number = -1;
-    #current : CharInfo | undefined ;
+    #current : VerChar | undefined ;
     #curlyStack : number = 0;
     #squareStack : number = 0;
 
@@ -22,7 +22,7 @@ export class InputInfo {
         return this.#cursor;
     }
 
-    public get current() : CharInfo | undefined  {
+    public get current() : VerChar | undefined  {
         return this.#current;
     }
 
@@ -36,14 +36,14 @@ export class InputInfo {
     }
 
 
-    public next(calc : boolean = true) : CharInfo | undefined {
+    public next(calc : boolean = true) : VerChar | undefined {
         this.#cursor++;
 
         if(this.#cursor >= this.#input.length){
             this.#current = undefined;
         }
         else {
-            this.#current = new CharInfo(this.#input[this.#cursor]);
+            this.#current = new VerChar(this.#input[this.#cursor]);
 
             if(calc) {
                 switch(this.#current.target) {

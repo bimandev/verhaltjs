@@ -1,4 +1,4 @@
-export class CharInfo implements Disposable {
+export class VerChar implements Disposable {
     #target : string | undefined;
 
     #isAlphabeticLowerCase : boolean | undefined = false;
