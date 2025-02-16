@@ -9,4 +9,12 @@ export class VerhaltLink {
         this.#refs = refs;
         this.#options = options;
     }
+
+    public get origin() : VerhaltReference | undefined {
+        if(this.#options.origin) {
+            return this.#refs[0];
+        }
+
+        return undefined;
+    }
 }
