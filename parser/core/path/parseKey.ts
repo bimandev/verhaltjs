@@ -1,8 +1,8 @@
 import { VerhaltKey, VerhaltKeyForm, VerhaltKeySteps, VerhaltStep } from "@verhalt/types/lib";
 import { checkKey, checkKeyWithoutToken } from "./checkKey";
-import { InputInfo } from "../inputInfo";
-import { CharInfo } from "../charInfo";
-import { parseStepUnsafe } from "../step/parseStep";
+import { InputInfo } from "../../inputInfo";
+import { CharInfo } from "../../charInfo";
+import { parseStepUnsafe } from "./parseStep";
 
 export function parseKey(input: string) : VerhaltKey | undefined {
     checkKey(input);
