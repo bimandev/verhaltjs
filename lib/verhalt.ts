@@ -57,6 +57,11 @@ export class verhalt {
 
         return new VerhaltLink(origin, path, options ?? {}, pointers);
     }
+
+    public static lookup(model : VerhaltObjectModel, path : string) : VerhaltModel {
+        const link = verhalt.link(model, path);
+        return link.current.obj;
+    }
 }
 
 export default verhalt;
