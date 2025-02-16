@@ -5,5 +5,5 @@ import { VerhaltStep } from "./verhaltStep";
 export type VerhaltReference = {
     key : VerhaltKey
     step : VerhaltStep
-    target : VerhaltObjectModel
+    obj : VerhaltObjectModel
 }
