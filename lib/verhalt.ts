@@ -17,10 +17,10 @@ export class verhalt {
                 if(typeof target !== "object") throw new Error("Invalid Target: target is not an object");
                 const isArray = Array.isArray(target);
 
-                let raw : string;
+                let raw : any;
                 switch(step.structure) {
                     case "variable": {
-                        raw = ""; // TODO: Implement variable structure
+                        raw = verhalt.lookup(model, step.content as string); // ?: Implement variable structure
                         break;
                     }
                     default:
@@ -65,7 +65,12 @@ export class verhalt {
 
     public static assign(model : VerhaltObjectModel, path : string, value : VerhaltModel) : void {
         const link = verhalt.link(model, path);
-        (link.parent!.obj as VerhaltStructureObject)[link.current.flag] = value;
+        const parent = link.parent!;
+        
+        if(parent.step.form === "name")
+            (link.parent!.obj as VerhaltStructureObject)[link.current.flag as string] = value;
+        else
+            (link.parent!.obj as VerhaltArrayObject)[link.current.flag as number] = value
     }
 }
 
