@@ -17,6 +17,10 @@ export class VerhaltReference {
         return this._step;
     }
 
+    public get flag() : VerhaltReferenceFlag {
+        return this._flag;
+    }
+
     public get obj() : VerhaltObjectModel {
         return this._obj;
     }
