@@ -1,20 +1,9 @@
+import { VerhaltKey } from "./verhaltKey";
 import { VerhaltObjectModel } from "./verhaltModel";
+import { VerhaltStep } from "./verhaltStep";
 
 export type VerhaltReference = {
-    target : VerhaltReferenceItem
-    source : VerhaltReferenceItem[]
+    key : VerhaltKey
+    step : VerhaltStep
+    target : VerhaltObjectModel
 }
-
-export type VerhaltReferenceItem = {
-    key : string
-    step : VerhaltReferenceStep
-    obj : VerhaltObjectModel
-}
-
-
-export type VerhaltReferenceStep = {
-    display : string
-    value : string | number
-}
-
-export type VerhaltReferenceMatch = "target" | "parent" | "source" | "origin";
