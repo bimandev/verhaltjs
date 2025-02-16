@@ -1,4 +1,4 @@
-import { VerhaltLink } from "./verhaltLink"
+import { VerhaltLink } from "./verPathLink"
 
 export type VerPathReferenceFlag = {
     value : string | number

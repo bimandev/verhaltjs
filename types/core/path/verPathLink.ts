@@ -1,17 +1,17 @@
-import { VerhaltLinkOptions } from "./verhaltLink";
+import { VerPathLinkOptions } from "./verPathLink.d";
 import { VerPathPointer } from "./verPathPointer";
 import { VerPathReference } from "./verPathReference";
 
 export class VerPathLink {
     private _origin: VerPathReference;
     private _path : string;
-    private _options : VerhaltLinkOptions;
+    private _options : VerPathLinkOptions;
     private _pointers : VerPathPointer[];
 
     private _parent: VerPathReference | undefined;
     private _current: VerPathReference;
 
-    constructor(origin : VerPathReference, path : string, options : VerhaltLinkOptions, pointers : VerPathPointer[]) {
+    constructor(origin : VerPathReference, path : string, options : VerPathLinkOptions, pointers : VerPathPointer[]) {
         this._origin = origin;
         this._path = path;
         this._options = options;
@@ -43,7 +43,7 @@ export class VerPathLink {
         return this._path;
     }
 
-    public get options() : VerhaltLinkOptions {
+    public get options() : VerPathLinkOptions {
         return this._options;
     }
 

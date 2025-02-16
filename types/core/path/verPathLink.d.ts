@@ -1,4 +1,4 @@
-export type VerhaltLinkOptions = Readonly<{
+export type VerPathLinkOptions = Readonly<{
     referenceHandling? : VerhaltLinkReferenceHandlingOption
     onlyLastKey? : VerhaltLinkOnlyLastKeyOption
     onlyLastStep? : VerhaltLinkOnlyLastStepOption
