@@ -1,12 +1,13 @@
+import { VerhaltReferenceFlag } from "./verhaltReference.d";
 import { VerhaltObjectModel } from "./verhaltModel";
 import { VerhaltStep } from "./verhaltStep";
 
 export class VerhaltReference {
     private _step : VerhaltStep
-    private _flag : string
+    private _flag : VerhaltReferenceFlag
     private _obj : VerhaltObjectModel
 
-    constructor(step : VerhaltStep, flag : string, obj : VerhaltObjectModel) {
+    constructor(step : VerhaltStep, flag : VerhaltReferenceFlag, obj : VerhaltObjectModel) {
         this._step = step;
         this._flag = flag;
         this._obj = obj;
