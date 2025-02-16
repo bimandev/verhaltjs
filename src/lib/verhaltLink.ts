@@ -17,4 +17,8 @@ export class VerhaltLink {
 
         return undefined;
     }
+
+    public get current() : VerhaltReference {
+        return this.#refs[this.#refs.length - 1];
+    }
 }
