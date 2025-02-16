@@ -1,26 +1,39 @@
 import { VerhaltLinkOptions } from "./verhaltLink.d";
+import { VerhaltPointer } from "./verhaltPointer";
 import { VerhaltReference } from "./verhaltReference";
 
 export class VerhaltLink {
-    #refs : VerhaltReference[];
+    #origin: VerhaltReference;
+    #pointers : VerhaltPointer[];
     #options : VerhaltLinkOptions;
 
-    #origin: VerhaltReference;
     #parent: VerhaltReference | undefined;
     #current: VerhaltReference;
 
-    constructor(refs : VerhaltReference[], options : VerhaltLinkOptions) {
-        this.#refs = refs;
+    constructor(origin : VerhaltReference, pointers : VerhaltPointer[], options : VerhaltLinkOptions) {
+        this.#origin = origin;
+        this.#pointers = pointers;
         this.#options = options;
 
-        this.#current = refs.length > 1 ? refs[refs.length - 1] : refs[0];
-        this.#parent = refs.length > 2 ? refs[refs.length - 2] :  refs.length > 1 ? refs[0] : undefined;
+        const lastPointer = pointers[pointers.length - 1];
+        const lastKey = lastPointer.refs[lastPointer.refs.length - 1];
+        this.#current = lastKey;
 
-        this.#origin = this.#options.includeOrigin ? refs[0] : refs.shift() as VerhaltReference;
+        if (lastPointer.refs.length > 1) {
+            const parentKey = lastPointer.refs[lastPointer.refs.length - 2];
+            this.#parent = parentKey;
+        } else {
+            const secondLastPointer = pointers[pointers.length - 2];
+            if (secondLastPointer) {
+                this.#parent = secondLastPointer.refs[secondLastPointer.refs.length - 1];
+            } else {
+                this.#parent = undefined;
+            }
+        }
     }
 
-    public get refs() : ReadonlyArray<VerhaltReference> {
-        return this.#refs;
+    public get pointers() : ReadonlyArray<VerhaltPointer> {
+        return this.#pointers;
     }
 
     public get options() : VerhaltLinkOptions {
