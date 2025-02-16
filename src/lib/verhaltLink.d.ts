@@ -1,8 +1,11 @@
 export type VerhaltLinkOptions = {
+    handle : VerhaltLinkHandleOption
     origin : VerhaltLinkOriginOption    
     keys : VerhaltLinkKeysOption
     steps : VerhaltLinkStepsOption 
 }
+
+export type VerhaltLinkHandleOption = "default" | "source";
 
 export type VerhaltLinkOriginOption = boolean;
 
