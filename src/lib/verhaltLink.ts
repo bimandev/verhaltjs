@@ -56,12 +56,12 @@ export class VerhaltLink {
         const refs: VerhaltReference[] = [];
 
         if (includeOrigin) {
-            refs.unshift(this.origin);
+            refs.push(this.origin);
         }
 
         for (const pointer of this._pointers) {
             for (const ref of pointer.refs) {
-                refs.unshift(ref);
+                refs.push(ref);
             }
         }
         return refs;
