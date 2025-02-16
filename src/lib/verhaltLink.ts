@@ -2,7 +2,7 @@ import { VerhaltLinkOptions } from "./verhaltLink.d";
 import { VerhaltReference } from "./verhaltReference";
 
 export class VerhaltLink {
-    #refs : ReadonlyArray<VerhaltReference>;
+    #refs : VerhaltReference[];
     #options : VerhaltLinkOptions;
 
     #origin: VerhaltReference;
@@ -13,18 +13,10 @@ export class VerhaltLink {
         this.#refs = refs;
         this.#options = options;
 
-        this.#origin = refs[0];
+        this.#current = refs.length > 1 ? refs[refs.length - 1] : refs[0];
+        this.#parent = refs.length > 2 ? refs[refs.length - 2] :  refs.length > 1 ? refs[0] : undefined;
 
-        switch(this.#options.referenceHandling) {
-            case "default":
-                this.#current = this.#refs[this.#refs.length - 1];
-                this.#parent = this.#refs[this.#refs.length - 2];
-                break;
-            case "source":
-                this.#current = this.#refs[refs.length - 1];
-                this.#parent = refs.length > 1 ? refs[refs.length - 2] : undefined;
-                break;
-        }
+        this.#origin = this.#options.includeOrigin ? refs[0] : refs.shift() as VerhaltReference;
     }
 
     public get refs() : ReadonlyArray<VerhaltReference> {
@@ -35,15 +27,16 @@ export class VerhaltLink {
         return this.#options;
     }
 
+
     public get origin() : VerhaltReference {
         return this.#origin;
     }
 
-    public get source() : VerhaltReference | undefined {
-        return this.#refs[this.#refs.length - 2];
+    public get parent() : VerhaltReference | undefined {
+        return this.#parent;
     }
 
     public get current() : VerhaltReference {
-        return this.#refs[this.#refs.length - 1];
+        return this.#current;
     }
 }
