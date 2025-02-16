@@ -1,14 +1,14 @@
 export type VerhaltLinkOptions = {
-    handle : VerhaltLinkHandleOption
-    origin : VerhaltLinkOriginOption    
-    keys : VerhaltLinkKeysOption
-    steps : VerhaltLinkStepsOption 
+    referenceHandling : VerhaltLinkReferenceHandlingOption
+    includeOrigin : VerhaltLinkIncludeOriginOption    
+    includeAllKeys : VerhaltLinkIncludeKeysOption
+    includeSteps : VerhaltLinkIncludeStepsOption 
 }
 
-export type VerhaltLinkHandleOption = "default" | "source";
+export type VerhaltLinkReferenceHandlingOption = "default" | "source";
 
-export type VerhaltLinkOriginOption = boolean;
+export type VerhaltLinkIncludeOriginOption = boolean;
 
-export type VerhaltLinkKeysOption = boolean;
+export type VerhaltLinkIncludeKeysOption = boolean;
 
-export type VerhaltLinkStepsOption = boolean;
+export type VerhaltLinkIncludeStepsOption = boolean;

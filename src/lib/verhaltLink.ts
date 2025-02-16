@@ -11,7 +11,7 @@ export class VerhaltLink {
     }
 
     public get origin() : VerhaltReference | undefined {
-        if(this.#options.origin) {
+        if(this.#options.includeOrigin) {
             return this.#refs[0];
         }
 
