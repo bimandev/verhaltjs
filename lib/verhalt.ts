@@ -1,4 +1,4 @@
-import { parsePathKeys, parseKey, parseKeyIndex } from "@verhalt/parser/lib"
+import { parsePathKeys, parseKey } from "@verhalt/parser/lib"
 import { VerhaltArrayObject, VerhaltKey, VerhaltLink, VerhaltLinkOptions, VerhaltModel, VerhaltObjectModel, VerhaltPointer, VerhaltReference, VerhaltStep, VerhaltStructureObject } from "@verhalt/types/lib";
 
 export class verhalt {
@@ -66,7 +66,7 @@ export class verhalt {
     public static assign(model : VerhaltObjectModel, path : string, value : VerhaltModel) : void {
         const link = verhalt.link(model, path);
         const parent = link.parent!;
-        
+
         if(parent.step.form === "name")
             (link.parent!.obj as VerhaltStructureObject)[link.current.flag as string] = value;
         else
