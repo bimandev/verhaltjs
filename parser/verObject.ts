@@ -1,6 +1,7 @@
+import { IVerObject } from "./verObject.d";
 import { VerChar } from "./verChar";
 
-export class VerObject {
+export class VerObject implements IVerObject {
     #input : string;
     #cursor : number = -1;
     #current : VerChar | undefined ;
