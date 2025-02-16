@@ -1,1 +1,1 @@
-export type VerhaltReferenceFlag = string;
+export type VerhaltReferenceFlag = string | number;
