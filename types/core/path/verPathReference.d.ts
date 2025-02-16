@@ -1,6 +1,6 @@
 import { VerhaltLink } from "./verhaltLink"
 
-export type VerhaltReferenceFlag = {
+export type VerPathReferenceFlag = {
     value : string | number
     link? : VerhaltLink
 }

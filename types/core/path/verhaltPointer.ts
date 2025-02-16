@@ -1,5 +1,5 @@
 import { VerhaltKey } from "./verhaltKey";
-import { VerhaltReference } from "./verhaltReference";
+import { VerhaltReference } from "./verPathReference";
 
 export class VerhaltPointer {
     private _key : VerhaltKey;

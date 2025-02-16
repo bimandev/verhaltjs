@@ -1,6 +1,6 @@
 import { VerhaltLinkOptions } from "./verhaltLink.d";
 import { VerhaltPointer } from "./verhaltPointer";
-import { VerhaltReference } from "./verhaltReference";
+import { VerhaltReference } from "./verPathReference";
 
 export class VerhaltLink {
     private _origin: VerhaltReference;
