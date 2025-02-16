@@ -49,10 +49,10 @@ export class verhalt {
                     }
                 }
 
-                references.push(new VerhaltReference(step, target));
+                references.unshift(new VerhaltReference(step, target));
             }
 
-            pointers.push(new VerhaltPointer(key, references));
+            pointers.unshift(new VerhaltPointer(key, references));
         }
 
         return new VerhaltLink(origin, path, options ?? {}, pointers);
