@@ -37,6 +37,6 @@
   },
   "dependencies": {
     "@verhalt/parser": "^1.10.0",
-    "@verhalt/types": "^1.8.0"
+    "@verhalt/types": "^1.8.1"
   }
 }
