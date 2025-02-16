@@ -1,4 +1,4 @@
-import { VerhaltStep } from "./verhaltStep";
+import { VerhaltStep } from "./verPathStep";
 import { VerPathStep } from "./verPathStep";
 
 export type VerPathKey = {

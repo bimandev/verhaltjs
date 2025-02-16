@@ -1,6 +1,6 @@
 import { VerhaltReferenceFlag } from "./verhaltReference.d";
 import { VerhaltObjectModel } from "./verhaltModel";
-import { VerhaltStep } from "./verhaltStep";
+import { VerhaltStep } from "./verPathStep";
 
 export class VerhaltReference {
     private _step : VerhaltStep
