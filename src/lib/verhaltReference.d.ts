@@ -1,1 +1,6 @@
-export type VerhaltReferenceFlag = string | number;
+import { VerhaltLink } from "./verhaltLink"
+
+export type VerhaltReferenceFlag = {
+    value : string | number
+    link? : VerhaltLink
+}
