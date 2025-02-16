@@ -1,4 +1,4 @@
-import verhalt from "../lib/verhalt";
+/*import verhalt from "../lib/verhalt";
 import { test } from 'vitest';
 
 //(?:\:([^:\[]+(?:\[[^\]]*\])*[^:]*))
@@ -38,4 +38,4 @@ test('Verhalt.value', () => {
     //console.log(Verhalt.assign(exampleModel, ":cigu[:cigu[0]].nina", 2));
     console.log(verhalt.assign(exampleModel, ":age", { $add: 2 })); 
     console.log(verhalt.lookup(exampleModel, ":age")); 
-});
+});*/

@@ -1,4 +1,4 @@
-import { parsePathKeys, parseKey } from "@verhalt/parser/lib"
+/*import { parsePathKeys, parseKey } from "@verhalt/parser/lib"
 import { VerhaltArrayObject, VerhaltKey, VerhaltLink, VerhaltLinkOptions, VerhaltModel, VerhaltObjectModel, VerhaltPointer, VerhaltReference, VerhaltReferenceFlag, VerhaltStep, VerhaltStructureObject } from "@verhalt/types/lib";
 
 export class verhalt {
@@ -79,4 +79,4 @@ export class verhalt {
     }
 }
 
-export default verhalt;
+export default verhalt;*/
