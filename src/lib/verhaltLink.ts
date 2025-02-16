@@ -3,60 +3,60 @@ import { VerhaltPointer } from "./verhaltPointer";
 import { VerhaltReference } from "./verhaltReference";
 
 export class VerhaltLink {
-    #origin: VerhaltReference;
-    #path : string;
-    #options : VerhaltLinkOptions;
-    #pointers : VerhaltPointer[];
+    private _origin: VerhaltReference;
+    private _path : string;
+    private _options : VerhaltLinkOptions;
+    private _pointers : VerhaltPointer[];
 
-    #parent: VerhaltReference | undefined;
-    #current: VerhaltReference;
+    private _parent: VerhaltReference | undefined;
+    private _current: VerhaltReference;
 
     constructor(origin : VerhaltReference, path : string, options : VerhaltLinkOptions, pointers : VerhaltPointer[]) {
-        this.#origin = origin;
-        this.#path = path;
-        this.#options = options;
-        this.#pointers = pointers;
+        this._origin = origin;
+        this._path = path;
+        this._options = options;
+        this._pointers = pointers;
 
         const lastPointer = pointers[pointers.length - 1];
         const lastKey = lastPointer.refs[lastPointer.refs.length - 1];
-        this.#current = lastKey;
+        this._current = lastKey;
 
         if (lastPointer.refs.length > 1) {
             const parentKey = lastPointer.refs[lastPointer.refs.length - 2];
-            this.#parent = parentKey;
+            this._parent = parentKey;
         } else {
             const secondLastPointer = pointers[pointers.length - 2];
             if (secondLastPointer) {
-                this.#parent = secondLastPointer.refs[secondLastPointer.refs.length - 1];
+                this._parent = secondLastPointer.refs[secondLastPointer.refs.length - 1];
             } else {
-                this.#parent = undefined;
+                this._parent = undefined;
             }
         }
     }
 
 
     public get origin() : VerhaltReference {
-        return this.#origin;
+        return this._origin;
     }
 
     public get path() : string {
-        return this.#path;
+        return this._path;
     }
 
     public get options() : VerhaltLinkOptions {
-        return this.#options;
+        return this._options;
     }
 
     public get pointers() : ReadonlyArray<VerhaltPointer> {
-        return this.#pointers;
+        return this._pointers;
     }
 
 
     public get parent() : VerhaltReference | undefined {
-        return this.#parent;
+        return this._parent;
     }
 
     public get current() : VerhaltReference {
-        return this.#current;
+        return this._current;
     }
 }
