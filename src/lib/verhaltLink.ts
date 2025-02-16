@@ -4,16 +4,18 @@ import { VerhaltReference } from "./verhaltReference";
 
 export class VerhaltLink {
     #origin: VerhaltReference;
-    #pointers : VerhaltPointer[];
+    #path : string;
     #options : VerhaltLinkOptions;
+    #pointers : VerhaltPointer[];
 
     #parent: VerhaltReference | undefined;
     #current: VerhaltReference;
 
-    constructor(origin : VerhaltReference, pointers : VerhaltPointer[], options : VerhaltLinkOptions) {
+    constructor(origin : VerhaltReference, path : string, options : VerhaltLinkOptions, pointers : VerhaltPointer[]) {
         this.#origin = origin;
-        this.#pointers = pointers;
+        this.#path = path;
         this.#options = options;
+        this.#pointers = pointers;
 
         const lastPointer = pointers[pointers.length - 1];
         const lastKey = lastPointer.refs[lastPointer.refs.length - 1];
@@ -32,18 +34,23 @@ export class VerhaltLink {
         }
     }
 
-    public get pointers() : ReadonlyArray<VerhaltPointer> {
-        return this.#pointers;
+
+    public get origin() : VerhaltReference {
+        return this.#origin;
+    }
+
+    public get path() : string {
+        return this.#path;
     }
 
     public get options() : VerhaltLinkOptions {
         return this.#options;
     }
 
-
-    public get origin() : VerhaltReference {
-        return this.#origin;
+    public get pointers() : ReadonlyArray<VerhaltPointer> {
+        return this.#pointers;
     }
+
 
     public get parent() : VerhaltReference | undefined {
         return this.#parent;
