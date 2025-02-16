@@ -2,12 +2,16 @@ import { VerhaltLinkOptions } from "./verhaltLink.d";
 import { VerhaltReference } from "./verhaltReference";
 
 export class VerhaltLink {
-    #refs : VerhaltReference[];
+    #refs : ReadonlyArray<VerhaltReference>;
     #options : VerhaltLinkOptions;
 
     constructor(refs : VerhaltReference[], options : VerhaltLinkOptions) {
         this.#refs = refs;
         this.#options = options;
+    }
+
+    public get refs() : ReadonlyArray<VerhaltReference> {
+        return this.#refs;
     }
 
     public get origin() : VerhaltReference | undefined {
