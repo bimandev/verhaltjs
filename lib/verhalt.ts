@@ -3,7 +3,7 @@ import { VerhaltArrayObject, VerhaltKey, VerhaltLink, VerhaltLinkOptions, Verhal
 
 export class verhalt {
     public static link(model : VerhaltObjectModel, path : string, options? : VerhaltLinkOptions) : VerhaltLink {
-        const origin : VerhaltReference = new VerhaltReference(null as unknown as VerhaltStep, model);
+        const origin : VerhaltReference = new VerhaltReference(null as unknown as VerhaltStep, ":", model);
         const pointers : VerhaltPointer[] = [];
 
         const keys = parsePathKeys(path);
@@ -30,26 +30,26 @@ export class verhalt {
                     }
                 }
 
-                let value : string | number;
+                let flag : string | number;
                 switch(step.form) {
                     case "name": {                        
                         if(isArray) throw new Error("Invalid Target: Target is an array");
 
-                        value = raw;
-                        target = (target as VerhaltStructureObject)[value]
+                        flag = raw;
+                        target = (target as VerhaltStructureObject)[flag]
                         break;
                     }
                     default:
                     case "index": {
                         if(!isArray) throw new Error("Invalid Target: Target is not an array");
 
-                        value = Number(raw);
-                        target = (target as VerhaltArrayObject)[value]
+                        flag = Number(raw);
+                        target = (target as VerhaltArrayObject)[flag]
                         break;
                     }
                 }
 
-                references.push(new VerhaltReference(step, target));
+                references.push(new VerhaltReference(step, flag, target));
             }
 
             pointers.push(new VerhaltPointer(key, references));
@@ -65,7 +65,7 @@ export class verhalt {
 
     public static assign(model : VerhaltObjectModel, path : string, value : VerhaltModel) : void {
         const link = verhalt.link(model, path);
-        (link.parent!.obj as VerhaltStructureObject)[link.current.step.content] = value;
+        (link.parent!.obj as VerhaltStructureObject)[link.current.flag] = value;
     }
 }
 
