@@ -14,7 +14,7 @@
       "allowJs": true,
       "resolveJsonModule": true
     },
-    "include": ["lib/**/*"],
+    "include": ["lib/**/*", "types/**/*"],
     "exclude": ["node_modules", "dist", "tests"]
 }
   
