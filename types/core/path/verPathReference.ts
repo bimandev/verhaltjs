@@ -1,19 +1,19 @@
-import { VerhaltReferenceFlag } from "./verhaltReference.d";
-import { VerhaltObjectModel } from "./verhaltModel";
-import { VerhaltStep } from "./verPathStep";
+import { VerhaltReferenceFlag } from "./verhaltReference";
+import { VerhaltObjectModel } from "../../verhaltModel";
+import { VerPathStep } from "./verPathStep";
 
-export class VerhaltReference {
-    private _step : VerhaltStep
+export class VerPathReference {
+    private _step : VerPathStep
     private _flag : VerhaltReferenceFlag
     private _obj : VerhaltObjectModel
 
-    constructor(step : VerhaltStep, flag : VerhaltReferenceFlag, obj : VerhaltObjectModel) {
+    constructor(step : VerPathStep, flag : VerhaltReferenceFlag, obj : VerhaltObjectModel) {
         this._step = step;
         this._flag = flag;
         this._obj = obj;
     }
 
-    public get step() : VerhaltStep {
+    public get step() : VerPathStep {
         return this._step;
     }
 
