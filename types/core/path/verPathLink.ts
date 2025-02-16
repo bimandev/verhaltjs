@@ -1,17 +1,17 @@
-import { VerhaltLinkOptions } from "./verhaltLink.d";
-import { VerhaltPointer } from "./verPathPointer";
-import { VerhaltReference } from "./verPathReference";
+import { VerhaltLinkOptions } from "./verhaltLink";
+import { VerPathPointer } from "./verPathPointer";
+import { VerPathReference } from "./verPathReference";
 
-export class VerhaltLink {
-    private _origin: VerhaltReference;
+export class VerPathLink {
+    private _origin: VerPathReference;
     private _path : string;
     private _options : VerhaltLinkOptions;
-    private _pointers : VerhaltPointer[];
+    private _pointers : VerPathPointer[];
 
-    private _parent: VerhaltReference | undefined;
-    private _current: VerhaltReference;
+    private _parent: VerPathReference | undefined;
+    private _current: VerPathReference;
 
-    constructor(origin : VerhaltReference, path : string, options : VerhaltLinkOptions, pointers : VerhaltPointer[]) {
+    constructor(origin : VerPathReference, path : string, options : VerhaltLinkOptions, pointers : VerPathPointer[]) {
         this._origin = origin;
         this._path = path;
         this._options = options;
@@ -35,7 +35,7 @@ export class VerhaltLink {
     }
 
 
-    public get origin() : VerhaltReference {
+    public get origin() : VerPathReference {
         return this._origin;
     }
 
@@ -47,13 +47,13 @@ export class VerhaltLink {
         return this._options;
     }
 
-    public get pointers() : ReadonlyArray<VerhaltPointer> {
+    public get pointers() : ReadonlyArray<VerPathPointer> {
         return this._pointers;
     }
 
 
-    public refs(includeOrigin : boolean = false) : VerhaltReference[] {
-        const refs: VerhaltReference[] = [];
+    public refs(includeOrigin : boolean = false) : VerPathReference[] {
+        const refs: VerPathReference[] = [];
 
         if (includeOrigin) {
             refs.push(this.origin);
@@ -67,11 +67,11 @@ export class VerhaltLink {
         return refs;
     }
 
-    public get parent() : VerhaltReference | undefined {
+    public get parent() : VerPathReference | undefined {
         return this._parent;
     }
 
-    public get current() : VerhaltReference {
+    public get current() : VerPathReference {
         return this._current;
     }
 }

@@ -1,7 +1,7 @@
 import { VerPathKey } from "./verPathKey";
 import { VerPathReference } from "./verPathReference";
 
-export class VerhaltPointer {
+export class VerPathPointer {
     private _key : VerPathKey;
     private _refs : VerPathReference[];
     
