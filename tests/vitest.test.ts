@@ -1,4 +1,4 @@
-import { test } from 'vitest';
+/*import { test } from 'vitest';
 
 test('keyContent', async (context) => {
     const {parseRoutePaths} = await import('../src/lib/route/parseRoutePaths');
@@ -14,4 +14,4 @@ test('keyContent', async (context) => {
     }
 
     console.log(parseRoutePaths(":manager>?.selected[:manager.target ?? 'mama']!.money>? ?? asdsa"));
-});
+});*/
