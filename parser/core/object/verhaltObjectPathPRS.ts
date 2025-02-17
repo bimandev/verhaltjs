@@ -3,7 +3,7 @@ import { VerhaltObjectParser } from "./verhaltObjectParser";
 import { SchnurBracketCounterSLT, SchnurBufferSLT } from "schnur/singletons";
 
 export class VerhaltObjectPathPRS extends VerhaltObjectParser {
-    keys : string[];
+    keys : string[] = [];
 
     private constructor(input : string) {
         super(input);
@@ -23,13 +23,14 @@ export class VerhaltObjectPathPRS extends VerhaltObjectParser {
             }
             else {
                 if(bcounter.balanced) {
-                    if(char.value === ".") {
+                    if(char.value === "." || context.cursor === context.content.length - 1) {
                         buffer.flush();
                         this.keys.push(buffer.value);
                     }
                 }
             }
-    
+
+            console.log(char.value, buffer.flushed, buffer.current);
         }, (f) => {return {
             [f.bcounter] : new SchnurBracketCounterSLT(),
             [f.buffer] : new SchnurBufferSLT({ active: false }),
