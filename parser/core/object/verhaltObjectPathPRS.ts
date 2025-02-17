@@ -6,7 +6,8 @@ export class VerhaltObjectPathPRS extends VerhaltObjectParser {
     private constructor(input : string) {
         super(input);
 
-        Schnur.parse(input, (char, s) => {
+        Schnur.parse(input, (context, s) => {
+            const char = context.char!;
             const bcounter = s.bcounter<SchnurBracketCounterSLT>();
             const buffer = s.buffer<SchnurBufferSLT>();
 
@@ -19,9 +20,15 @@ export class VerhaltObjectPathPRS extends VerhaltObjectParser {
                         throw new Error("Unexpected ':' character is must be in first position");
                     }
                 }
-            }
-
-            
+                else if(char.value === ".") {
+                    if(buffer.enable) {
+                        buffer.flush();
+                    }
+                    else {
+                        throw new Error("Unexpected character");
+                    }
+                }
+            }       
         }, (f) => {return {
             [f.bcounter] : new SchnurBracketCounterSLT(),
             [f.buffer] : new SchnurBufferSLT({ active: false }),
