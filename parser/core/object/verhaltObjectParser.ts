@@ -4,4 +4,8 @@ export abstract class VerhaltObjectParser {
     public constructor(input : string) {
         this.#input = input
     }
+
+    public get input() : string {
+        return this.#input
+    }
 }
