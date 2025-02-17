@@ -3,7 +3,7 @@ import { VerhaltObjectParser } from "./verhaltObjectParser";
 import { SchnurBracketCounterSLT, SchnurBufferSLT } from "schnur/singletons";
 
 export class VerhaltObjectPathPRS extends VerhaltObjectParser {
-    constructor(input : string) {
+    private constructor(input : string) {
         super(input);
 
         Schnur.parse(input, (char, s) => {
@@ -26,5 +26,9 @@ export class VerhaltObjectPathPRS extends VerhaltObjectParser {
             [f.bcounter] : new SchnurBracketCounterSLT(),
             [f.buffer] : new SchnurBufferSLT({ active: false }),
         }});
+    }
+
+    public static from(input : string) : VerhaltObjectPathPRS {
+        return new VerhaltObjectPathPRS(input);
     }
 }
