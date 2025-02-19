@@ -12,12 +12,12 @@ export class ObjectPathPRS extends SchnurParser {
     }
 
     protected awake(): void {
-        const useKey = this.sl.useKey<SchnurUseParserSLT>();
+        const useKey = this.sl.useKey<SchnurUseParserSLT<ObjectPathKeyPRS>>();
         useKey.start(false);
     }
 
     protected handle(): void | boolean {
-        const useKey = this.sl.useKey<SchnurUseParserSLT>();
+        const useKey = this.sl.useKey<SchnurUseParserSLT<ObjectPathKeyPRS>>();
         const context = this.context;
         const char = context.targetChar;
         
@@ -27,7 +27,7 @@ export class ObjectPathPRS extends SchnurParser {
     }
 
     protected finalize(): void {
-        const useKey = this.sl.useKey<SchnurUseParserSLT>();
+        const useKey = this.sl.useKey<SchnurUseParserSLT<ObjectPathKeyPRS>>();
 
         this.keys = useKey.history as ObjectPathKeyPRS[];
         for(const key of this.keys) {
