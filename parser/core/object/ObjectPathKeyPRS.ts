@@ -19,25 +19,22 @@ export class ObjectPathKeyPRS extends SchnurParser {
     protected handle(): void | boolean {
         const context = this.context;
         const char = context.targetChar;
+        const nextChar = context.nextChar;
 
         if(this.order === 0) {
             if(char.value === ":") {
                 this.root = true;
-                return;
             }
             else if(char.value === ".") {
                 this.root = false;
-                return;
             }
             else {
                 throw new Error("Key must start with ':' or '.' character.");
             }
         }
-        else {
-            if(char.isOpenBracket) {            
-
-            }
-            else {
+        
+        if(nextChar) {
+            if(nextChar.isOpenCurlyBracket) {
                 this.useAcc.start(false);
             }
         }
