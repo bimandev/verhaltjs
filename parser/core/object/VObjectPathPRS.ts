@@ -1,6 +1,6 @@
 import { SchnurParser, SchnurParserSource } from "schnur/parsers";
 import { SchnurBufferSLT, SchnurUseParserSLT } from "schnur/singletons";
-import { VerhaltObjectKeyPRS } from "./verhaltObjectKeyPRS";
+import { VerhaltObjectKeyPRS } from "./VObjectPathKeyPRS";
 
 export class VerhaltObjectPathPRS extends SchnurParser {
     keys : VerhaltObjectKeyPRS[] = [];
