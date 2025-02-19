@@ -1,7 +1,7 @@
 import { SchnurParser, SchnurParserSource } from "schnur/parsers";
 import { SchnurBufferSLT } from "schnur/singletons";
 
-export class ObjectKeyCallPRS extends SchnurParser {
+export class PathKeyCallPRS extends SchnurParser {
     content : string = "";
 
     private constructor(source : SchnurParserSource) {
@@ -41,7 +41,7 @@ export class ObjectKeyCallPRS extends SchnurParser {
     }
 
 
-    public static create(source : SchnurParserSource) : ObjectKeyCallPRS {
-        return new ObjectKeyCallPRS(source);
+    public static create(source : SchnurParserSource) : PathKeyCallPRS {
+        return new PathKeyCallPRS(source);
     }
 }

@@ -1,32 +1,32 @@
 import { SchnurParser, SchnurParserSource } from "schnur/parsers";
 import { SchnurUseParserSLT } from "schnur/singletons";
-import { ObjectKeyAccPRS } from "./ObjectKeyAccPRS";
-import { ObjectKeyPosPRS } from "./ObjectKeyPosPRS";
-import { ObjectKeyCallPRS } from "./ObjectKeyCallPRS";
+import { PathKeyAccPRS } from "./PathKeyAccPRS";
+import { PathKeyPosPRS } from "./PathKeyPosPRS";
+import { PathKeyCallPRS } from "./PathKeyCallPRS";
 
-export class ObjectKeyPRS extends SchnurParser {
+export class PathKeyPRS extends SchnurParser {
     root : boolean;
-    acc : ObjectKeyAccPRS | undefined;
-    pacs : (ObjectKeyPosPRS | ObjectKeyCallPRS)[]= [];
+    acc : PathKeyAccPRS | undefined;
+    pacs : (PathKeyPosPRS | PathKeyCallPRS)[]= [];
 
     private constructor(source : SchnurParserSource) {
         super(source, (f) => ({
-            [f.useAcc] : (s) => SchnurUseParserSLT.create(s, ObjectKeyAccPRS.create),
-            [f.usePos] : (s) => SchnurUseParserSLT.create(s, ObjectKeyPosPRS.create),
-            [f.useCall] : (s) => SchnurUseParserSLT.create(s, ObjectKeyCallPRS.create)
+            [f.useAcc] : (s) => SchnurUseParserSLT.create(s, PathKeyAccPRS.create),
+            [f.usePos] : (s) => SchnurUseParserSLT.create(s, PathKeyPosPRS.create),
+            [f.useCall] : (s) => SchnurUseParserSLT.create(s, PathKeyCallPRS.create)
         }));
     }
 
-    private get useAcc() : SchnurUseParserSLT<ObjectKeyAccPRS> {
-        return this.sl.useAcc<SchnurUseParserSLT<ObjectKeyAccPRS>>();
+    private get useAcc() : SchnurUseParserSLT<PathKeyAccPRS> {
+        return this.sl.useAcc<SchnurUseParserSLT<PathKeyAccPRS>>();
     }
 
-    private get usePos() : SchnurUseParserSLT<ObjectKeyPosPRS> {
-        return this.sl.usePos<SchnurUseParserSLT<ObjectKeyPosPRS>>();
+    private get usePos() : SchnurUseParserSLT<PathKeyPosPRS> {
+        return this.sl.usePos<SchnurUseParserSLT<PathKeyPosPRS>>();
     }
 
-    private get useCall() : SchnurUseParserSLT<ObjectKeyCallPRS> {
-        return this.sl.useCall<SchnurUseParserSLT<ObjectKeyCallPRS>>();
+    private get useCall() : SchnurUseParserSLT<PathKeyCallPRS> {
+        return this.sl.useCall<SchnurUseParserSLT<PathKeyCallPRS>>();
     }
 
     protected handle(): void | boolean {
@@ -67,7 +67,7 @@ export class ObjectKeyPRS extends SchnurParser {
         this.accs = this.useAcc.history;
     }*/
 
-    public static create(source : SchnurParserSource) : ObjectKeyPRS {
-        return new ObjectKeyPRS(source);
+    public static create(source : SchnurParserSource) : PathKeyPRS {
+        return new PathKeyPRS(source);
     }
 }

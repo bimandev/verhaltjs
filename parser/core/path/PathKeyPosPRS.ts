@@ -1,9 +1,8 @@
 import { SchnurParser, SchnurParserSource } from "schnur/parsers";
 import { SchnurBufferSLT } from "schnur/singletons";
 
-export class ObjectKeyAccPRS extends SchnurParser {
+export class PathKeyPosPRS extends SchnurParser {
     content : string = "";
-    dynamic : boolean = false;
 
     private constructor(source : SchnurParserSource) {
         super(source, (f) => ({
@@ -17,32 +16,20 @@ export class ObjectKeyAccPRS extends SchnurParser {
 
     protected handle(): void | boolean {
         const context = this.context;
-        const prevChar = context.prevChar!;
         const char = context.targetChar;
 
         if(this.order === 0) {
-            if(char.isOpenCurlyBracket) {
-                this.dynamic = true;
+            if(char.isOpenSquareBracket) {
                 return;
             }
-            else if(char.isAlphabetic) {
-                this.dynamic = false;
-            }
             else {
-                throw new Error("Key accessor must start with an alphabetic character or an open curly bracket.");
+                throw new Error("Key pos must start with '[' character.");
             }
         }
         else {
-            if(this.dynamic) {
-                if(char.isCloseCurlyBracket) {
-                    return true;
-                }
-            }
-            else {
-                if(!char.isAlphanumeric) {
-                    throw new Error("Key accessor must be alphanumeric.");
-                }
-            }
+            if(char.isCloseSquareBracket) {
+                return true;
+            }      
         }
 
         this.buffer.append();
@@ -54,7 +41,7 @@ export class ObjectKeyAccPRS extends SchnurParser {
     }
 
 
-    public static create(source : SchnurParserSource) : ObjectKeyAccPRS {
-        return new ObjectKeyAccPRS(source);
+    public static create(source : SchnurParserSource) : PathKeyPosPRS {
+        return new PathKeyPosPRS(source);
     }
 }

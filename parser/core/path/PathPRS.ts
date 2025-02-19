@@ -1,23 +1,23 @@
 import { SchnurParser, SchnurParserSource } from "schnur/parsers";
 import { SchnurBufferSLT, SchnurUseParserSLT } from "schnur/singletons";
-import { ObjectKeyPRS } from "./ObjectKeyPRS";
+import { PathKeyPRS } from "./PathKeyPRS";
 
-export class ObjectPRS extends SchnurParser {
-    keys : ObjectKeyPRS[] = [];
+export class PathPRS extends SchnurParser {
+    keys : PathKeyPRS[] = [];
 
     private constructor(source : SchnurParserSource) {
         super(source, () => ({
-            useKey: (source) => SchnurUseParserSLT.create(source, ObjectKeyPRS.create),
+            useKey: (source) => SchnurUseParserSLT.create(source, PathKeyPRS.create),
         }));
     }
 
     protected awake(): void {
-        const useKey = this.sl.useKey<SchnurUseParserSLT<ObjectKeyPRS>>();
+        const useKey = this.sl.useKey<SchnurUseParserSLT<PathKeyPRS>>();
         useKey.start(false);
     }
 
     protected handle(): void | boolean {
-        const useKey = this.sl.useKey<SchnurUseParserSLT<ObjectKeyPRS>>();
+        const useKey = this.sl.useKey<SchnurUseParserSLT<PathKeyPRS>>();
         const context = this.context;
         const char = context.targetChar;
         
@@ -27,9 +27,9 @@ export class ObjectPRS extends SchnurParser {
     }
 
     protected finalize(): void {
-        const useKey = this.sl.useKey<SchnurUseParserSLT<ObjectKeyPRS>>();
+        const useKey = this.sl.useKey<SchnurUseParserSLT<PathKeyPRS>>();
 
-        this.keys = useKey.history as ObjectKeyPRS[];
+        this.keys = useKey.history as PathKeyPRS[];
         for(const key of this.keys) {
             const buffer = key.sl.buffer<SchnurBufferSLT>();
             console.log(buffer.stash);
@@ -37,7 +37,7 @@ export class ObjectPRS extends SchnurParser {
     }
 
 
-    public static create(source : SchnurParserSource) : ObjectPRS {
-        return new ObjectPRS(source);
+    public static create(source : SchnurParserSource) : PathPRS {
+        return new PathPRS(source);
     }
 }
