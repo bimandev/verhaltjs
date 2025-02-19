@@ -19,6 +19,7 @@ export class ObjectPathKeyAccPRS extends SchnurParser {
         if(this.order === 0) {
             if(char.isOpenCurlyBracket) {
                 this.dynamic = true;
+                return;
             }
             else if(char.isAlphabetic) {
                 this.dynamic = false;
