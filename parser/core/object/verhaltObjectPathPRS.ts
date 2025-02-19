@@ -3,7 +3,7 @@ import { SchnurBufferSLT, SchnurUseParserSLT } from "schnur/singletons";
 import { VerhaltObjectKeyPRS } from "./verhaltObjectKeyPRS";
 
 export class VerhaltObjectPathPRS extends SchnurParser {
-    keys : string[] = [];
+    keys : VerhaltObjectKeyPRS[] = [];
 
     private constructor() {
         super(() => ({
@@ -19,9 +19,9 @@ export class VerhaltObjectPathPRS extends SchnurParser {
     protected handle(): void | boolean {
         const useKey = this.sl.useKey<SchnurUseParserSLT>();
         const context = this.context;
-        const char = context.targetChar;
+        const char = context.nextChar;
         
-        if(char.value === ".") {
+        if(char?.value === ".") {
             useKey.start(false);
         }
     }
@@ -29,7 +29,8 @@ export class VerhaltObjectPathPRS extends SchnurParser {
     protected finalize(): void {
         const useKey = this.sl.useKey<SchnurUseParserSLT>();
 
-        for(const key of useKey.history as VerhaltObjectKeyPRS[]) {
+        this.keys = useKey.history as VerhaltObjectKeyPRS[];
+        for(const key of this.keys) {
             const buffer = key.sl.buffer<SchnurBufferSLT>();
             console.log(buffer.stash);
         }
