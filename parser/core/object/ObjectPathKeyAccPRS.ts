@@ -17,6 +17,7 @@ export class ObjectPathKeyAccPRS extends SchnurParser {
 
     protected handle(): void | boolean {
         const context = this.context;
+        const prevChar = context.prevChar!;
         const char = context.targetChar;
 
         if(this.order === 0) {
