@@ -1,13 +1,13 @@
 import { SchnurParser, SchnurParserSource } from "schnur/parsers";
 import { SchnurBufferSLT, SchnurUseParserSLT } from "schnur/singletons";
-import { VerhaltObjectKeyPRS } from "./VObjectPathKeyPRS";
+import { ObjectPathKeyPRS } from "./ObjectPathKeyPRS";
 
-export class VerhaltObjectPathPRS extends SchnurParser {
-    keys : VerhaltObjectKeyPRS[] = [];
+export class ObjectPathPRS extends SchnurParser {
+    keys : ObjectPathKeyPRS[] = [];
 
     private constructor(source : SchnurParserSource) {
         super(source, () => ({
-            useKey: (source) => SchnurUseParserSLT.create(source, VerhaltObjectKeyPRS.create),
+            useKey: (source) => SchnurUseParserSLT.create(source, ObjectPathKeyPRS.create),
         }));
     }
 
@@ -29,7 +29,7 @@ export class VerhaltObjectPathPRS extends SchnurParser {
     protected finalize(): void {
         const useKey = this.sl.useKey<SchnurUseParserSLT>();
 
-        this.keys = useKey.history as VerhaltObjectKeyPRS[];
+        this.keys = useKey.history as ObjectPathKeyPRS[];
         for(const key of this.keys) {
             const buffer = key.sl.buffer<SchnurBufferSLT>();
             console.log(buffer.stash);
@@ -37,7 +37,7 @@ export class VerhaltObjectPathPRS extends SchnurParser {
     }
 
 
-    public static create(source : SchnurParserSource) : VerhaltObjectPathPRS {
-        return new VerhaltObjectPathPRS(source);
+    public static create(source : SchnurParserSource) : ObjectPathPRS {
+        return new ObjectPathPRS(source);
     }
 }

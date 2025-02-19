@@ -1,7 +1,7 @@
 import { SchnurParser, SchnurParserSource } from "schnur/parsers";
 import { SchnurBufferSLT } from "schnur/singletons";
 
-export class VerhaltObjectKeyPRS extends SchnurParser {
+export class ObjectPathKeyPRS extends SchnurParser {
     private constructor(source : SchnurParserSource) {
         super(source, (f) => ({
             [f.buffer] : SchnurBufferSLT.create
@@ -18,7 +18,7 @@ export class VerhaltObjectKeyPRS extends SchnurParser {
     }
 
 
-    public static create(source : SchnurParserSource) : VerhaltObjectKeyPRS {
-        return new VerhaltObjectKeyPRS(source);
+    public static create(source : SchnurParserSource) : ObjectPathKeyPRS {
+        return new ObjectPathKeyPRS(source);
     }
 }
