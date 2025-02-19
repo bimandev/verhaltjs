@@ -11,6 +11,11 @@ export class VerhaltObjectPathPRS extends SchnurParser {
         }));
     }
 
+    protected awake(): void | boolean {
+        const useKey = this.sl.useKey<SchnurUseParserSLT>();
+        useKey.start(false);
+    }
+
     protected handle(): void | boolean {
         const useKey = this.sl.useKey<SchnurUseParserSLT>();
         const context = this.context;
@@ -22,8 +27,6 @@ export class VerhaltObjectPathPRS extends SchnurParser {
     }
 
     protected finalize(): void {
-        const context = this.context;
-        const char = context.targetChar;
         const useKey = this.sl.useKey<SchnurUseParserSLT>();
 
         for(const key of useKey.history as VerhaltObjectKeyPRS[]) {
