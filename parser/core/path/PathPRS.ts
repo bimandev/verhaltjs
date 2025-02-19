@@ -1,14 +1,18 @@
 import { SchnurParser, SchnurParserSource } from "schnur/parsers";
 import { SchnurBufferSLT, SchnurUseParserSLT } from "schnur/singletons";
+import { VerhaltObjectModel } from "../../../lib/verhaltModel";
 import { PathKeyPRS } from "./PathKeyPRS";
 
 export class PathPRS extends SchnurParser {
+    model : VerhaltObjectModel;
     keys : PathKeyPRS[] = [];
 
-    private constructor(source : SchnurParserSource) {
+    private constructor(model : VerhaltObjectModel, source : SchnurParserSource) {
         super(source, () => ({
             useKey: (source) => SchnurUseParserSLT.create(source, PathKeyPRS.create),
         }));
+
+        this.model = model;
     }
 
     protected awake(): void {
@@ -37,7 +41,7 @@ export class PathPRS extends SchnurParser {
     }
 
 
-    public static create(source : SchnurParserSource) : PathPRS {
-        return new PathPRS(source);
+    public static create(model : VerhaltObjectModel, source : SchnurParserSource) : PathPRS {
+        return new PathPRS(model, source);
     }
 }
