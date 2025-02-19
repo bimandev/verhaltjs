@@ -1,13 +1,13 @@
-import { SchnurParser } from "schnur/parsers";
+import { SchnurParser, SchnurParserSource } from "schnur/parsers";
 import { SchnurBufferSLT, SchnurUseParserSLT } from "schnur/singletons";
 import { VerhaltObjectKeyPRS } from "./verhaltObjectKeyPRS";
 
 export class VerhaltObjectPathPRS extends SchnurParser {
     keys : VerhaltObjectKeyPRS[] = [];
 
-    private constructor() {
-        super(() => ({
-            useKey: (sr) => SchnurUseParserSLT.create(sr, VerhaltObjectKeyPRS.create),
+    private constructor(source : SchnurParserSource) {
+        super(source, () => ({
+            useKey: (source) => SchnurUseParserSLT.create(source, VerhaltObjectKeyPRS.create),
         }));
     }
 
@@ -37,7 +37,7 @@ export class VerhaltObjectPathPRS extends SchnurParser {
     }
 
 
-    public static create() : VerhaltObjectPathPRS {
-        return new VerhaltObjectPathPRS();
+    public static create(source : SchnurParserSource) : VerhaltObjectPathPRS {
+        return new VerhaltObjectPathPRS(source);
     }
 }
