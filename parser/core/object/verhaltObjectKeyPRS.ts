@@ -14,7 +14,9 @@ export class VerhaltObjectKeyPRS extends SchnurParser {
     protected handle(): void | boolean {
         const context = this.context;
         const char = context.targetChar;
+        const buffer = this.sl.buffer<SchnurBufferSLT>();
 
+        buffer.append();
         console.log(char.value);
     }
 
