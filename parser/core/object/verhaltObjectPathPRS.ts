@@ -19,9 +19,9 @@ export class VerhaltObjectPathPRS extends SchnurParser {
     protected handle(): void | boolean {
         const useKey = this.sl.useKey<SchnurUseParserSLT>();
         const context = this.context;
-        const char = context.nextChar;
+        const char = context.targetChar;
         
-        if(char?.value === ".") {
+        if(char.value === ".") {
             useKey.start(false);
         }
     }
