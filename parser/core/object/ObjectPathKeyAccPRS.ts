@@ -11,10 +11,13 @@ export class ObjectPathKeyAccPRS extends SchnurParser {
         }));
     }
 
+    private get buffer() : SchnurBufferSLT {
+        return this.sl.buffer<SchnurBufferSLT>();
+    }
+
     protected handle(): void | boolean {
         const context = this.context;
         const char = context.targetChar;
-        const buffer = this.sl.buffer<SchnurBufferSLT>();
 
         if(this.order === 0) {
             if(char.isOpenCurlyBracket) {
@@ -41,7 +44,7 @@ export class ObjectPathKeyAccPRS extends SchnurParser {
             }
         }
 
-        buffer.append();
+        this.buffer.append();
     }
 
     protected finalize(): void {
