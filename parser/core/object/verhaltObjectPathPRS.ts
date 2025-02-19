@@ -11,7 +11,7 @@ export class VerhaltObjectPathPRS extends SchnurParser {
         }));
     }
 
-    protected awake(): void | boolean {
+    protected awake(): void {
         const useKey = this.sl.useKey<SchnurUseParserSLT>();
         useKey.start(false);
     }
