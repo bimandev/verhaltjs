@@ -46,12 +46,10 @@ export class ObjectPathKeyPRS extends SchnurParser {
                     throw new Error("Key accessor already defined.");
                 }
 
-                this.useAcc.start(false);
-                this.acc = this.useAcc.current!;
+                this.acc = this.useAcc.start(false);
             }
             if(nextChar.isOpenSquareBracket) {
-                this.usePos.start(false);   // ! Do current returnable
-                this.pacs.push(this.usePos.current!);
+                this.pacs.push(this.usePos.start(false));
             }
         }
     }
