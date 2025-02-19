@@ -1,17 +1,19 @@
 import { SchnurParser, SchnurParserSource } from "schnur/parsers";
-import { SchnurBufferSLT, SchnurUseParserSLT } from "schnur/singletons";
+import { SchnurUseParserSLT } from "schnur/singletons";
 import { ObjectPathKeyAccPRS } from "./ObjectPathKeyAccPRS";
 import { ObjectPathKeyPosPRS } from "./ObjectPathKeyPosPRS";
+import { ObjectPathKeyCallPRS } from "./ObjectPathKeyCallPRS";
 
 export class ObjectPathKeyPRS extends SchnurParser {
     root : boolean;
     acc : ObjectPathKeyAccPRS | undefined;
-    pacs : (ObjectPathKeyPosPRS)[]= [];
+    pacs : (ObjectPathKeyPosPRS | ObjectPathKeyCallPRS)[]= [];
 
     private constructor(source : SchnurParserSource) {
         super(source, (f) => ({
             [f.useAcc] : (s) => SchnurUseParserSLT.create(s, ObjectPathKeyAccPRS.create),
-            [f.usePos] : (s) => SchnurUseParserSLT.create(s, ObjectPathKeyPosPRS.create)
+            [f.usePos] : (s) => SchnurUseParserSLT.create(s, ObjectPathKeyPosPRS.create),
+            [f.useCall] : (s) => SchnurUseParserSLT.create(s, ObjectPathKeyCallPRS.create)
         }));
     }
 
@@ -21,6 +23,10 @@ export class ObjectPathKeyPRS extends SchnurParser {
 
     private get usePos() : SchnurUseParserSLT<ObjectPathKeyPosPRS> {
         return this.sl.usePos<SchnurUseParserSLT<ObjectPathKeyPosPRS>>();
+    }
+
+    private get useCall() : SchnurUseParserSLT<ObjectPathKeyCallPRS> {
+        return this.sl.useCall<SchnurUseParserSLT<ObjectPathKeyCallPRS>>();
     }
 
     protected handle(): void | boolean {
@@ -48,8 +54,11 @@ export class ObjectPathKeyPRS extends SchnurParser {
 
                 this.acc = this.useAcc.start(false);
             }
-            if(nextChar.isOpenSquareBracket) {
+            else if(nextChar.isOpenSquareBracket) {
                 this.pacs.push(this.usePos.start(false));
+            }
+            else if(nextChar.isOpenRoundBracket) {
+                this.pacs.push(this.useCall.start(false));
             }
         }
     }
