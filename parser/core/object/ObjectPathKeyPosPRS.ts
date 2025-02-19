@@ -27,7 +27,7 @@ export class ObjectPathKeyPosPRS extends SchnurParser {
             }
         }
         else {
-            if(char.isCloseCurlyBracket) {
+            if(char.isCloseSquareBracket) {
                 return true;
             }      
         }
