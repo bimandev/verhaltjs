@@ -5,8 +5,8 @@ import { ObjectPathKeyPosPRS } from "./ObjectPathKeyPosPRS";
 
 export class ObjectPathKeyPRS extends SchnurParser {
     root : boolean;
-    accs : ObjectPathKeyAccPRS[];
-    pacs : (ObjectPathKeyPosPRS)[];
+    accs : ObjectPathKeyAccPRS[] = [];
+    pacs : (ObjectPathKeyPosPRS)[]= [];
 
     private constructor(source : SchnurParserSource) {
         super(source, (f) => ({
