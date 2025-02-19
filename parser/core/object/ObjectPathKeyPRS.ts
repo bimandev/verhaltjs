@@ -5,7 +5,7 @@ import { ObjectPathKeyPosPRS } from "./ObjectPathKeyPosPRS";
 
 export class ObjectPathKeyPRS extends SchnurParser {
     root : boolean;
-    accs : ObjectPathKeyAccPRS[] = [];
+    acc : ObjectPathKeyAccPRS | undefined;
     pacs : (ObjectPathKeyPosPRS)[]= [];
 
     private constructor(source : SchnurParserSource) {
@@ -42,8 +42,12 @@ export class ObjectPathKeyPRS extends SchnurParser {
         
         if(nextChar) {
             if(nextChar.isOpenCurlyBracket) {
+                if(this.acc) {
+                    throw new Error("Key accessor already defined.");
+                }
+
                 this.useAcc.start(false);
-                this.accs.push(this.useAcc.current!);
+                this.acc = this.useAcc.current!;
             }
             if(nextChar.isOpenSquareBracket) {
                 this.usePos.start(false);   // ! Do current returnable
