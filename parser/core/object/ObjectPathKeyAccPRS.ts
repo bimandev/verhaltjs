@@ -2,6 +2,7 @@ import { SchnurParser, SchnurParserSource } from "schnur/parsers";
 import { SchnurBufferSLT } from "schnur/singletons";
 
 export class ObjectPathKeyAccPRS extends SchnurParser {
+    content : string = "";
     dynamic : boolean = false;
 
     private constructor(source : SchnurParserSource) {
@@ -40,6 +41,11 @@ export class ObjectPathKeyAccPRS extends SchnurParser {
         }
 
         buffer.append();
+    }
+
+    protected finalize(): void {
+        const buffer = this.sl.buffer<SchnurBufferSLT>();
+        this.content = buffer.stash[0];
     }
 
 
